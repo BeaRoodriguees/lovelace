@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "api"
+name = "lovelace"
 version = "0.1.0"
 description = ""
 authors = ["Arthur Soares <apmrs@ic.ufal.com>", "Beatriz Rodrigues <brc@ic.ufal.br>", "Davi Romão <dsr@ic.ufal.br>", "Gabriel Gomes <ggo@ic.ufal.br>"]
