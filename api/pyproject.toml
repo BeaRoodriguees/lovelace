@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "api"
+version = "0.1.0"
+description = ""
+authors = ["Arthur Soares <apmrs@ic.ufal.com>", "Beatriz Rodrigues <brc@ic.ufal.br>", "Davi Romão <dsr@ic.ufal.br>", "Gabriel Gomes <ggo@ic.ufal.br>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.12.*"
+fastapi = "^0.111.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
