@@ -10,6 +10,8 @@ python = "3.12.*"
 fastapi = "^0.111.0"
 sqlalchemy = "^2.0.31"
 pydantic-settings = "^2.3.4"
+pydantic = "^2.8.2"
+alembic = "^1.13.2"
 
 
 [tool.poetry.group.dev.dependencies]

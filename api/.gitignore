@@ -3,7 +3,7 @@
 
 # Custom
 .coverage
-database.db
+lovelace.db
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
