@@ -8,6 +8,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "3.12.*"
 fastapi = "^0.111.0"
+sqlalchemy = "^2.0.31"
+pydantic-settings = "^2.3.4"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -28,7 +30,7 @@ unfixable = ["F401"]
 
 [tool.ruff.format]
 preview = true
-quote-style = "double"
+quote-style = "single"
 
 [tool.pytest.ini_options]
 pythonpath = "."
