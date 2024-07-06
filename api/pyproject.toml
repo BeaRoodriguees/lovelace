@@ -37,9 +37,9 @@ addopts = "-p no:warnings"
 [tool.taskipy.tasks]
 lint = 'ruff check . && ruff check . --diff'
 format = 'ruff check . --fix && ruff format .'
-run = 'fastapi dev fast_zero/app.py'
+run = 'fastapi dev lovelace/app.py'
 pre_test = 'task lint'
-test = 'pytest -s -x --cov=fast_zero -vv'
+test = 'pytest -s -x --cov=lovelace -vv'
 post_test = 'coverage html'
 
 [build-system]
