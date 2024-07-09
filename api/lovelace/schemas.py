@@ -7,6 +7,11 @@ class CreateUserSchema(BaseModel):
     password: str
 
 
+class EditUserSchema(BaseModel):
+    username: str
+    password: str
+
+
 class UserSchema(BaseModel):
     id: int
     username: str
@@ -16,3 +21,12 @@ class UserSchema(BaseModel):
 
 class UserList(BaseModel):
     users: list[UserSchema]
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: str | None = None

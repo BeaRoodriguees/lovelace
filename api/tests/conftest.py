@@ -6,7 +6,8 @@ from sqlalchemy.pool import StaticPool
 
 from lovelace.app import app
 from lovelace.database import get_session
-from lovelace.models import table_registry
+from lovelace.models import User, table_registry
+from lovelace.security import get_password_hash
 
 
 @pytest.fixture
@@ -35,3 +36,45 @@ def session():
         yield session
 
     table_registry.metadata.drop_all(engine)
+
+
+@pytest.fixture
+def user(session):
+    user = User(
+        username='Abc',
+        email='abc@test.com',
+        password=get_password_hash('Abc123'),
+    )
+
+    session.add(user)
+    session.commit()
+    session.refresh(user)
+
+    user.clean_password = 'Abc123'
+    return user
+
+
+@pytest.fixture
+def token(client, user, session):
+    response = client.post(
+        '/auth/token',
+        data={'username': user.email, 'password': user.clean_password},
+    )
+
+    return response.json()['access_token']
+
+
+@pytest.fixture
+def another_user(session):
+    user = User(
+        username='def',
+        email='def@test.com',
+        password=get_password_hash('Def123'),
+    )
+
+    session.add(user)
+    session.commit()
+    session.refresh(user)
+
+    user.clean_password = 'Def123'
+    return user
