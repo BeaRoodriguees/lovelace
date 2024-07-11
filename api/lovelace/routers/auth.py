@@ -12,7 +12,7 @@ from sqlalchemy.orm import Session
 
 from lovelace.database import get_session
 from lovelace.models import User
-from lovelace.schemas import Token
+from lovelace.schemas import Token, UserSchema
 from lovelace.security import (
     create_access_token,
     get_current_user,
@@ -20,6 +20,7 @@ from lovelace.security import (
 )
 
 router = APIRouter(prefix='/auth', tags=['auth'])
+
 
 OAuth2Form = Annotated[OAuth2PasswordRequestForm, Depends()]
 Session = Annotated[Session, Depends(get_session)]
@@ -52,3 +53,8 @@ def refresh_access_token(current_user: CurrentUser):
     new_access_token = create_access_token(data={'sub': current_user.email})
 
     return Token(access_token=new_access_token, token_type='bearer')
+
+
+@router.get('/me', response_model=UserSchema)
+def get_current_user(current_user: CurrentUser):
+    return current_user
