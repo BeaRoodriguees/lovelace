@@ -2,13 +2,17 @@ import { Button } from '@mantine/core';
 import { Navbar } from '@/components/Navbar';
 
 import classes from './page.module.css';
-export default function Home() {
+import { useSession } from 'next-auth/react';
+import { useState } from 'react';
+import { logout } from '@/lib/actions'
+
+export default function Home() {  
+
   return (
     <main className={classes.container}>
-      <Navbar></Navbar>
+      {/* <Navbar></Navbar> */}
       <div className={classes.content}>
-        <h1>LOVELACE</h1>
-        <Button variant="filled">Get started</Button>
+        <h1>Welcome page - Hero section</h1>
       </div>
     </main>
   )
