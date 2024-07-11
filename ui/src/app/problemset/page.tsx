@@ -6,7 +6,7 @@ import { Navbar } from '@/components/Navbar';
 import classes from './page.module.css';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
-import { logout } from '@/lib/actions'
+import { signOut } from 'next-auth/react'
 
 export default function ProblemSetList() {
     const session = useSession();
@@ -42,7 +42,7 @@ export default function ProblemSetList() {
         <p>Username: {session.data?.user.username}</p>
         <p>id: {session.data?.user.id}</p>
         {/* <Button variant="filled" onClick={() => handleSummit()}>Get started</Button> */}
-        <Button variant="filled" onClick={() => logout()}>Signout</Button>
+        <Button variant="filled" onClick={() => signOut({ redirect: true, callbackUrl: '/login' })}>Signout</Button>
       </div>
     </main>
     )

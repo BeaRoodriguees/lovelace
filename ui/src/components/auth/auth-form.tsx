@@ -4,27 +4,29 @@ import { useForm } from '@mantine/form';
 import {
     TextInput,
     PasswordInput,
-    Checkbox,
     Anchor,
     Paper,
     Title,
     Text,
     Container,
-    Group,
     Button,
+    Flex,
   } from '@mantine/core';
 import classes from './auth-form.module.css';
-import { useFormState } from 'react-dom';
-import { authenticate } from '@/lib/actions';
 import { useRouter } from 'next/navigation'
 import { DEFAULT_REDIRECT } from '@/lib/routes'
+import { signIn } from 'next-auth/react';
+import { notifications } from '@mantine/notifications';
+import { IconCircleX, IconCircleCheck } from '@tabler/icons-react';
+import Link from 'next/link';
+
+interface LoginCredentials {
+  email: string
+  password: string
+}
 
   export function LoginForm() {
     const router = useRouter()
-    const [errorMessage, formAction, isPending] = useFormState(
-      authenticate,
-      undefined,
-    );
 
     const form = useForm({
       mode: 'uncontrolled',
@@ -32,21 +34,58 @@ import { DEFAULT_REDIRECT } from '@/lib/routes'
         email: '',
         password: '',
       },
-  
       validate: {
         email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
       },
     });
 
-    async function handleLogin(credentials) {
-      const formData = new FormData()
-      formData.append('email', credentials.email)
-      formData.append('password', credentials.password)
-      console.log(credentials)
-      // formAction(formData)
-      await authenticate(undefined, formData)
-      router.push(DEFAULT_REDIRECT)
-      
+    async function handleLogin(credentials: LoginCredentials) {
+      if (!credentials.email) {
+        form.setErrors({email: "Email must be provided."})
+        return
+      }
+      if (!credentials.password) {
+        form.setErrors({password: "Password must be provided."})
+        return
+      }
+
+      const res = await signIn('credentials', {
+        email: credentials.email,
+        password: credentials.password,
+        redirect: false
+      })
+
+      if (!res || res.status >= 500) {
+        notifications.show({
+          title: "Something went wrong.",
+          message: "It was not possible to log in. Try again later.",
+          color: 'red',
+          icon: <IconCircleX />
+        })
+        return;
+      }
+
+      if (res.status >= 400) {
+        console.log("opa")
+        notifications.show({
+          title: "Invalid credentials.",
+          message: "Have you entered the correct credentials?",
+          color: 'red',
+          icon: <IconCircleX />
+        })
+        form.setErrors({password: "Invalid credentials.", email: "Invalid Credentials."})
+        return
+      }
+
+      if (res.ok) {
+        notifications.show({
+          title: "Welcome!",
+          message: "We are thrilled to have you back.",
+          color: 'green',
+          icon: <IconCircleCheck />
+        })
+        router.push(DEFAULT_REDIRECT)
+      }
     }
 
     return (
@@ -56,38 +95,40 @@ import { DEFAULT_REDIRECT } from '@/lib/routes'
         </Title>
         <Text c="dimmed" size="sm" ta="center" mt={5}>
           Do not have an account yet?{' '}
-          <Anchor size="sm" component="button">
+          <Anchor href="/register" size="sm" component={Link}>
             Create account
           </Anchor>
         </Text>
 
         <form onSubmit={form.onSubmit((values) => handleLogin(values))}>
           <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-
             <TextInput 
               label="Email" 
-              placeholder="you@mantine.dev" 
+              placeholder="example@example.com" 
               required 
               key={form.key('email')}
               {...form.getInputProps('email')} />
             <PasswordInput 
               label="Password" 
-              placeholder="Your password" 
+              placeholder="password" 
               required mt="md" 
               key={form.key('password')}
               {...form.getInputProps('password')} />
 
-            <Group justify="space-between" mt="lg">
-              <Checkbox label="Remember me" />
+            <Flex
+              mt="md"
+              gap="xs"
+              justify="center"
+              align="center"
+              direction="column"
+            >
+              <Button fullWidth mt="lg" type='submit'>
+                Sign in
+              </Button>
               <Anchor component="button" size="sm">
-                Forgot password?
+                  Forgot password?
               </Anchor>
-            </Group>
-
-            <Button fullWidth mt="xl" type='submit'>
-              Sign in
-            </Button>
-
+            </Flex>
           </Paper>
         </form>
       </Container>
