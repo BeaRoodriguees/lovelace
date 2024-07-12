@@ -11,9 +11,10 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from lovelace.database import get_session
-from lovelace.models import User
+from lovelace.models import Role, User
 from lovelace.schemas import Token, UserSchema
 from lovelace.security import (
+    RoleChecker,
     create_access_token,
     get_current_user,
     verify_password,
@@ -58,3 +59,23 @@ def refresh_access_token(current_user: CurrentUser):
 @router.get('/me', response_model=UserSchema)
 def get_current_user(current_user: CurrentUser):
     return current_user
+
+
+@router.post('/promote/{user_id}', response_model=UserSchema)
+def promote_user_to_admin(
+    user_id: int,
+    session: Session,
+    _: Annotated[bool, Depends(RoleChecker(allowed_roles=[Role.admin]))],
+):
+    db_user = session.scalar(select(User).where(User.id == user_id))
+
+    if not db_user:
+        raise HTTPException(
+            status_code=HTTPStatus.NOT_FOUND, detail='User not found.'
+        )
+
+    db_user.role = Role.admin
+    session.commit()
+    session.refresh(db_user)
+
+    return db_user

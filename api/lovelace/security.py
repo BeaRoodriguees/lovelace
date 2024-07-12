@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 from zoneinfo import ZoneInfo
 
 from lovelace.database import get_session
-from lovelace.models import User
+from lovelace.models import Role, User
 from lovelace.schemas import TokenData
 from lovelace.settings import Settings
 
@@ -73,3 +73,21 @@ async def get_current_user(
         raise credentials_exception
 
     return user
+
+
+async def get_current_active_user(current_user=Depends(get_current_user)):
+    if not current_user.is_active:
+        raise HTTPException(status_code=400, detail='Inactive user')
+    return current_user
+
+
+class RoleChecker:
+    def __init__(self, allowed_roles: list[Role]):
+        self.allowed_roles = allowed_roles
+
+    def __call__(self, user=Depends(get_current_active_user)):
+        if user.role in self.allowed_roles:
+            return True
+        raise HTTPException(
+            status_code=HTTPStatus.UNAUTHORIZED, detail='Not enough permision'
+        )
