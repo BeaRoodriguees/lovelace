@@ -66,7 +66,6 @@ interface LoginCredentials {
       }
 
       if (res.status >= 400) {
-        console.log("opa")
         notifications.show({
           title: "Invalid credentials.",
           message: "Have you entered the correct credentials?",
