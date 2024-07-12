@@ -20,8 +20,6 @@ export const authConfig: NextAuthOptions = {
         password: { label: 'Password', type: 'password'}
       },
       async authorize(credentials, req) {
-        console.log("ON AUTHORIZE")
-        console.log(credentials)
         if (!credentials?.email || !credentials.password) {
           return null
         }
@@ -30,7 +28,7 @@ export const authConfig: NextAuthOptions = {
         payload.append('username', credentials.email as string)
         payload.append('password', credentials.password as string)
         payload.append('grant_type', 'password')
-        
+
         // Request jwt token with user Login data
         const token_res = await fetch('http://localhost:8000/auth/token', {
           method: 'POST',
@@ -38,12 +36,12 @@ export const authConfig: NextAuthOptions = {
             'Content-Type': 'application/x-www-form-urlencoded'
           },    
           body: payload
+          
         });
-        
+
         if (!token_res.ok) {
           throw new Error("User not found!");
         }
-
         const data = await token_res.json();
         const token = data.access_token
 
@@ -86,7 +84,8 @@ export const authConfig: NextAuthOptions = {
           id: token.id,
           token: token.token,
           username: token.username,
-          email: token.email
+          email: token.email,
+          role: token.role
         }
       };
     },

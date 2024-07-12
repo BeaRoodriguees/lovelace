@@ -41,6 +41,7 @@ export default function ProblemSetList() {
         <p>{token}</p>
         <p>Username: {session.data?.user.username}</p>
         <p>id: {session.data?.user.id}</p>
+        <p>role: {session.data?.user.role}</p>
         {/* <Button variant="filled" onClick={() => handleSummit()}>Get started</Button> */}
         <Button variant="filled" onClick={() => signOut({ redirect: true, callbackUrl: '/login' })}>Signout</Button>
       </div>

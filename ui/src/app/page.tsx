@@ -4,7 +4,6 @@ import { Navbar } from '@/components/Navbar';
 import classes from './page.module.css';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
-import { logout } from '@/lib/actions'
 
 export default function Home() {  
 
