@@ -75,6 +75,7 @@ async def get_current_user(
     return user
 
 
+# Reference: https://stackademic.com/blog/fastapi-role-base-access-control-with-jwt-9fa2922a088c
 async def get_current_active_user(current_user=Depends(get_current_user)):
     if not current_user.is_active:
         raise HTTPException(status_code=400, detail='Inactive user')
