@@ -1,9 +1,9 @@
 'use client'
 
 import { SessionProvider } from 'next-auth/react'
-import { MantineProvider } from '@mantine/core';
+import { MantineProvider } from '@mantine/core'
 import { Session } from 'next-auth'
-import { Notifications } from '@mantine/notifications';
+import { Notifications } from '@mantine/notifications'
 
 export function Providers({
   children,
