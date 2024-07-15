@@ -1,8 +1,12 @@
+from datetime import datetime, timedelta
 from http import HTTPStatus
 
 from freezegun import freeze_time
 
 from lovelace.security import create_access_token
+from lovelace.settings import Settings
+
+expire_minutes = Settings().ACCESS_TOKEN_EXPIRE_MINUTES
 
 
 def test_get_token(client, user):
@@ -46,7 +50,8 @@ def test_token_missing_token_username(client):
 
 
 def test_expired_token(client, user):
-    with freeze_time('2024-06-30 12:00:00'):
+    current_time = datetime.now()
+    with freeze_time(current_time):
         response = client.post(
             '/auth/token',
             data={'username': user.email, 'password': user.clean_password},
@@ -54,7 +59,7 @@ def test_expired_token(client, user):
         assert response.status_code == HTTPStatus.OK
         token = response.json()['access_token']
 
-    with freeze_time('2024-06-30 12:31:00'):
+    with freeze_time(current_time + timedelta(minutes=expire_minutes)):
         response = client.put(
             f'/users/{user.id}',
             headers={'Authorization': f'Bearer {token}'},
@@ -105,7 +110,8 @@ def test_refresh_token(client, user, token):
 
 
 def test_refresh_token_with_expired_token(client, user):
-    with freeze_time('2024-06-30 12:00:00'):
+    current_time = datetime.now()
+    with freeze_time(current_time):
         response = client.post(
             '/auth/token',
             data={'username': user.email, 'password': user.clean_password},
@@ -113,7 +119,7 @@ def test_refresh_token_with_expired_token(client, user):
         assert response.status_code == HTTPStatus.OK
         token = response.json()['access_token']
 
-    with freeze_time('2024-06-30 12:31:00'):
+    with freeze_time(current_time + timedelta(minutes=expire_minutes)):
         response = client.post(
             '/auth/refresh_token', headers={'Authorization': f'Bearer {token}'}
         )
