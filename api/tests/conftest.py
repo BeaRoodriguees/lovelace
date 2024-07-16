@@ -6,7 +6,7 @@ from sqlalchemy.pool import StaticPool
 
 from lovelace.app import app
 from lovelace.database import get_session
-from lovelace.models import User, table_registry
+from lovelace.models import Role, User, table_registry
 from lovelace.security import get_password_hash
 
 
@@ -78,3 +78,30 @@ def another_user(session):
 
     user.clean_password = 'Def123'
     return user
+
+
+@pytest.fixture
+def admin(session):
+    admin = User(
+        username='SUPERADMIN',
+        email='super@admin.com',
+        password=get_password_hash('Admin123'),
+        role=Role.admin,
+    )
+
+    session.add(admin)
+    session.commit()
+    session.refresh(admin)
+
+    admin.clean_password = 'Admin123'
+    return admin
+
+
+@pytest.fixture
+def admin_token(client, admin, session):
+    response = client.post(
+        '/auth/token',
+        data={'username': admin.email, 'password': admin.clean_password},
+    )
+
+    return response.json()['access_token']

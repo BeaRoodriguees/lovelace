@@ -3,6 +3,7 @@ from http import HTTPStatus
 
 from freezegun import freeze_time
 
+from lovelace.models import Role
 from lovelace.security import create_access_token
 from lovelace.settings import Settings
 
@@ -126,3 +127,53 @@ def test_refresh_token_with_expired_token(client, user):
 
         assert response.status_code == HTTPStatus.UNAUTHORIZED
         assert response.json() == {'detail': 'Could not validate credentials.'}
+
+
+def test_get_current_user(client, user, token):
+    response = client.get(
+        '/auth/me',
+        headers={'Authorization': f'Bearer {token}'},
+    )
+
+    assert response.status_code == HTTPStatus.OK
+    assert response.json() == {
+        'id': user.id,
+        'username': user.username,
+        'email': user.email,
+        'role': user.role,
+        'is_active': user.is_active,
+    }
+
+
+def test_promote_user(client, admin, admin_token, user):
+    response = client.post(
+        f'auth/promote/{user.id}',
+        headers={'Authorization': f'Bearer {admin_token}'},
+    )
+
+    assert response.status_code == HTTPStatus.OK
+    assert response.json() == {
+        'id': user.id,
+        'username': user.username,
+        'email': user.email,
+        'role': Role.admin,
+        'is_active': user.is_active,
+    }
+
+
+def test_promote_user_no_permission(client, user, another_user, token):
+    response = client.post(
+        f'auth/promote/{another_user.id}',
+        headers={'Authorization': f'Bearer {token}'},
+    )
+
+    assert response.status_code == HTTPStatus.UNAUTHORIZED
+
+
+def test_promote_user_not_found(client, admin, admin_token):
+    response = client.post(
+        f'auth/promote/{100002}',
+        headers={'Authorization': f'Bearer {admin_token}'},
+    )
+
+    assert response.status_code == HTTPStatus.NOT_FOUND
