@@ -18,6 +18,8 @@ def test_create_user(client):
         'id': 1,
         'username': 'ada',
         'email': 'ada@computers.com',
+        'role': 'user',
+        'is_active': True,
     }
 
 
@@ -99,6 +101,8 @@ def test_edit_user(client, token, user):
         'id': user.id,
         'email': user.email,
         'username': new_data['username'],
+        'role': user.role,
+        'is_active': user.is_active,
     }
 
 
