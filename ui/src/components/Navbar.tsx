@@ -15,6 +15,7 @@ import {
 } from '@tabler/icons-react';
 import classes from './Navbar.module.css';
 
+
 const data = [
   { link: '', label: 'Notifications', icon: IconBellRinging },
   { link: '', label: 'Billing', icon: IconReceipt2 },
