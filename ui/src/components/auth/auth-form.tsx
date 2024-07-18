@@ -10,6 +10,7 @@ import {
   Text,
   Container,
   Button,
+  Checkbox,
   Flex,
 } from '@mantine/core'
 import classes from './auth-form.module.css'
@@ -20,6 +21,7 @@ import { notifications } from '@mantine/notifications'
 import { IconCircleX, IconCircleCheck } from '@tabler/icons-react'
 import GrayBackground from '@/components/misc/gray-background'
 import Link from 'next/link'
+import IconLovelace from '@/components/misc/icon-lovelace'
 
 interface LoginCredentials {
   email: string
@@ -36,17 +38,17 @@ export function LoginForm() {
       password: '',
     },
     validate: {
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Email inválido'),
     },
   })
 
   async function handleLogin(credentials: LoginCredentials) {
     if (!credentials.email) {
-      form.setErrors({ email: 'Email must be provided.' })
+      form.setErrors({ email: 'Email deve ser informado.' })
       return
     }
     if (!credentials.password) {
-      form.setErrors({ password: 'Password must be provided.' })
+      form.setErrors({ password: 'Senha deve ser informada.' })
       return
     }
 
@@ -58,8 +60,8 @@ export function LoginForm() {
 
     if (!res || res.status >= 500) {
       notifications.show({
-        title: 'Something went wrong.',
-        message: 'It was not possible to log in. Try again later.',
+        title: 'Algo deu errado!',
+        message: 'Não foi possível fazer o login. Tente mais tarde.',
         color: 'red',
         icon: <IconCircleX />,
       })
@@ -68,22 +70,22 @@ export function LoginForm() {
 
     if (res.status >= 400) {
       notifications.show({
-        title: 'Invalid credentials.',
-        message: 'Have you entered the correct credentials?',
+        title: 'Credenciais inválidas',
+        message: 'Tem certeza que colocou as informações corretas?',
         color: 'red',
         icon: <IconCircleX />,
       })
       form.setErrors({
-        password: 'Invalid credentials.',
-        email: 'Invalid Credentials.',
+        password: 'Credencial inválida',
+        email: 'Credencial inválida',
       })
       return
     }
 
     if (res.ok) {
       notifications.show({
-        title: 'Welcome!',
-        message: 'We are thrilled to have you back.',
+        title: 'Bem vindo novamente!',
+        message: 'Estamos felizes por ter você de volta.',
         color: 'green',
         icon: <IconCircleCheck />,
       })
@@ -93,14 +95,16 @@ export function LoginForm() {
 
   return (
     <GrayBackground>
+      <IconLovelace />
+      
       <Container size={420} my={40}>
-        <Title ta="center" className={classes.title}>
-          Welcome back!
+        <Title ta="center" size="62px" className={classes.title}>
+          Olá de novo!
         </Title>
         <Text c="dimmed" size="sm" ta="center" mt={5}>
-          Do not have an account yet?{' '}
+          Não tem uma conta ainda?{' '}
           <Anchor href="/register" size="sm" component={Link}>
-            Create account
+            Crie uma.
           </Anchor>
         </Text>
 
@@ -108,14 +112,14 @@ export function LoginForm() {
           <Paper withBorder shadow="md" p={30} mt={30} radius="md">
             <TextInput
               label="Email"
-              placeholder="example@example.com"
+              placeholder="ada.king@lovelace.com"
               required
               key={form.key('email')}
               {...form.getInputProps('email')}
             />
             <PasswordInput
-              label="Password"
-              placeholder="password"
+              label="Senha"
+              placeholder="$enhaForte123"
               required
               mt="md"
               key={form.key('password')}
@@ -125,17 +129,21 @@ export function LoginForm() {
             <Flex
               mt="md"
               gap="xs"
-              justify="center"
+              justify="space-between"
               align="center"
-              direction="column"
             >
-              <Button fullWidth mt="lg" type="submit">
-                Sign in
-              </Button>
-              <Anchor component="button" size="sm">
-                Forgot password?
+              <Checkbox
+                label="Lembre-se de mim"
+                radius="xs"
+              />
+              <Anchor component="button" size="sm" >
+                Esqueceu a senha?
               </Anchor>
             </Flex>
+              <Button fullWidth mt="lg" type="submit" className={classes.button}>
+                Entrar
+              </Button>
+
           </Paper>
         </form>
       </Container>
