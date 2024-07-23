@@ -21,7 +21,7 @@ import { notifications } from '@mantine/notifications'
 import { IconCircleX, IconCircleCheck } from '@tabler/icons-react'
 import GrayBackground from '@/components/misc/gray-background'
 import Link from 'next/link'
-import IconLovelace from '@/components/misc/icon-lovelace'
+import { IconLovelace } from '@/components/misc/icon-lovelace'
 
 interface LoginCredentials {
   email: string
