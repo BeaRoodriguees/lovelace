@@ -8,7 +8,7 @@ import { authConfig } from '@/auth.config'
 import { getServerSession } from 'next-auth'
 import { Providers } from './providers'
 export const metadata = {
-  title: 'My Mantine app',
+  title: 'Lovelace',
   description: 'I have followed setup instructions carefully',
 }
 
@@ -19,7 +19,7 @@ export default async function RootLayout({
 }) {
   const session = await getServerSession(authConfig)
   return (
-    <html lang="en">
+    <html lang="pt-br">
       <head>
         <ColorSchemeScript />
       </head>
