@@ -1,4 +1,4 @@
-import { RegistrationCompletedBanner } from '@/components/auth/registration-completed'
+import { RegistrationCompletedBanner } from '@/components/auth/registration-completed';
 export default function RegistrationCompletedPage() {
-  return <RegistrationCompletedBanner></RegistrationCompletedBanner>
+  return <RegistrationCompletedBanner></RegistrationCompletedBanner>;
 }

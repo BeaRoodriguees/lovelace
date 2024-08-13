@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useState } from 'react';
 import { Group, Code } from '@mantine/core';
@@ -14,7 +14,6 @@ import {
   IconLogout,
 } from '@tabler/icons-react';
 import classes from './Navbar.module.css';
-
 
 const data = [
   { link: '', label: 'Notifications', icon: IconBellRinging },
@@ -58,15 +57,21 @@ export function Navbar() {
       </div>
 
       <div className={classes.footer}>
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
+        <button
+          className={classes.link}
+          onClick={(event) => event.preventDefault()}
+        >
           <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
           <span>Change account</span>
-        </a>
+        </button>
 
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
+        <button
+          className={classes.link}
+          onClick={(event) => event.preventDefault()}
+        >
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>
-        </a>
+        </button>
       </div>
     </nav>
   );

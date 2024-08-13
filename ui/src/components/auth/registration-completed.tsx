@@ -1,8 +1,8 @@
-import { Text, Title, Button, Container, Paper } from '@mantine/core'
-import classes from './registration-completed.module.css'
-import Link from 'next/link'
-import GrayBackground from '@/components/misc/gray-background'
-import { IconLovelace } from '../misc/icon-lovelace'
+import { Text, Title, Button, Container, Paper } from '@mantine/core';
+import classes from './registration-completed.module.css';
+import Link from 'next/link';
+import GrayBackground from '@/components/misc/gray-background';
+import { IconLovelace } from '../misc/icon-lovelace';
 
 export function RegistrationCompletedBanner() {
   return (
@@ -29,5 +29,5 @@ export function RegistrationCompletedBanner() {
         </Paper>
       </Container>
     </GrayBackground>
-  )
+  );
 }

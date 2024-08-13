@@ -1,12 +1,6 @@
-import { Button } from '@mantine/core';
-import { Navbar } from '@/components/Navbar';
-
 import classes from './page.module.css';
-import { useSession } from 'next-auth/react';
-import { useState } from 'react';
 
-export default function Home() {  
-
+export default function Home() {
   return (
     <main className={classes.container}>
       {/* <Navbar></Navbar> */}
@@ -14,5 +8,5 @@ export default function Home() {
         <h1>Welcome page - Hero section</h1>
       </div>
     </main>
-  )
+  );
 }

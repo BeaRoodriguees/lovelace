@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { useForm } from '@mantine/form'
+import { useForm } from '@mantine/form';
 import {
   TextInput,
   PasswordInput,
@@ -12,26 +12,26 @@ import {
   Container,
   Group,
   Button,
-} from '@mantine/core'
-import classes from './register-form.module.css'
-import { useRouter } from 'next/navigation'
-import { notifications } from '@mantine/notifications'
-import { IconCircleX, IconCircleCheck } from '@tabler/icons-react'
-import GrayBackground from '@/components/misc/gray-background'
-import { IconLovelace } from '@/components/misc/icon-lovelace'
+} from '@mantine/core';
+import classes from './register-form.module.css';
+import { useRouter } from 'next/navigation';
+import { notifications } from '@mantine/notifications';
+import { IconCircleX, IconCircleCheck } from '@tabler/icons-react';
+import GrayBackground from '@/components/misc/gray-background';
+import { IconLovelace } from '@/components/misc/icon-lovelace';
 
-import Link from 'next/link'
+import Link from 'next/link';
 
 interface RegistrationCredentials {
-  username: string
-  email: string
-  password: string
-  confirmPassword: string
-  agree: boolean
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  agree: boolean;
 }
 
 export default function RegistrationForm() {
-  const router = useRouter()
+  const router = useRouter();
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
@@ -44,50 +44,50 @@ export default function RegistrationForm() {
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Email inválido'),
     },
-  })
+  });
 
   async function handleRegistration(credentials: RegistrationCredentials) {
     if (credentials.password !== credentials.confirmPassword) {
       form.setErrors({
         password: 'Senhas são diferentes',
         confirmPassword: 'Senhas são diferentes',
-      })
-      return
+      });
+      return;
     }
     if (!credentials.username) {
-      form.setErrors({ username: 'Usuário deve ser informado' })
-      return
+      form.setErrors({ username: 'Usuário deve ser informado' });
+      return;
     }
     if (!credentials.email) {
-      form.setErrors({ email: 'Email deve ser informado' })
-      return
+      form.setErrors({ email: 'Email deve ser informado' });
+      return;
     }
     if (!credentials.password) {
-      form.setErrors({ password: 'Senha deve ser informada' })
-      return
+      form.setErrors({ password: 'Senha deve ser informada' });
+      return;
     }
     if (!credentials.confirmPassword) {
-      form.setErrors({ confirmPassword: 'Confirme sua senha' })
-      return
+      form.setErrors({ confirmPassword: 'Confirme sua senha' });
+      return;
     }
 
     if (!credentials.agree) {
       form.setErrors({
         agree: 'Você deve concordar com os termos',
-      })
-      return
+      });
+      return;
     }
 
-    const formData = new FormData()
-    formData.append('username', credentials.username)
-    formData.append('email', credentials.email)
-    formData.append('password', credentials.password)
+    const formData = new FormData();
+    formData.append('username', credentials.username);
+    formData.append('email', credentials.email);
+    formData.append('password', credentials.password);
 
     const res = await fetch('http://localhost:8000/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials),
-    })
+    });
 
     if (!res || res.status >= 500) {
       notifications.show({
@@ -95,8 +95,8 @@ export default function RegistrationForm() {
         message: 'Não foi possível criar uma conta. Tente novamente depois.',
         color: 'red',
         icon: <IconCircleX />,
-      })
-      return
+      });
+      return;
     }
 
     if (res.status === 400) {
@@ -105,12 +105,12 @@ export default function RegistrationForm() {
         message: 'Usuário ou Email já estão em uso.',
         color: 'red',
         icon: <IconCircleX />,
-      })
+      });
       form.setErrors({
         email: 'Usuário já existe',
         username: 'Usuário já existe',
-      })
-      return
+      });
+      return;
     }
 
     if (res.status > 400) {
@@ -119,14 +119,14 @@ export default function RegistrationForm() {
         message: 'Algo deu errado! Tente mais tarde.',
         color: 'red',
         icon: <IconCircleX />,
-      })
+      });
       form.setErrors({
         email: 'Credenciais inválidas',
         username: 'Credenciais inválidas',
         password: 'Credenciais inválidas',
         confirmPassword: 'Credenciais inválidas',
-      })
-      return
+      });
+      return;
     }
 
     if (res.ok) {
@@ -135,8 +135,8 @@ export default function RegistrationForm() {
         message: 'Pode entrar agora.',
         color: 'green',
         icon: <IconCircleCheck />,
-      })
-      router.push('/register/completed')
+      });
+      router.push('/register/completed');
     }
   }
 
@@ -201,5 +201,5 @@ export default function RegistrationForm() {
         </form>
       </Container>
     </GrayBackground>
-  )
+  );
 }
