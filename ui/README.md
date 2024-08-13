@@ -2,7 +2,7 @@
 
 First, run the development server:
 
-```console
+```bash
 npm run dev
 ```
 
@@ -33,7 +33,7 @@ Before commit your code, run the following command to check if your code is foll
 npm run lint
 ```
 
-TO format your code, run the following command:
+To format your code, run the following command:
 
 ```bash
 npm run format
