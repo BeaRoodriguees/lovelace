@@ -1,8 +1,11 @@
 .wrapper {
-    height: 100vh;
-    /* display: flex;
+  height: 100vh;
+  /* display: flex;
     justify-content: center;
     align-items: center; */
-    padding: calc(var(--mantine-spacing-xl) * 2);
-    background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-8));
+  padding: calc(var(--mantine-spacing-xl));
+  background-color: light-dark(
+    var(--mantine-color-gray-1),
+    var(--mantine-color-dark-8)
+  );
 }

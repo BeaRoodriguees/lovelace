@@ -1,4 +1,4 @@
-import classes from './page.module.css'
+import classes from './page.module.css';
 
 export default function Dashboard() {
   return (
@@ -6,5 +6,5 @@ export default function Dashboard() {
       <h1>Dashboard</h1>
       <p>Only admins should access it.</p>
     </div>
-  )
+  );
 }

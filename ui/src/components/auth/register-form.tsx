@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { useForm } from '@mantine/form'
+import { useForm } from '@mantine/form';
 import {
   TextInput,
   PasswordInput,
@@ -12,25 +12,26 @@ import {
   Container,
   Group,
   Button,
-} from '@mantine/core'
-import classes from './register-form.module.css'
-import { useRouter } from 'next/navigation'
-import { notifications } from '@mantine/notifications'
-import { IconCircleX, IconCircleCheck } from '@tabler/icons-react'
-import GrayBackground from '@/components/misc/gray-background'
+} from '@mantine/core';
+import classes from './register-form.module.css';
+import { useRouter } from 'next/navigation';
+import { notifications } from '@mantine/notifications';
+import { IconCircleX, IconCircleCheck } from '@tabler/icons-react';
+import GrayBackground from '@/components/misc/gray-background';
+import { IconLovelace } from '@/components/misc/icon-lovelace';
 
-import Link from 'next/link'
+import Link from 'next/link';
 
 interface RegistrationCredentials {
-  username: string
-  email: string
-  password: string
-  confirmPassword: string
-  agree: boolean
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  agree: boolean;
 }
 
 export default function RegistrationForm() {
-  const router = useRouter()
+  const router = useRouter();
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
@@ -41,144 +42,145 @@ export default function RegistrationForm() {
       agree: false,
     },
     validate: {
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Email inválido'),
     },
-  })
+  });
 
   async function handleRegistration(credentials: RegistrationCredentials) {
     if (credentials.password !== credentials.confirmPassword) {
       form.setErrors({
-        password: 'Passwords are different.',
-        confirmPassword: 'Passwords are different.',
-      })
-      return
+        password: 'Senhas são diferentes',
+        confirmPassword: 'Senhas são diferentes',
+      });
+      return;
     }
     if (!credentials.username) {
-      form.setErrors({ username: 'Username must be provided.' })
-      return
+      form.setErrors({ username: 'Usuário deve ser informado' });
+      return;
     }
     if (!credentials.email) {
-      form.setErrors({ email: 'Email must be provided.' })
-      return
+      form.setErrors({ email: 'Email deve ser informado' });
+      return;
     }
     if (!credentials.password) {
-      form.setErrors({ password: 'Password must be provided.' })
-      return
+      form.setErrors({ password: 'Senha deve ser informada' });
+      return;
     }
     if (!credentials.confirmPassword) {
-      form.setErrors({ confirmPassword: 'Confirm your password.' })
-      return
+      form.setErrors({ confirmPassword: 'Confirme sua senha' });
+      return;
     }
 
     if (!credentials.agree) {
       form.setErrors({
-        agree: 'You must agree >:)',
-      })
-      return
+        agree: 'Você deve concordar com os termos',
+      });
+      return;
     }
 
-    const formData = new FormData()
-    formData.append('username', credentials.username)
-    formData.append('email', credentials.email)
-    formData.append('password', credentials.password)
+    const formData = new FormData();
+    formData.append('username', credentials.username);
+    formData.append('email', credentials.email);
+    formData.append('password', credentials.password);
 
     const res = await fetch('http://localhost:8000/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials),
-    })
+    });
 
     if (!res || res.status >= 500) {
       notifications.show({
-        title: 'Something went wrong.',
-        message: 'It was not possible to create an account. Try again later.',
+        title: 'Algo deu errado!',
+        message: 'Não foi possível criar uma conta. Tente novamente depois.',
         color: 'red',
         icon: <IconCircleX />,
-      })
-      return
+      });
+      return;
     }
 
     if (res.status === 400) {
       notifications.show({
-        title: 'Invalid credentials.',
-        message: 'Username or Email already in use.',
+        title: 'Credenciais inválidas',
+        message: 'Usuário ou Email já estão em uso.',
         color: 'red',
         icon: <IconCircleX />,
-      })
+      });
       form.setErrors({
-        email: 'User already exists.',
-        username: 'User already exists.',
-      })
-      return
+        email: 'Usuário já existe',
+        username: 'Usuário já existe',
+      });
+      return;
     }
 
     if (res.status > 400) {
       notifications.show({
-        title: 'Invalid credentials.',
-        message: 'Something went wrong. Try again later.',
+        title: 'Credenciais inválidas',
+        message: 'Algo deu errado! Tente mais tarde.',
         color: 'red',
         icon: <IconCircleX />,
-      })
+      });
       form.setErrors({
-        email: 'Invalid credentials.',
-        username: 'Invalid credentials.',
-        password: 'Invalid credentials.',
-        confirmPassword: 'Invalid credentials.',
-      })
-      return
+        email: 'Credenciais inválidas',
+        username: 'Credenciais inválidas',
+        password: 'Credenciais inválidas',
+        confirmPassword: 'Credenciais inválidas',
+      });
+      return;
     }
 
     if (res.ok) {
       notifications.show({
-        title: 'Registration complete!',
-        message: 'You can log in now.',
+        title: 'Cadastro Completo!',
+        message: 'Pode entrar agora.',
         color: 'green',
         icon: <IconCircleCheck />,
-      })
-      router.push('/register/completed')
+      });
+      router.push('/register/completed');
     }
   }
 
   return (
     <GrayBackground>
+      <IconLovelace />
       <Container size={420} my={40}>
-        <Title ta="center" className={classes.title}>
-          Create an account
+        <Title size="64px" ta="center" className={classes.title}>
+          Bem-Vindo!
         </Title>
         <Text c="dimmed" size="sm" ta="center" mt={5}>
-          Already have an account?{' '}
+          Já possui uma conta?{' '}
           <Anchor size="sm" component={Link} href="/login">
-            Sign in
+            Acesse aqui
           </Anchor>
         </Text>
         <form onSubmit={form.onSubmit((values) => handleRegistration(values))}>
           <Paper withBorder shadow="md" p={30} mt={30} radius="md">
             <TextInput
-              label="Username"
-              placeholder="username"
+              label="Usuário"
+              placeholder="AdaLovelace"
               required
               key={form.key('username')}
               {...form.getInputProps('username')}
             />
             <TextInput
               label="Email"
-              placeholder="example@example.com"
+              placeholder="ada.king@lovelace.com"
               required
               mt="md"
               key={form.key('email')}
               {...form.getInputProps('email')}
             />
             <PasswordInput
-              label="Password"
-              placeholder="your password"
+              label="Senha"
+              placeholder="$enhaForte123"
               required
               mt="md"
               key={form.key('password')}
               {...form.getInputProps('password')}
             />
             <PasswordInput
-              label="Confirm password"
-              placeholder="your password"
+              label="Confirme sua senha"
+              placeholder="$enhaForte123"
               required
               mt="md"
               key={form.key('confirmPassword')}
@@ -186,18 +188,18 @@ export default function RegistrationForm() {
             />
             <Group justify="space-between" mt="lg">
               <Checkbox
-                label="I agree to sell my privacy"
+                label="Eu concordo com os termos"
                 classNames={{ label: classes.label }}
                 key={form.key('agree')}
                 {...form.getInputProps('agree')}
               />
             </Group>
-            <Button fullWidth mt="lg" type="submit">
-              Create your account
+            <Button fullWidth mt="lg" type="submit" className={classes.button}>
+              Cadastrar conta
             </Button>
           </Paper>
         </form>
       </Container>
     </GrayBackground>
-  )
+  );
 }

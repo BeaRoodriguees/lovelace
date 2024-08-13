@@ -1,28 +1,29 @@
 .wrapper {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: calc(var(--mantine-spacing-xl) * 2);
-    background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-8));
-    
-    @media (max-width: $mantine-breakpoint-sm) {
-      flex-direction: column-reverse;
-      padding: var(--mantine-spacing-xl);
-    }
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: calc(var(--mantine-spacing-xl) * 2);
+  background-color: light-dark(
+    var(--mantine-color-gray-1),
+    var(--mantine-color-dark-8)
+  );
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    flex-direction: column-reverse;
+    padding: var(--mantine-spacing-xl);
   }
-  
-  .title {
-    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
-    font-family:
-      Greycliff CF,
-      var(--mantine-font-family);
-    line-height: 1;
-    margin-bottom: var(--mantine-spacing-md);
-  }
-  
-  .controls {
-    display: flex;
-    margin-top: var(--mantine-spacing-xl);
-  }
-  
+}
+
+.title {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  font-family:
+    Greycliff CF,
+    var(--mantine-font-family);
+  line-height: 1;
+  margin-bottom: var(--mantine-spacing-md);
+}
+
+.button {
+  background-image: linear-gradient(90deg, #222c71 -13.85%, #0c7f98 103.69%);
+}
