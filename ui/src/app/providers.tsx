@@ -14,14 +14,14 @@ export function Providers({
 }) {
   return (
     <MantineProvider
-        theme={{
-          defaultGradient: {
-            from: '#222c71',
-            to: '#0c7f98',
-            deg: 90,
-          },
-        }}
-      >
+      theme={{
+        defaultGradient: {
+          from: '#222c71',
+          to: '#0c7f98',
+          deg: 90,
+        },
+      }}
+    >
       <Notifications />
       <SessionProvider session={session}>{children}</SessionProvider>
     </MantineProvider>

@@ -10,7 +10,7 @@ import {
   Text,
   Container,
   Button,
-  Checkbox,
+  // Checkbox,
   Flex,
 } from '@mantine/core';
 import classes from './auth-form.module.css';

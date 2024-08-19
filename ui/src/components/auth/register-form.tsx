@@ -4,7 +4,7 @@ import { useForm } from '@mantine/form';
 import {
   TextInput,
   PasswordInput,
-  Checkbox,
+  // Checkbox,
   Anchor,
   Paper,
   Title,
@@ -12,7 +12,6 @@ import {
   Container,
   Group,
   Button,
-  useMantineTheme,
 } from '@mantine/core';
 import classes from './register-form.module.css';
 import { useRouter } from 'next/navigation';
@@ -140,9 +139,6 @@ export default function RegistrationForm() {
       router.push('/register/completed');
     }
   }
-
-  const theme = useMantineTheme();
-
   return (
     <GrayBackground>
       <IconLovelace />
