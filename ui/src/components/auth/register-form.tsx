@@ -12,6 +12,7 @@ import {
   Container,
   Group,
   Button,
+  useMantineTheme,
 } from '@mantine/core';
 import classes from './register-form.module.css';
 import { useRouter } from 'next/navigation';
@@ -140,6 +141,8 @@ export default function RegistrationForm() {
     }
   }
 
+  const theme = useMantineTheme();
+
   return (
     <GrayBackground>
       <IconLovelace />
@@ -187,14 +190,14 @@ export default function RegistrationForm() {
               {...form.getInputProps('confirmPassword')}
             />
             <Group justify="space-between" mt="lg">
-              <Checkbox
+              {/* <Checkbox
                 label="Eu concordo com os termos"
                 classNames={{ label: classes.label }}
                 key={form.key('agree')}
                 {...form.getInputProps('agree')}
-              />
+              /> */}
             </Group>
-            <Button fullWidth mt="lg" type="submit" className={classes.button}>
+            <Button fullWidth variant="gradient" mt="lg" type="submit">
               Cadastrar conta
             </Button>
           </Paper>
