@@ -1,13 +1,13 @@
 'use client';
 import classes from './page.module.css';
 import Image from 'next/image';
-import { HeroTitle } from '@/components/misc/HeroTitle';
-import HeaderSimple from '@/components/navbar/HeaderSimple';
+import { HomePageHero } from '@/components/misc/homepage-hero';
+import Navbar from '@/components/navbar/navbar';
 
 export default function Home() {
   return (
     <main className={classes.container}>
-      <HeaderSimple></HeaderSimple>
+      <Navbar></Navbar>
       <Image
         className={classes.image}
         src="/adaBackground.png"
@@ -16,7 +16,7 @@ export default function Home() {
         height={854}
       ></Image>
       <div className={classes.content}>
-        <HeroTitle></HeroTitle>
+        <HomePageHero></HomePageHero>
       </div>
     </main>
   );

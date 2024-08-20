@@ -1,10 +1,10 @@
 'use client';
 
 import { Container, Text, Button, Group } from '@mantine/core';
-import classes from './HeroTitle.module.css';
+import classes from './homepage-hero.module.css';
 import Link from 'next/link';
 
-export function HeroTitle() {
+export function HomePageHero() {
   return (
     <div className={classes.wrapper}>
       <Container size={900} className={classes.inner}>

@@ -1,9 +1,9 @@
 'use client';
 import { Group, Button, Box } from '@mantine/core';
 import { IconLovelace } from '@/components/misc/icon-lovelace';
-import classes from './HeaderSimple.module.css';
+import classes from './navbar.module.css';
 
-export default function HeaderSimple() {
+export default function Navbar() {
   return (
     <Box>
       <header className={classes.header}>
