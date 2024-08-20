@@ -14,6 +14,7 @@ export function Providers({
 }) {
   return (
     <MantineProvider
+      defaultColorScheme="dark"
       theme={{
         defaultGradient: {
           from: '#222c71',
