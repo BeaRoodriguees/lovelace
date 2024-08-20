@@ -10,7 +10,7 @@ import {
   Text,
   Container,
   Button,
-  Checkbox,
+  // Checkbox,
   Flex,
 } from '@mantine/core';
 import classes from './auth-form.module.css';
@@ -127,12 +127,12 @@ export function LoginForm() {
             />
 
             <Flex mt="md" gap="xs" justify="space-between" align="center">
-              <Checkbox label="Lembre-se de mim" radius="xs" />
+              {/* <Checkbox label="Lembre-se de mim" radius="xs" />
               <Anchor component="button" size="sm">
                 Esqueceu a senha?
-              </Anchor>
+              </Anchor> */}
             </Flex>
-            <Button fullWidth mt="lg" type="submit" className={classes.button}>
+            <Button fullWidth mt="lg" type="submit" variant="gradient">
               Entrar
             </Button>
           </Paper>
