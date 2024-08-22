@@ -10,6 +10,10 @@
   padding-bottom: var(--mantine-spacing-xs);
 }
 
+.link {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-gray-1));
+}
+
 .logo {
   width: 150px;
 }

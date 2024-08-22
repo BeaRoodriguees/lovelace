@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@mantine/core';
-import { Navbar } from '@/components/Navbar';
+import Navbar from '@/components/navbar/navbar';
 
 import classes from './page.module.css';
 import { useSession } from 'next-auth/react';
@@ -13,24 +13,6 @@ export default function ProblemSetList() {
   const token = session.data?.user?.token;
   console.log(session);
   console.log(token);
-
-  // async function handleSummit() {
-
-  //     const res = await fetch('http://localhost:8000/users/2', {
-  //     method: 'PUT',
-  //     headers:{
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${token}`
-  //     },
-  //     body: JSON.stringify({
-  //         username: 'AAAAAA',
-  //         password: 'Admin123'
-  //     })
-
-  //     });
-  //     console.log(res)
-  //     console.log(res.json())
-  // }
 
   return (
     <main className={classes.container}>

@@ -1,10 +1,15 @@
+'use client';
 import { NotFound } from '@/components/error/not-found';
 import classes from './page.module.css';
+import Navbar, { NavbarStatus } from '@/components/navbar/navbar';
 
 export default function NotFoundPage() {
   return (
-    <div className={classes.container}>
-      <NotFound></NotFound>
-    </div>
+    <>
+      <Navbar status={NavbarStatus.AUTH}></Navbar>
+      <div className={classes.container}>
+        <NotFound></NotFound>
+      </div>
+    </>
   );
 }

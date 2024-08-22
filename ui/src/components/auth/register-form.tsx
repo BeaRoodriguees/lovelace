@@ -18,7 +18,6 @@ import { useRouter } from 'next/navigation';
 import { notifications } from '@mantine/notifications';
 import { IconCircleX, IconCircleCheck } from '@tabler/icons-react';
 import GrayBackground from '@/components/misc/gray-background';
-import { IconLovelace } from '@/components/misc/icon-lovelace';
 
 import Link from 'next/link';
 
@@ -141,7 +140,6 @@ export default function RegistrationForm() {
   }
   return (
     <GrayBackground>
-      <IconLovelace />
       <Container size={420} my={40}>
         <Title size="64px" ta="center" className={classes.title}>
           Bem-Vindo!

@@ -1,12 +1,10 @@
 import { Container, Title, Text, Button, Group } from '@mantine/core';
 import { Illustration } from './Illustration';
-import { IconLovelace } from '../misc/icon-lovelace';
 import classes from './not-found.module.css';
 
 export function NotFound() {
   return (
     <>
-      <IconLovelace className={classes.logo} />
       <Container className={classes.root}>
         <div className={classes.inner}>
           <Illustration className={classes.image} />
