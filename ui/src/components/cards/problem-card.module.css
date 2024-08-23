@@ -25,13 +25,11 @@
   justify-content: space-between;
   margin-right: auto;
   height: 100%;
-  padding: 2px 0px;
 }
 
 .label {
   color: var(--mantine-color-bright);
   font-weight: 600;
-  line-height: 14px;
 }
 
 .tags {

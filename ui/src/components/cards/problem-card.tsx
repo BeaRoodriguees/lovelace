@@ -2,25 +2,22 @@
 
 import Link from 'next/link';
 import { Text, Card, Badge, Button } from '@mantine/core';
-import classes from './problem.module.css';
+import classes from './problem-card.module.css';
 import { IconChevronRight } from '@tabler/icons-react';
 import ProblemStatusDisplay, { ProblemStatus } from './problem-status';
+import { ProblemCardData } from '@/lib/types';
 
-export default function ProblemCard() {
-  const tags = ['Array', 'binário', 'Ponteiros'];
-  const title = 'A Festa dos Expendables';
-  const dificulty = 'Muito difícil';
-
+export default function ProblemCard({ data }: { data: ProblemCardData }) {
   return (
     <Card radius="md" className={classes.card} shadow="xs">
       <div className={classes.inner}>
-        <ProblemStatusDisplay status={ProblemStatus.TODO} />
+        <ProblemStatusDisplay status={data.status} />
         <div className={classes.middle}>
           <Text fz="xl" className={classes.label}>
-            {title}
+            {data.title}
           </Text>
           <div className={classes.tags}>
-            {tags.map((tag, index) => {
+            {data.tags.map((tag, index) => {
               return (
                 <Badge variant="outline" size="sm" key={index}>
                   {tag}
@@ -34,7 +31,7 @@ export default function ProblemCard() {
             Dificuldade
           </Text>
           <Text fz="md" className={classes.label}>
-            {dificulty}
+            {data.difficulty}
           </Text>
         </div>
         <Button

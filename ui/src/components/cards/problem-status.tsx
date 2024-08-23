@@ -1,12 +1,7 @@
 import { IconCheck, IconX } from '@tabler/icons-react';
 import classes from './problem-status.module.css';
 import React from 'react';
-
-enum ProblemStatus {
-  DONE = 'DONE',
-  TODO = 'TODO',
-  ERROR = 'ERROR',
-}
+import { ProblemStatus } from '@/lib/types';
 
 function ProblemStatusContainer({ children }: { children?: React.ReactNode }) {
   return <div className={classes.container}>{children}</div>;
@@ -27,7 +22,7 @@ export default function ProblemStatusDisplay({
     case ProblemStatus.ERROR:
       return (
         <ProblemStatusContainer>
-          <IconX />
+          <IconX className={classes.icon} width={40} height={40} />
         </ProblemStatusContainer>
       );
     default:
