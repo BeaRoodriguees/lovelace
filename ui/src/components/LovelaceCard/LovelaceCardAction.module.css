@@ -1,0 +1,28 @@
+.action {
+  color: var(--mantine-color-dimmed);
+
+  &[data-type='ERROR'] {
+    color: var(--mantine-color-red-8);
+  }
+  &[data-type='DISABLED'] {
+    color: var(--mantine-color-dark-4);
+  }
+  &[data-type='SUCCESS'] {
+    color: var(--mantine-color-green-8);
+  }
+}
+
+.action:hover {
+  color: lighten(var(--mantine-dimmed), 0.9);
+
+  &[data-type='ERROR'] {
+    color: var(--mantine-color-red-6);
+  }
+  &[data-type='DISABLED'] {
+    color: var(--mantine-color-dark-4);
+    cursor: pointer;
+  }
+  &[data-type='SUCCESS'] {
+    color: var(--mantine-color-green-6);
+  }
+}

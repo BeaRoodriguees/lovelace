@@ -4,6 +4,13 @@ export enum ProblemStatus {
   ERROR = 'ERROR',
 }
 
+export enum CardType {
+  SUCCESS = 'SUCCESS',
+  DEFAULT = 'DEFAULT',
+  ERROR = 'ERROR',
+  DISABLED = 'DISABLED',
+}
+
 export interface ProblemCardData {
   status: ProblemStatus;
   title: string;

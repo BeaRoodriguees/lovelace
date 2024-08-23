@@ -1,0 +1,10 @@
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.tags > * {
+  color: var(--mantine-color-dimmed);
+  border-color: var(--mantine-color-dimmed);
+}

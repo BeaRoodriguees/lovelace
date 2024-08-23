@@ -1,0 +1,10 @@
+.side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.text {
+  color: var(--mantine-color-bright);
+  font-weight: 700;
+}

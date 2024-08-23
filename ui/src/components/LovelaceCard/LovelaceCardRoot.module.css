@@ -1,0 +1,29 @@
+.card {
+  background-color: var(--mantine-color-default);
+  border: 2px solid
+    light-dark(var(--mantine-color-default-border), var(--mantine-color-dark-3));
+  padding-left: var(--mantine-spacing-md);
+  padding-right: var(--mantine-spacing-md);
+  padding-top: var(--mantine-spacing-sm);
+  padding-bottom: var(--mantine-spacing-sm);
+
+  &[data-type='ERROR'] {
+    border: 2px solid var(--mantine-color-red-8);
+  }
+  &[data-type='DISABLED'] {
+    border: 2px solid var(--mantine-color-dark-4);
+  }
+  &[data-type='SUCCESS'] {
+    border: 2px solid var(--mantine-color-green-8);
+  }
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    flex-direction: column;
+  }
+}

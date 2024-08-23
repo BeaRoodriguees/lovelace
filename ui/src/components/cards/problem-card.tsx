@@ -1,49 +1,35 @@
-'use client';
-
-import Link from 'next/link';
-import { Text, Card, Badge, Button } from '@mantine/core';
-import classes from './problem-card.module.css';
-import { IconChevronRight } from '@tabler/icons-react';
-import ProblemStatusDisplay, { ProblemStatus } from './problem-status';
-import { ProblemCardData } from '@/lib/types';
+import { IconChevronRight, IconX, IconCheck } from '@tabler/icons-react';
+import { ProblemStatus } from '@/lib/types';
+import { CardType, ProblemCardData } from '@/lib/types';
+import { LovelaceCard } from '@/components/LovelaceCard';
 
 export default function ProblemCard({ data }: { data: ProblemCardData }) {
+  let cardType;
+  let icon = undefined;
+
+  switch (data.status) {
+    case ProblemStatus.ERROR:
+      cardType = CardType.ERROR;
+      icon = IconX;
+      break;
+    case ProblemStatus.DONE:
+      cardType = CardType.SUCCESS;
+      icon = IconCheck;
+      break;
+    default:
+      cardType = CardType.DEFAULT;
+      break;
+  }
+
   return (
-    <Card radius="md" className={classes.card} shadow="xs">
-      <div className={classes.inner}>
-        <ProblemStatusDisplay status={data.status} />
-        <div className={classes.middle}>
-          <Text fz="xl" className={classes.label}>
-            {data.title}
-          </Text>
-          <div className={classes.tags}>
-            {data.tags.map((tag, index) => {
-              return (
-                <Badge variant="outline" size="sm" key={index}>
-                  {tag}
-                </Badge>
-              );
-            })}
-          </div>
-        </div>
-        <div className={classes.dificulty}>
-          <Text fz="sm" c="dimmed">
-            Dificuldade
-          </Text>
-          <Text fz="md" className={classes.label}>
-            {data.difficulty}
-          </Text>
-        </div>
-        <Button
-          component={Link}
-          href="#"
-          variant="transparent"
-          className={classes.icon}
-          p={2}
-        >
-          <IconChevronRight width={40} height={40} />
-        </Button>
-      </div>
-    </Card>
+    <LovelaceCard.Root type={cardType}>
+      <LovelaceCard.Status icon={icon} type={cardType} />
+      <LovelaceCard.Content>
+        <LovelaceCard.Title text={data.title} />
+        <LovelaceCard.Tags tags={data.tags} />
+      </LovelaceCard.Content>
+      <LovelaceCard.Side label={'Difficulty'} text={data.difficulty} />
+      <LovelaceCard.Action icon={IconChevronRight} type={cardType} />
+    </LovelaceCard.Root>
   );
 }
