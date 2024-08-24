@@ -8,6 +8,7 @@
   padding-bottom: var(--mantine-spacing-sm);
   transition: transform 0.3s ease; /* Add this line for smooth scaling */
   transition: background-color 0.2s ease; /* Add this line for smooth scaling */
+  min-width: 500px;
 
   &[data-type='ERROR'] {
     border: 2px solid var(--mantine-color-red-8);
@@ -31,7 +32,7 @@
   align-items: center;
   gap: 1rem;
 
-  @media (max-width: $mantine-breakpoint-xs) {
-    flex-direction: column;
+  & > :nth-child(4) {
+    flex-shrink: 0;
   }
 }

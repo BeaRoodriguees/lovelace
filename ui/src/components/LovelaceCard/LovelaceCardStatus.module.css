@@ -8,6 +8,7 @@
   padding: 0.125rem;
   width: 48px;
   height: 48px;
+  min-width: 48px;
 
   &[data-type='ERROR'] {
     border: 2px solid var(--mantine-color-red-8);

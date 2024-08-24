@@ -1,4 +1,5 @@
 .title {
   color: var(--mantine-color-bright);
   font-weight: 600;
+  min-width: 300px;
 }

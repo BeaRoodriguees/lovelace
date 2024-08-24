@@ -1,10 +1,19 @@
 .tags {
   display: flex;
-  flex-wrap: wrap;
   gap: 0.25rem;
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.tags::-webkit-scrollbar {
+  display: none;
 }
 
 .tags > * {
   color: var(--mantine-color-dimmed);
   border-color: var(--mantine-color-dimmed);
+  flex: none;
 }

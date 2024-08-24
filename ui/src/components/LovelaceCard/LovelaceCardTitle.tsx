@@ -6,7 +6,7 @@ interface LovelaceCardTitleProps {
 }
 export default function LovelaceCardTitle({ text }: LovelaceCardTitleProps) {
   return (
-    <Text fz="xl" className={classes.title}>
+    <Text fz="xl" className={classes.title} lineClamp={1}>
       {text}
     </Text>
   );
