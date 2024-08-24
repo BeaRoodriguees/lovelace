@@ -1,11 +1,13 @@
 .card {
   background-color: var(--mantine-color-default);
   border: 2px solid
-    light-dark(var(--mantine-color-default-border), var(--mantine-color-dark-3));
+    light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-3));
   padding-left: var(--mantine-spacing-md);
   padding-right: var(--mantine-spacing-md);
   padding-top: var(--mantine-spacing-sm);
   padding-bottom: var(--mantine-spacing-sm);
+  transition: transform 0.3s ease; /* Add this line for smooth scaling */
+  transition: background-color 0.2s ease; /* Add this line for smooth scaling */
 
   &[data-type='ERROR'] {
     border: 2px solid var(--mantine-color-red-8);
@@ -16,6 +18,12 @@
   &[data-type='SUCCESS'] {
     border: 2px solid var(--mantine-color-green-8);
   }
+}
+
+.card:hover {
+  background-color: lighten(var(--mantine-color-default), 0.9);
+  cursor: pointer;
+  transform: scale(1.01);
 }
 
 .inner {

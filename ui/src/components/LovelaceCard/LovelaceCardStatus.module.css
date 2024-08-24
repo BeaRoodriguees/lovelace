@@ -2,7 +2,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--mantine-color-placeholder);
+  border: 2px solid
+    light-dark(var(--mantine-color-gray-6), var(--mantine-color-placeholder));
   border-radius: var(--mantine-radius-sm);
   padding: 0.125rem;
   width: 48px;
