@@ -23,12 +23,7 @@ export function NotFound() {
               achar isso um erro, contate o suporte.
             </Text>
             <Group justify="center">
-              <Button
-                className={classes.button}
-                component="a"
-                size="md"
-                href="/"
-              >
+              <Button variant="gradient" component="a" size="md" href="/">
                 Voltar ao Início
               </Button>
             </Group>
