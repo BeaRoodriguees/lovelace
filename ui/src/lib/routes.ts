@@ -4,6 +4,7 @@ export const PUBLIC_ROUTES = [
   '/login',
   '/register',
   '/register/completed',
+  '/playground',
 ];
 export const DEFAULT_REDIRECT = '/problemset';
 export const ADMIN_ROUTES = ['/dashboard'];

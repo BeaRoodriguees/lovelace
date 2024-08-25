@@ -22,7 +22,7 @@ export default function ProblemCard({ data }: { data: ProblemCardData }) {
   }
 
   return (
-    <LovelaceCard.Root type={cardType}>
+    <LovelaceCard.Root type={cardType} clickable>
       <LovelaceCard.Status icon={icon} type={cardType} />
       <LovelaceCard.Content>
         <LovelaceCard.Title text={data.title} />

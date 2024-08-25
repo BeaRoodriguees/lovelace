@@ -22,13 +22,13 @@
   }
 }
 
-.card:hover {
+[data-clickable='true'].card:hover {
   background-color: lighten(var(--mantine-color-default), 0.9);
   cursor: pointer;
   transform: scale(1.015);
 }
 
-.card:active {
+[data-clickable='true'].card:active {
   transform: scale(1.01);
 }
 
