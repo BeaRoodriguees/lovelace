@@ -22,14 +22,18 @@ export default function ProblemCard({ data }: { data: ProblemCardData }) {
   }
 
   return (
-    <LovelaceCard.Root type={cardType} href={'/'}>
+    <LovelaceCard.Root type={cardType} href={`/problemset/${data.slug}`}>
       <LovelaceCard.Status icon={icon} type={cardType} />
       <LovelaceCard.Content>
         <LovelaceCard.Title text={data.title} />
         <LovelaceCard.Tags tags={data.tags} />
       </LovelaceCard.Content>
       <LovelaceCard.Side label={'Difficulty'} text={data.difficulty} />
-      <LovelaceCard.Action icon={IconChevronRight} type={cardType} />
+      <LovelaceCard.Action
+        icon={IconChevronRight}
+        type={cardType}
+        href={`/problemset/${data.slug}`}
+      />
     </LovelaceCard.Root>
   );
 }

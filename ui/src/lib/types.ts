@@ -16,4 +16,5 @@ export interface ProblemCardData {
   title: string;
   tags: Array<string>;
   difficulty: string;
+  slug: string;
 }
