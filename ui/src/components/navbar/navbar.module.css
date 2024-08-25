@@ -17,3 +17,7 @@
 .logo {
   width: 150px;
 }
+
+.menu {
+  gap: 36px;
+}

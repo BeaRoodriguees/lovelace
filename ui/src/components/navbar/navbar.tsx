@@ -40,9 +40,9 @@ export default function Navbar({ status }: { status?: NavbarStatus }) {
                 return null;
               default:
                 return (
-                  <Group visibleFrom="sm">
+                  <Group visibleFrom="sm" className={classes.menu}>
                     <Group>
-                      <Anchor href="/problemset" c={'white'} fw={500}>
+                      <Anchor href="/problemset" c={'white'} fw={700}>
                         Problemas
                       </Anchor>
                       <Anchor href="/groupset" c={'gray'}>
