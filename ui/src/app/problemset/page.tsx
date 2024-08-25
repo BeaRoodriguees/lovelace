@@ -1,11 +1,14 @@
 'use client';
 
-import { Button } from '@mantine/core';
+import { Grid } from '@mantine/core';
+import { Button, Container } from '@mantine/core';
 import { Navbar } from '@/components/Navbar';
 
 import classes from './page.module.css';
 import { useSession } from 'next-auth/react';
 import { signOut } from 'next-auth/react';
+import ProblemCard from '@/components/cards/problem-card';
+import { Problem, ProblemStatus } from '@/lib/types';
 
 export default function ProblemSetList() {
   const session = useSession();
@@ -14,41 +17,91 @@ export default function ProblemSetList() {
   console.log(session);
   console.log(token);
 
-  // async function handleSummit() {
-
-  //     const res = await fetch('http://localhost:8000/users/2', {
-  //     method: 'PUT',
-  //     headers:{
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${token}`
-  //     },
-  //     body: JSON.stringify({
-  //         username: 'AAAAAA',
-  //         password: 'Admin123'
-  //     })
-
-  //     });
-  //     console.log(res)
-  //     console.log(res.json())
-  // }
+  const data: Problem = {
+    id: 'some-id-hash',
+    status: ProblemStatus.TODO,
+    title: 'Em busca do Ouro Branco',
+    tags: ['array', 'pointer', 'eof', 'recursion'],
+    difficulty: 'hard',
+    slug: 'problem-test',
+  };
 
   return (
-    <main className={classes.container}>
-      <Navbar></Navbar>
-      <div className={classes.content}>
-        <h1>PROBLEMSET</h1>
-        <p>{token}</p>
-        <p>Username: {session.data?.user.username}</p>
-        <p>id: {session.data?.user.id}</p>
-        <p>role: {session.data?.user.role}</p>
-        {/* <Button variant="filled" onClick={() => handleSummit()}>Get started</Button> */}
-        <Button
-          variant="filled"
-          onClick={() => signOut({ redirect: true, callbackUrl: '/login' })}
-        >
-          Signout
-        </Button>
-      </div>
+    <main>
+      <Grid className={classes.container}>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <ProblemCard data={data} />
+        </Grid.Col>
+      </Grid>
     </main>
   );
 }
