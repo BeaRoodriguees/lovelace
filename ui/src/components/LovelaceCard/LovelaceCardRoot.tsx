@@ -10,14 +10,12 @@ interface LovelaceCardRootProps {
   children: ReactNode;
   type: CardType;
   href?: string;
-  clickable?: boolean;
 }
 
 export default function LovelaceCardRoot({
   children,
   type,
   href,
-  clickable,
 }: LovelaceCardRootProps) {
   const { push } = useRouter();
   return (
@@ -27,7 +25,7 @@ export default function LovelaceCardRoot({
       className={classes.card}
       shadow="xs"
       data-type={type}
-      data-clickable={clickable}
+      data-clickable={!!href}
     >
       <div className={classes.inner}>{children}</div>
     </Card>
