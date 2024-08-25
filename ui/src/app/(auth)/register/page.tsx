@@ -6,7 +6,7 @@ export default function RegisterPage() {
   return (
     <main>
       <Navbar status={NavbarStatus.AUTH} />
-      <RegistrationForm></RegistrationForm>;
+      <RegistrationForm></RegistrationForm>
     </main>
   );
 }

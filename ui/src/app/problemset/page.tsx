@@ -1,8 +1,7 @@
 'use client';
 
 import { Button } from '@mantine/core';
-import Navbar from '@/components/navbar/navbar';
-
+import Navbar, { NavbarStatus } from '@/components/navbar/navbar';
 import classes from './page.module.css';
 import { useSession } from 'next-auth/react';
 import { signOut } from 'next-auth/react';
@@ -16,7 +15,7 @@ export default function ProblemSetList() {
 
   return (
     <main className={classes.container}>
-      <Navbar></Navbar>
+      <Navbar status={NavbarStatus.LOGGED}></Navbar>
       <div className={classes.content}>
         <h1>PROBLEMSET</h1>
         <p>{token}</p>
