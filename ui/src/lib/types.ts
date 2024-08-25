@@ -11,10 +11,11 @@ export enum CardType {
   DISABLED = 'DISABLED',
 }
 
-export interface ProblemCardData {
+export type Problem = {
+  id: string;
   status: ProblemStatus;
   title: string;
   tags: Array<string>;
   difficulty: string;
   slug: string;
-}
+};
