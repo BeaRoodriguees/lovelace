@@ -3,7 +3,6 @@
   gap: 0.25rem;
   width: 100%;
   overflow-x: scroll;
-  overflow-y: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
@@ -16,4 +15,13 @@
   color: var(--mantine-color-dimmed);
   border-color: var(--mantine-color-dimmed);
   flex: none;
+}
+.tags > * > * {
+  padding-top: 1px;
+}
+
+@-moz-document url-prefix() {
+  .tags > * > * {
+    padding-top: 3px;
+  }
 }

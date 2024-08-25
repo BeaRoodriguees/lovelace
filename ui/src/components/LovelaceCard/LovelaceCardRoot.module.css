@@ -6,8 +6,9 @@
   padding-right: var(--mantine-spacing-md);
   padding-top: var(--mantine-spacing-sm);
   padding-bottom: var(--mantine-spacing-sm);
-  transition: transform 0.3s ease; /* Add this line for smooth scaling */
-  transition: background-color 0.2s ease; /* Add this line for smooth scaling */
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s linear;
   min-width: 500px;
 
   &[data-type='ERROR'] {
@@ -24,11 +25,11 @@
 .card:hover {
   background-color: lighten(var(--mantine-color-default), 0.9);
   cursor: pointer;
-  transform: scale(1.01);
+  transform: scale(1.015);
 }
 
 .card:active {
-  transform: scale(1.005);
+  transform: scale(1.01);
 }
 
 .inner {
