@@ -9,6 +9,7 @@ import { useSession } from 'next-auth/react';
 import { signOut } from 'next-auth/react';
 import ProblemCard from '@/components/cards/problem-card';
 import { Problem, ProblemStatus } from '@/lib/types';
+import ProblemsetHeader from '@/components/problemset/problemset-header';
 
 export default function ProblemSetList() {
   const session = useSession();
@@ -28,80 +29,29 @@ export default function ProblemSetList() {
 
   return (
     <main>
-      <Grid className={classes.container}>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <ProblemCard data={data} />
-        </Grid.Col>
-      </Grid>
+      <div className={classes.container}>
+        <ProblemsetHeader></ProblemsetHeader>
+        <Grid>
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <ProblemCard data={data} />
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <ProblemCard data={data} />
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <ProblemCard data={data} />
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <ProblemCard data={data} />
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <ProblemCard data={data} />
+          </Grid.Col>
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <ProblemCard data={data} />
+          </Grid.Col>
+        </Grid>
+      </div>
     </main>
   );
 }

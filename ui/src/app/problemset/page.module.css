@@ -1,5 +1,8 @@
 .container {
   margin: 15px;
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .content {
