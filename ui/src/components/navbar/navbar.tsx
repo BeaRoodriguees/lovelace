@@ -1,5 +1,4 @@
 'use client';
-import { useSession } from 'next-auth/react';
 import { Group, Button, Box, Avatar, Anchor, Input } from '@mantine/core';
 import { IconLovelace } from '@/components/misc/icon-lovelace';
 import { IconSearch } from '@tabler/icons-react';
