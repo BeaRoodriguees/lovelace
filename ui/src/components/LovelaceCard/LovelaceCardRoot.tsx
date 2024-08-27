@@ -4,7 +4,7 @@ import { Card } from '@mantine/core';
 import classes from './LovelaceCardRoot.module.css';
 import { ReactNode } from 'react';
 import { CardType } from '@/lib/types';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface LovelaceCardRootProps {
   children: ReactNode;
@@ -17,15 +17,24 @@ export default function LovelaceCardRoot({
   type,
   href,
 }: LovelaceCardRootProps) {
-  const { push } = useRouter();
+  const prop = href
+    ? {
+        component: Link,
+        href: href,
+        'data-clickable': !!href,
+      }
+    : {};
+
   return (
+    // @ts-expect-error : The error message says href is not a property of div. But
+    // the root component of Card is changed to a <Link /> because of the component
+    // prop. Typescript is just not able to see it.
     <Card
-      onClick={() => (href ? push(href) : null)}
+      {...prop}
       radius="md"
       className={classes.card}
       shadow="xs"
       data-type={type}
-      data-clickable={!!href}
     >
       <div className={classes.inner}>{children}</div>
     </Card>
