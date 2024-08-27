@@ -12,8 +12,11 @@
 }
 
 .tags > * {
-  color: var(--mantine-color-gray-5);
-  border-color: var(--mantine-color-gray-5);
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-gray-5));
+  border-color: light-dark(
+    var(--mantine-color-gray-7),
+    var(--mantine-color-gray-5)
+  );
   flex: none;
 }
 .tags > * > * {
