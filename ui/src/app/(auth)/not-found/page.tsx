@@ -5,11 +5,11 @@ import Navbar, { NavbarStatus } from '@/components/navbar/navbar';
 
 export default function NotFoundPage() {
   return (
-    <main>
+    <>
       <Navbar status={NavbarStatus.AUTH}></Navbar>
       <div className={classes.container}>
         <NotFound></NotFound>
       </div>
-    </main>
+    </>
   );
 }

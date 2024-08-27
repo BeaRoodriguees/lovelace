@@ -14,22 +14,24 @@ export default function ProblemSetList() {
   console.log(token);
 
   return (
-    <main className={classes.container}>
+    <>
       <Navbar status={NavbarStatus.LOGGED}></Navbar>
-      <div className={classes.content}>
-        <h1>PROBLEMSET</h1>
-        <p>{token}</p>
-        <p>Username: {session.data?.user.username}</p>
-        <p>id: {session.data?.user.id}</p>
-        <p>role: {session.data?.user.role}</p>
-        {/* <Button variant="filled" onClick={() => handleSummit()}>Get started</Button> */}
-        <Button
-          variant="filled"
-          onClick={() => signOut({ redirect: true, callbackUrl: '/login' })}
-        >
-          Signout
-        </Button>
-      </div>
-    </main>
+      <main className={classes.container}>
+        <div className={classes.content}>
+          <h1>PROBLEMSET</h1>
+          <p>{token}</p>
+          <p>Username: {session.data?.user.username}</p>
+          <p>id: {session.data?.user.id}</p>
+          <p>role: {session.data?.user.role}</p>
+          {/* <Button variant="filled" onClick={() => handleSummit()}>Get started</Button> */}
+          <Button
+            variant="filled"
+            onClick={() => signOut({ redirect: true, callbackUrl: '/login' })}
+          >
+            Signout
+          </Button>
+        </div>
+      </main>
+    </>
   );
 }

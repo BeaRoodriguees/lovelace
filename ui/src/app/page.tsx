@@ -10,7 +10,7 @@ export default function Home() {
   const user = session.data?.user;
 
   return (
-    <main className={classes.container}>
+    <div className={classes.container}>
       {user == undefined && <Navbar status={NavbarStatus.HOME} />}
       {user && <Navbar status={NavbarStatus.LOGGED} />}
 
@@ -24,6 +24,6 @@ export default function Home() {
       <div className={classes.content}>
         <HomePageHero></HomePageHero>
       </div>
-    </main>
+    </div>
   );
 }
