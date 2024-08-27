@@ -11,7 +11,7 @@ export default function LovelaceCardSide({
 }: LovelaceCardSideProps) {
   return (
     <div className={classes.side}>
-      <Text fz="sm" c="dimmed">
+      <Text fz="sm" className={classes.label}>
         {label}
       </Text>
       <Text fz="md" className={classes.text}>

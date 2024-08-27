@@ -6,6 +6,10 @@
   white-space: nowrap;
 }
 
+.label {
+  color: var(--mantine-color-gray-5);
+}
+
 .text {
   color: var(--mantine-color-bright);
   font-weight: 700;
