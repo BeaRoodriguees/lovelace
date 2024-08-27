@@ -98,7 +98,7 @@ export function LoginForm() {
         <Title ta="center" size="62px" className={classes.title}>
           Olá de novo!
         </Title>
-        <Text c="dimmed" size="sm" ta="center" mt={5}>
+        <Text c="gray.5" size="sm" ta="center" mt={5}>
           Não tem uma conta ainda?{' '}
           <Anchor href="/register" size="sm" component={Link}>
             Crie uma.

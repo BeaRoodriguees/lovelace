@@ -46,23 +46,11 @@ function NavbarUnloggedOptions() {
 }
 
 export default function Navbar({ status }: { status?: NavbarStatus }) {
-  const session = useSession();
-  const user = session.data?.user;
-  let isLogged;
-
-  if (user == undefined) {
-    isLogged = '/';
-  } else {
-    isLogged = '/problemset';
-  }
-
   return (
     <Box>
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
-          <Anchor href={isLogged} className={classes.link}>
-            <IconLovelace className={classes.logo} />
-          </Anchor>
+          <IconLovelace className={classes.logo} />
 
           {status === NavbarStatus.AUTH && <NavbarAuthOptions />}
           {status === NavbarStatus.LOGGED && <NavbarLoggedOptions />}

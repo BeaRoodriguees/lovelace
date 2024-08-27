@@ -144,7 +144,7 @@ export default function RegistrationForm() {
         <Title size="64px" ta="center" className={classes.title}>
           Bem-Vindo!
         </Title>
-        <Text c="dimmed" size="sm" ta="center" mt={5}>
+        <Text c="gray.5" size="sm" ta="center" mt={5}>
           Já possui uma conta?{' '}
           <Anchor size="sm" component={Link} href="/login">
             Acesse aqui
