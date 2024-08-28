@@ -21,7 +21,6 @@ import { notifications } from '@mantine/notifications';
 import { IconCircleX, IconCircleCheck } from '@tabler/icons-react';
 import GrayBackground from '@/components/misc/gray-background';
 import Link from 'next/link';
-import { IconLovelace } from '@/components/misc/icon-lovelace';
 
 interface LoginCredentials {
   email: string;
@@ -95,13 +94,11 @@ export function LoginForm() {
 
   return (
     <GrayBackground>
-      <IconLovelace />
-
       <Container size={420} my={40}>
         <Title ta="center" size="62px" className={classes.title}>
           Olá de novo!
         </Title>
-        <Text c="dimmed" size="sm" ta="center" mt={5}>
+        <Text c="gray.5" size="sm" ta="center" mt={5}>
           Não tem uma conta ainda?{' '}
           <Anchor href="/register" size="sm" component={Link}>
             Crie uma.
