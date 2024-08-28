@@ -6,7 +6,9 @@ export default function LoginPage() {
   return (
     <>
       <Navbar status={NavbarStatus.AUTH}></Navbar>
-      <LoginForm></LoginForm>
+      <main>
+            <LoginForm/>
+      </main>
     </>
   );
 }

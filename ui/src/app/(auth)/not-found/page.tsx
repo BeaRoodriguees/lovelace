@@ -7,9 +7,9 @@ export default function NotFoundPage() {
   return (
     <>
       <Navbar status={NavbarStatus.AUTH}></Navbar>
-      <div className={classes.container}>
+      <main className={classes.container}>
         <NotFound></NotFound>
-      </div>
+      </main>
     </>
   );
 }
