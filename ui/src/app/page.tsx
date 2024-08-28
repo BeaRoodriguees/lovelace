@@ -10,20 +10,22 @@ export default function Home() {
   const user = session.data?.user;
 
   return (
-    <div className={classes.container}>
+    <>
       {user == undefined && <Navbar status={NavbarStatus.HOME} />}
       {user && <Navbar status={NavbarStatus.LOGGED} />}
 
-      <Image
-        className={classes.image}
-        src="/adaBackground.png"
-        alt="Ada Lovelace"
-        width={653}
-        height={854}
-      ></Image>
-      <div className={classes.content}>
-        <HomePageHero></HomePageHero>
-      </div>
-    </div>
+      <main className={classes.container}>
+        <Image
+          className={classes.image}
+          src="/adaBackground.png"
+          alt="Ada Lovelace"
+          width={653}
+          height={854}
+        ></Image>
+        <div className={classes.content}>
+          <HomePageHero></HomePageHero>
+        </div>
+      </main>
+    </>
   );
 }
