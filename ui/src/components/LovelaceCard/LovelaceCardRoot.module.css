@@ -7,8 +7,8 @@
   padding-top: var(--mantine-spacing-sm);
   padding-bottom: var(--mantine-spacing-sm);
   transition:
-    transform 0.3s ease,
-    background-color 0.3s linear;
+    transform 0.2s ease,
+    background-color 0.1s linear;
   min-width: 500px;
 
   &[data-type='ERROR'] {
@@ -19,6 +19,22 @@
   }
   &[data-type='SUCCESS'] {
     border: 2px solid var(--mantine-color-green-8);
+  }
+}
+
+.card:focus {
+  outline: 2px solid
+    light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-3));
+  outline-offset: 3px;
+
+  &[data-type='ERROR'] {
+    outline: 2px solid var(--mantine-color-red-8);
+  }
+  &[data-type='DISABLED'] {
+    outline: 2px solid var(--mantine-color-dark-4);
+  }
+  &[data-type='SUCCESS'] {
+    outline: 2px solid var(--mantine-color-green-8);
   }
 }
 
