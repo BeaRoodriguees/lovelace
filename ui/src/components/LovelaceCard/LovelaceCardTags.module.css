@@ -1,0 +1,30 @@
+.tags {
+  display: flex;
+  gap: 0.25rem;
+  width: 100%;
+  overflow-x: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.tags::-webkit-scrollbar {
+  display: none;
+}
+
+.tags > * {
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-gray-5));
+  border-color: light-dark(
+    var(--mantine-color-gray-7),
+    var(--mantine-color-gray-5)
+  );
+  flex: none;
+}
+.tags > * > * {
+  padding-top: 1px;
+}
+
+@-moz-document url-prefix() {
+  .tags > * > * {
+    padding-top: 3px;
+  }
+}
