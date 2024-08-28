@@ -47,7 +47,7 @@ function NavbarUnloggedOptions() {
 export default function Navbar({ status }: { status?: NavbarStatus }) {
   return (
     <Box>
-      <header className={classes.header}>
+      <nav className={classes.nav}>
         <Group justify="space-between" h="100%">
           <IconLovelace className={classes.logo} />
 
@@ -55,7 +55,7 @@ export default function Navbar({ status }: { status?: NavbarStatus }) {
           {status === NavbarStatus.LOGGED && <NavbarLoggedOptions />}
           {status === NavbarStatus.HOME && <NavbarUnloggedOptions />}
         </Group>
-      </header>
+      </nav>
     </Box>
   );
 }
