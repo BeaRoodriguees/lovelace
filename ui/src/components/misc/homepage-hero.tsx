@@ -21,7 +21,7 @@ export function HomePageHero() {
           de forma prática e interativa
         </h1>
 
-        <Text className={classes.description} c="dimmed">
+        <Text className={classes.description} c="dark.1">
           Inspirado por Ada Lovelace, a primeira programadora da história, o
           Lovelace é um espaço dedicado ao aprendizado e aprimoramento das
           habilidades de programação.
@@ -33,6 +33,7 @@ export function HomePageHero() {
             size="md"
             href="/register"
             variant="gradient"
+            aria-label="Registrar"
           >
             Comece!
           </Button>
