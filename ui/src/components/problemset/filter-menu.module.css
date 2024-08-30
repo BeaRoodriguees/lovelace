@@ -1,0 +1,29 @@
+.menu {
+  padding: 4px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  margin-bottom: 8px;
+  align-items: center;
+}
+
+.title {
+  color: var(--mantine-color-bright);
+}
+
+.description {
+  grid-column-start: span 2;
+  text-justify: inter-word;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
