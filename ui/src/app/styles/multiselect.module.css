@@ -1,0 +1,25 @@
+.root {
+  .input:focus-within {
+    outline: 2px solid
+      light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-3));
+    outline-offset: 3px;
+  }
+  .input {
+    border: 2px solid
+      light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-3));
+    background-color: var(--mantine-color-default);
+  }
+
+  .inputField {
+    &::placeholder {
+      color: light-dark(
+        var(--mantine-color-gray-6),
+        var(--mantine-color-dark-2)
+      );
+    }
+  }
+
+  .label {
+    font-weight: 700;
+  }
+}

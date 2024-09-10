@@ -1,10 +1,16 @@
 'use client';
 
 import { SessionProvider } from 'next-auth/react';
-import { Button, createTheme, MantineProvider } from '@mantine/core';
+import {
+  Button,
+  createTheme,
+  MantineProvider,
+  MultiSelect,
+} from '@mantine/core';
 import { Session } from 'next-auth';
 import { Notifications } from '@mantine/notifications';
 import classes from '@/app/custom.module.css';
+import multiSelectClasses from '@/app/styles/multiselect.module.css';
 
 const theme = createTheme({
   defaultGradient: {
@@ -15,6 +21,9 @@ const theme = createTheme({
   components: {
     Button: Button.extend({
       classNames: classes,
+    }),
+    MultiSelect: MultiSelect.extend({
+      classNames: multiSelectClasses,
     }),
   },
 });

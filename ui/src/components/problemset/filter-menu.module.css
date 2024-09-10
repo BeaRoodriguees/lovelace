@@ -1,15 +1,19 @@
 .menu {
-  padding: 4px 12px;
+  padding: 12px;
+  background-color: var(--mantine-color-dark-8);
+}
+
+.wrapper {
   display: flex;
+  gap: 4px;
   flex-direction: column;
   align-items: stretch;
-  gap: 8px;
 }
 
 .header {
   display: grid;
   grid-template-columns: 1fr auto;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   align-items: center;
 }
 
@@ -17,13 +21,20 @@
   color: var(--mantine-color-bright);
 }
 
+.close {
+  margin-bottom: 3px;
+}
+
 .description {
   grid-column-start: span 2;
   text-justify: inter-word;
+  color: var(--mantine-color-dark-2);
 }
 
 .footer {
+  margin-top: 12px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 8px;
 }
