@@ -1,7 +1,10 @@
 'use client';
 
-import { Button } from '@mantine/core';
+import { Grid } from '@mantine/core';
+import { Button, Container } from '@mantine/core';
 import Navbar, { NavbarStatus } from '@/components/navbar/navbar';
+import { Pagination } from '@mantine/core';
+
 import classes from './page.module.css';
 import { useSession } from 'next-auth/react';
 import { signOut } from 'next-auth/react';
@@ -16,23 +19,66 @@ export default function ProblemSetList() {
   console.log(session);
   console.log(token);
 
+  const data: Problem = {
+    id: 'some-id-hash',
+    status: ProblemStatus.TODO,
+    title: 'Em busca do Ouro Branco',
+    tags: ['array', 'pointer', 'eof', 'recursion'],
+    difficulty: 'hard',
+    slug: 'problem-test',
+  };
+
   return (
     <>
       <Navbar status={NavbarStatus.LOGGED}></Navbar>
-      <main className={classes.container}>
-        <div className={classes.content}>
-          <h1>PROBLEMSET</h1>
-          <p>{token}</p>
-          <p>Username: {session.data?.user.username}</p>
-          <p>id: {session.data?.user.id}</p>
-          <p>role: {session.data?.user.role}</p>
-          {/* <Button variant="filled" onClick={() => handleSummit()}>Get started</Button> */}
-          <Button
-            variant="filled"
-            onClick={() => signOut({ redirect: true, callbackUrl: '/login' })}
-          >
-            Signout
-          </Button>
+      <main>
+        <div className={classes.container}>
+          <ProblemsetHeader></ProblemsetHeader>
+          <Grid grow gutter="sm">
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <ProblemCard data={data} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <ProblemCard data={data} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <ProblemCard data={data} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <ProblemCard data={data} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <ProblemCard data={data} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <ProblemCard data={data} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <ProblemCard data={data} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <ProblemCard data={data} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <ProblemCard data={data} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <ProblemCard data={data} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <ProblemCard data={data} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <ProblemCard data={data} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <ProblemCard data={data} />
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, md: 6 }}>
+              <ProblemCard data={data} />
+            </Grid.Col>
+          </Grid>
+          <Pagination total={1} size="md" radius="md" withEdges></Pagination>
         </div>
       </main>
     </>

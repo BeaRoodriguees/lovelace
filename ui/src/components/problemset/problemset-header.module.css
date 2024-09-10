@@ -1,8 +1,10 @@
 .container {
   width: 100%;
   display: flex;
-  padding: 16px 0px;
+  padding: 12px 0px;
   align-items: center;
+  border-bottom: 2px solid
+    light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-3));
 }
 
 .actions {
