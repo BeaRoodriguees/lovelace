@@ -1,0 +1,11 @@
+.tabsList {
+  max-width: calc(60rem * var(--mantine-scale));
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+  bottom: -1px;
+
+  &::before {
+    display: none;
+  }
+}
