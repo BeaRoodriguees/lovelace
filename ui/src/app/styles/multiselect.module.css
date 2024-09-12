@@ -2,9 +2,10 @@
   .input:focus-within {
     outline: 2px solid
       light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-3));
-    outline-offset: 3px;
+    outline-offset: 2px;
   }
   .input {
+    border-radius: var(--mantine-radius-md);
     border: 2px solid
       light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-3));
     background-color: var(--mantine-color-default);

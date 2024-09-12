@@ -15,7 +15,7 @@
   &[data-variant='lovelace-secondary']:focus {
     outline: 2px solid
       light-dark(var(--mantine-color-dark-3), var(--mantine-color-dark-2));
-    outline-offset: 3px;
+    outline-offset: 2px;
   }
 
   &[data-variant='lovelace-primary'] {
@@ -33,6 +33,6 @@
   &[data-variant='lovelace-primary']:focus {
     outline: 2px solid
       light-dark(var(--mantine-color-dark-3), var(--mantine-color-dark-2));
-    outline-offset: 3px;
+    outline-offset: 2px;
   }
 }
