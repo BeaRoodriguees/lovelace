@@ -1,13 +1,13 @@
 'use client';
 
-import { Menu, Popover, Button, Text, MultiSelect } from '@mantine/core';
+import { Popover, Button, Text, MultiSelect } from '@mantine/core';
 import { IconFilter } from '@tabler/icons-react';
 import { useState } from 'react';
 import { CloseButton } from '@mantine/core';
 import classes from './filter-menu.module.css';
 
 export default function FilterDropdownManu() {
-  const [opened, setOpened] = useState<boolean>(false);
+  const [opened, setOpened] = useState<boolean>(true);
 
   function onMenuClose() {
     console.log('fechando...');
@@ -33,12 +33,14 @@ export default function FilterDropdownManu() {
       onChange={setOpened}
       closeOnClickOutside={false}
       shadow="md"
-      width={500}
+      width={520}
+      position="bottom-end"
     >
       <Popover.Target>
         <Button
           onClick={() => setOpened((o) => !o)}
           leftSection={<IconFilter stroke={2} />}
+          variant={'lovelace-dark'}
         >
           Filtros
         </Button>
@@ -55,39 +57,37 @@ export default function FilterDropdownManu() {
               className={classes.close}
               aria-label="Close menu"
             />
-            <Text
-              size="sm"
-              fw={400}
-              ta={'justify'}
-              className={classes.description}
-              lh={'xs'}
-            >
-              Para filtrar os problemas listados, escolha valores para os campos
-              abaixo. Em seguida, clique em filtrar para que as mudanças sejam
-              aplicadas à página.
+            <Text size="sm" fw={400} className={classes.description} lh={'xs'}>
+              Use os campos abaixo para filtrar os problemas listados. Selecione
+              uma ou mais opções em cada campo e clique em Filtrar para aplicar
+              os filtros.
             </Text>
           </div>
-          <MultiSelect
-            label="Dificuldade"
-            placeholder="Selecione uma ou mais dificuldades"
-            data={[
-              'Muito fácil',
-              'Fácil',
-              'Intermediário',
-              'Difícil',
-              'Muito difícil',
-            ]}
-          />
-          <MultiSelect
-            label="Tópicos"
-            placeholder="Selecione um ou mais tópicos"
-            data={problemTags}
-          />
-          <MultiSelect
-            label="Status"
-            placeholder="Selecione um ou mais opções"
-            data={['Feito', 'Para fazer', 'Errado']}
-          />
+          <div className={classes.content}>
+            <MultiSelect
+              label="Dificuldade"
+              placeholder="Selecione uma ou mais dificuldades"
+              data={[
+                'Muito fácil',
+                'Fácil',
+                'Intermediário',
+                'Difícil',
+                'Muito difícil',
+              ]}
+              classNames={{ pill: classes.pill }}
+            />
+            <MultiSelect
+              label="Tópicos"
+              placeholder="Selecione um ou mais tópicos"
+              data={problemTags}
+              searchable
+            />
+            <MultiSelect
+              label="Status"
+              placeholder="Selecione um ou mais opções"
+              data={['Feito', 'Para fazer', 'Errado']}
+            />
+          </div>
           <div className={classes.footer}>
             <Button variant={'lovelace-dark'}>Limpar</Button>
             <Button variant={'lovelace-white'}>Filtrar</Button>

@@ -1,11 +1,11 @@
 .menu {
-  padding: 12px;
+  padding: 24px 20px;
   background-color: var(--mantine-color-dark-8);
 }
 
 .wrapper {
   display: flex;
-  gap: 4px;
+  gap: 16px;
   flex-direction: column;
   align-items: stretch;
 }
@@ -13,7 +13,7 @@
 .header {
   display: grid;
   grid-template-columns: 1fr auto;
-  margin-bottom: 12px;
+  row-gap: 4px;
   align-items: center;
 }
 
@@ -31,10 +31,21 @@
   color: var(--mantine-color-dark-2);
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
 .footer {
-  margin-top: 12px;
+  margin-top: 4px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 12px;
+}
+
+.pill {
+  border: 1px solid transparent;
 }
