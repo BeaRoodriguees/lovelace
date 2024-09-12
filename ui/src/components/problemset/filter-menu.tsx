@@ -7,7 +7,7 @@ import { CloseButton } from '@mantine/core';
 import classes from './filter-menu.module.css';
 
 export default function FilterDropdownManu() {
-  const [opened, setOpened] = useState<boolean>(false);
+  const [opened, setOpened] = useState<boolean>(true);
 
   function onMenuClose() {
     console.log('fechando...');
@@ -40,7 +40,7 @@ export default function FilterDropdownManu() {
         <Button
           onClick={() => setOpened((o) => !o)}
           leftSection={<IconFilter stroke={2} />}
-          variant={'lovelace-dark'}
+          variant={'lovelace-secondary'}
         >
           Filtros
         </Button>
@@ -89,8 +89,8 @@ export default function FilterDropdownManu() {
             />
           </div>
           <div className={classes.footer}>
-            <Button variant={'lovelace-dark'}>Limpar</Button>
-            <Button variant={'lovelace-white'}>Filtrar</Button>
+            <Button variant={'lovelace-secondary'}>Limpar</Button>
+            <Button variant={'lovelace-primary'}>Filtrar</Button>
           </div>
         </div>
       </Popover.Dropdown>
