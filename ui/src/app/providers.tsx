@@ -1,10 +1,11 @@
 'use client';
 
 import { SessionProvider } from 'next-auth/react';
-import { Button, createTheme, MantineProvider } from '@mantine/core';
+import { Button, createTheme, Input, MantineProvider } from '@mantine/core';
 import { Session } from 'next-auth';
 import { Notifications } from '@mantine/notifications';
 import classes from '@/app/custom.module.css';
+import textInputClasses from '@/app/styles/input.module.css';
 
 const theme = createTheme({
   defaultGradient: {
@@ -15,6 +16,9 @@ const theme = createTheme({
   components: {
     Button: Button.extend({
       classNames: classes,
+    }),
+    Input: Input.extend({
+      classNames: textInputClasses,
     }),
   },
 });

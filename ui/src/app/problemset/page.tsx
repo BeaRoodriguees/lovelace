@@ -11,6 +11,8 @@ import { signOut } from 'next-auth/react';
 import ProblemCard from '@/components/cards/problem-card';
 import { Problem, ProblemStatus } from '@/lib/types';
 import ProblemsetHeader from '@/components/problemset/problemset-header';
+import { Router } from 'next/router';
+import { redirect } from 'next/dist/server/api-utils';
 
 export default function ProblemSetList() {
   const session = useSession();
