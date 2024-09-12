@@ -7,7 +7,7 @@ import { CloseButton } from '@mantine/core';
 import classes from './filter-menu.module.css';
 
 export default function FilterDropdownManu() {
-  const [opened, setOpened] = useState<boolean>(true);
+  const [opened, setOpened] = useState<boolean>(false);
 
   function onMenuClose() {
     console.log('fechando...');
