@@ -13,6 +13,7 @@ import { Problem, ProblemStatus } from '@/lib/types';
 import ProblemsetHeader from '@/components/problemset/problemset-header';
 import { Router } from 'next/router';
 import { redirect } from 'next/dist/server/api-utils';
+import { problemsMock } from '@/mocks/problems';
 
 export default function ProblemSetList() {
   const session = useSession();
@@ -21,14 +22,11 @@ export default function ProblemSetList() {
   console.log(session);
   console.log(token);
 
-  const data: Problem = {
-    id: 'some-id-hash',
-    status: ProblemStatus.TODO,
-    title: 'Em busca do Ouro Branco',
-    tags: ['array', 'pointer', 'eof', 'recursion'],
-    difficulty: 'hard',
-    slug: 'problem-test',
-  };
+  function getData() {
+    return problemsMock;
+  }
+
+  const data: Array<Problem> = getData();
 
   return (
     <>
@@ -37,50 +35,22 @@ export default function ProblemSetList() {
         <div className={classes.container}>
           <ProblemsetHeader></ProblemsetHeader>
           <Grid grow gutter="sm">
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <ProblemCard data={data} />
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <ProblemCard data={data} />
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <ProblemCard data={data} />
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <ProblemCard data={data} />
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <ProblemCard data={data} />
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <ProblemCard data={data} />
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <ProblemCard data={data} />
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <ProblemCard data={data} />
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <ProblemCard data={data} />
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <ProblemCard data={data} />
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <ProblemCard data={data} />
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <ProblemCard data={data} />
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <ProblemCard data={data} />
-            </Grid.Col>
-            <Grid.Col span={{ base: 12, md: 6 }}>
-              <ProblemCard data={data} />
-            </Grid.Col>
+            {data.map((problem, index) => {
+              return (
+                <Grid.Col key={index} span={{ base: 12, md: 6 }}>
+                  <ProblemCard data={problem} />
+                </Grid.Col>
+              );
+            })}
           </Grid>
-          <Pagination total={1} size="md" radius="md" withEdges></Pagination>
+          <Pagination
+            color={'gray.5'}
+            autoContrast
+            total={1}
+            size="md"
+            radius="md"
+            withEdges
+          ></Pagination>
         </div>
       </main>
     </>
