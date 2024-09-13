@@ -19,3 +19,9 @@ export type Problem = {
   difficulty: string;
   slug: string;
 };
+
+export type ProblemSetFilterData = {
+  tags: Array<string>;
+  difficulties: Array<string>;
+  status: Array<string>;
+};
