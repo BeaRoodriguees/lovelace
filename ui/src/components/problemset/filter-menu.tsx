@@ -43,7 +43,7 @@ export default function FilterDropdownMenu({
   }
 
   async function handleApplyFilters(values: ProblemSetFilterData) {
-    applyFilters(values);
+    applyFilters({ ...values, titleFragment: currentFilters.titleFragment });
     setOpened(false);
   }
 
@@ -53,7 +53,7 @@ export default function FilterDropdownMenu({
       tags: [],
       difficulties: [],
       status: [],
-      titleFragment: '',
+      titleFragment: currentFilters.titleFragment,
     });
     setOpened(false);
   }
