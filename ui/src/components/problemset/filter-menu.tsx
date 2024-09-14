@@ -10,7 +10,8 @@ import classes from './filter-menu.module.css';
 import { useForm } from '@mantine/form';
 import { ProblemSetFilterData, ProblemStatus } from '@/lib/types';
 
-interface FilterDropdownMenuProps {
+interface FilterDropdownMenuProps
+  extends React.HTMLAttributes<HTMLButtonElement> {
   currentFilters: ProblemSetFilterData;
   applyFilters: (filters: ProblemSetFilterData) => void;
   tags: Array<string>;
@@ -26,6 +27,7 @@ export default function FilterDropdownMenu({
   currentFilters,
   applyFilters,
   tags,
+  ...rest
 }: FilterDropdownMenuProps) {
   const [opened, setOpened] = useState<boolean>(false);
   const [, { toggle: toggleFocusTrap }] = useDisclosure(false);
@@ -75,6 +77,7 @@ export default function FilterDropdownMenu({
           }
           leftSection={<IconFilter stroke={2} />}
           variant={'lovelace-secondary'}
+          {...rest}
         >
           Filtros
         </Button>

@@ -22,12 +22,12 @@ export default function ProblemsetHeader(props: ProblemsetHeaderProps) {
       </Title>
       <div className={classes.actions}>
         <TextInput
-          style={{ width: '450px' }}
           radius="md"
           placeholder="Encontrar um problema"
           leftSection={<IconSearch size={16} />}
+          className={classes.search}
         ></TextInput>
-        <FilterDropdownMenu {...props} />
+        <FilterDropdownMenu className={classes.filter} {...props} />
       </div>
     </div>
   );
