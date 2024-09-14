@@ -12,7 +12,6 @@ import classes from './page.module.css';
 
 import { problemsMock, tagsMock } from '@/mocks/problems';
 import { forceDelay } from '@/lib/utils';
-import { Span } from 'next/dist/trace';
 export default function ProblemSetList() {
   // const session = useSession();
   // const token = session.data?.user?.token;
