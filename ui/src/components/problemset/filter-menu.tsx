@@ -53,6 +53,7 @@ export default function FilterDropdownMenu({
       tags: [],
       difficulties: [],
       status: [],
+      titleFragment: '',
     });
     setOpened(false);
   }

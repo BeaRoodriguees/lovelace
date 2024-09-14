@@ -24,4 +24,5 @@ export type ProblemSetFilterData = {
   tags: Array<string>;
   difficulties: Array<string>;
   status: Array<string>;
+  titleFragment: string;
 };

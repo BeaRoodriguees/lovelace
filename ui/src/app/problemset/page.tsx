@@ -29,6 +29,7 @@ export default function ProblemSetList() {
     tags: [],
     difficulties: [],
     status: [],
+    titleFragment: '',
   });
   const [problems, setProblems] = useState<Array<Problem>>(problemData);
 
@@ -42,10 +43,18 @@ export default function ProblemSetList() {
 
     // Mock filters
     setFilters(filterData);
+
     const filteredProblems = problemData.filter((problem) => {
+      const titleMatch = filterData.titleFragment
+        ? problem.title
+            .toLowerCase()
+            .includes(filterData.titleFragment.toLowerCase())
+        : true;
+
       const tagsMatch = filterData.tags.every((tag) =>
         problem.tags.includes(tag),
       );
+
       const statusMatch =
         filterData.status.length > 0
           ? filterData.status.includes(problem.status)
@@ -56,8 +65,9 @@ export default function ProblemSetList() {
           ? filterData.difficulties.includes(problem.difficulty)
           : true;
 
-      return tagsMatch && statusMatch && difficultyMatch;
+      return titleMatch && tagsMatch && statusMatch && difficultyMatch;
     });
+
     setProblems(filteredProblems);
   }
 
@@ -71,10 +81,10 @@ export default function ProblemSetList() {
             currentFilters={filters}
             tags={tagsMock}
           />
-          <Grid grow gutter="sm">
+          <Grid gutter="sm" className={classes.problems}>
             {problems.map((problem, index) => {
               return (
-                <Grid.Col key={index} span={{ base: 12, md: 6 }}>
+                <Grid.Col key={index} span={{ base: 12, lg: 6 }}>
                   <ProblemCard data={problem} />
                 </Grid.Col>
               );

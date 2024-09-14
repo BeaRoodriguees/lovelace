@@ -6,7 +6,7 @@
   border-bottom: 2px solid
     light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-3));
   justify-content: space-between;
-  min-width: 579.2px;
+  min-width: 500px;
   gap: 12px;
 }
 
