@@ -21,7 +21,7 @@ export default async function RootLayout({
   return (
     <html lang="pt-br">
       <head>
-        <ColorSchemeScript />
+        <ColorSchemeScript defaultColorScheme="dark" />
       </head>
       <body>
         <Providers session={session}>{children}</Providers>

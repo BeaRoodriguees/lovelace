@@ -4,12 +4,14 @@ import { SessionProvider } from 'next-auth/react';
 import {
   Button,
   createTheme,
+  Input,
   MantineProvider,
   MultiSelect,
 } from '@mantine/core';
 import { Session } from 'next-auth';
 import { Notifications } from '@mantine/notifications';
 import classes from '@/app/custom.module.css';
+import textInputClasses from '@/app/styles/input.module.css';
 import multiSelectClasses from '@/app/styles/multiselect.module.css';
 
 const theme = createTheme({
@@ -21,6 +23,9 @@ const theme = createTheme({
   components: {
     Button: Button.extend({
       classNames: classes,
+    }),
+    Input: Input.extend({
+      classNames: textInputClasses,
     }),
     MultiSelect: MultiSelect.extend({
       classNames: multiSelectClasses,
