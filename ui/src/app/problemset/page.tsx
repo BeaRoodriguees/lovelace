@@ -2,7 +2,7 @@
 
 // import { useSession } from 'next-auth/react';
 import { useState } from 'react';
-import { Grid } from '@mantine/core';
+import { Grid, Loader } from '@mantine/core';
 import { Pagination } from '@mantine/core';
 import Navbar, { NavbarStatus } from '@/components/navbar/navbar';
 import ProblemCard from '@/components/cards/problem-card';
@@ -11,7 +11,8 @@ import { Problem, ProblemSetFilterData } from '@/lib/types';
 import classes from './page.module.css';
 
 import { problemsMock, tagsMock } from '@/mocks/problems';
-
+import { forceDelay } from '@/lib/utils';
+import { Span } from 'next/dist/trace';
 export default function ProblemSetList() {
   // const session = useSession();
   // const token = session.data?.user?.token;
@@ -20,6 +21,7 @@ export default function ProblemSetList() {
     return problemsMock;
   }
   const problemData = getData();
+  const [loading, setLoading] = useState<boolean>(false);
   // Isso é necessário, pois a ação de paginação vai requerer informações dos
   // filtros ativos. Imagine que o usuário quer visualizar apenas os problemas
   // fáceis. Se ele clica para ir para a página 2, ele espera que ainda sejam
@@ -33,7 +35,7 @@ export default function ProblemSetList() {
   });
   const [problems, setProblems] = useState<Array<Problem>>(problemData);
 
-  function applyFilters(filterData: ProblemSetFilterData) {
+  async function applyFilters(filterData: ProblemSetFilterData) {
     // Funcionamento desejado com backend:
     // 1. UI entra em estado de loading
     // 2. Requisição é feita ao backend: novo conjunto de problemas
@@ -42,6 +44,8 @@ export default function ProblemSetList() {
     // 5. O estado de loading é removido
 
     // Mock filters
+    setLoading(true);
+    await forceDelay(700);
     setFilters(filterData);
 
     const filteredProblems = problemData.filter((problem) => {
@@ -69,6 +73,7 @@ export default function ProblemSetList() {
     });
 
     setProblems(filteredProblems);
+    setLoading(false);
   }
 
   return (
@@ -81,15 +86,22 @@ export default function ProblemSetList() {
             currentFilters={filters}
             tags={tagsMock}
           />
-          <Grid gutter="sm" className={classes.problems}>
-            {problems.map((problem, index) => {
-              return (
-                <Grid.Col key={index} span={{ base: 12, lg: 6 }}>
-                  <ProblemCard data={problem} />
-                </Grid.Col>
-              );
-            })}
-          </Grid>
+          {loading ? (
+            <Loader color="gray" size="lg" />
+          ) : problems.length > 0 ? (
+            <Grid gutter="sm" className={classes.problems}>
+              {problems.map((problem, index) => {
+                return (
+                  <Grid.Col key={index} span={{ base: 12, lg: 6 }}>
+                    <ProblemCard data={problem} />
+                  </Grid.Col>
+                );
+              })}
+            </Grid>
+          ) : (
+            <span>Não há problemas.</span>
+          )}
+
           <Pagination
             color={'gray.5'}
             autoContrast
