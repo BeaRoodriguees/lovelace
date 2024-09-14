@@ -23,6 +23,10 @@ const statusSelectData = [
   { value: ProblemStatus.TODO, label: 'Para fazer' },
 ];
 
+function CounterDisplay({ n }: { n: number }) {
+  return <span className={classes.countdisplay}>{n}</span>;
+}
+
 export default function FilterDropdownMenu({
   currentFilters,
   applyFilters,
@@ -31,6 +35,7 @@ export default function FilterDropdownMenu({
 }: FilterDropdownMenuProps) {
   const [opened, setOpened] = useState<boolean>(false);
   const [, { toggle: toggleFocusTrap }] = useDisclosure(false);
+  const [filterCounter, setFilterCounter] = useState<number>(0);
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -43,6 +48,18 @@ export default function FilterDropdownMenu({
   }
 
   async function handleApplyFilters(values: ProblemSetFilterData) {
+    let count = 0;
+    if (values.tags.length > 0) {
+      count += 1;
+    }
+    if (values.difficulties.length > 0) {
+      count += 1;
+    }
+    if (values.status.length > 0) {
+      count += 1;
+    }
+    setFilterCounter(count);
+
     applyFilters({ ...values, titleFragment: currentFilters.titleFragment });
     setOpened(false);
   }
@@ -55,6 +72,7 @@ export default function FilterDropdownMenu({
       status: [],
       titleFragment: currentFilters.titleFragment,
     });
+    setFilterCounter(0);
     setOpened(false);
   }
 
@@ -77,6 +95,9 @@ export default function FilterDropdownMenu({
             })
           }
           leftSection={<IconFilter stroke={2} />}
+          rightSection={
+            filterCounter ? <CounterDisplay n={filterCounter} /> : null
+          }
           variant={'lovelace-secondary'}
           {...rest}
         >
