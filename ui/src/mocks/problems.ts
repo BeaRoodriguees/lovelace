@@ -6,7 +6,7 @@ export const problemsMock: Array<Problem> = [
     status: ProblemStatus.TODO,
     title: 'Two Sum',
     tags: ['array', 'hashmap', 'recursion'],
-    difficulty: 'easy',
+    difficulty: 'Fácil',
     slug: 'two-sum',
   },
   {
@@ -14,7 +14,7 @@ export const problemsMock: Array<Problem> = [
     status: ProblemStatus.TODO,
     title: 'Longest Substring Without Repeating Characters',
     tags: ['string', 'sliding window'],
-    difficulty: 'medium',
+    difficulty: 'Intermediário',
     slug: 'longest-substring-without-repeating-characters',
   },
   {
@@ -30,7 +30,7 @@ export const problemsMock: Array<Problem> = [
     status: ProblemStatus.ERROR,
     title: 'Valid Parentheses',
     tags: ['stack', 'string'],
-    difficulty: 'easy',
+    difficulty: 'Muito Fácil',
     slug: 'valid-parentheses',
   },
   {
@@ -38,7 +38,7 @@ export const problemsMock: Array<Problem> = [
     status: ProblemStatus.DONE,
     title: 'Merge Intervals',
     tags: ['array', 'sorting'],
-    difficulty: 'medium',
+    difficulty: 'Intermediário',
     slug: 'merge-intervals',
   },
   {
@@ -46,7 +46,7 @@ export const problemsMock: Array<Problem> = [
     status: ProblemStatus.TODO,
     title: 'Em busca do Ouro Branco',
     tags: ['array', 'pointer', 'eof', 'recursion'],
-    difficulty: 'hard',
+    difficulty: 'Difícil',
     slug: 'em-busca-do-ouro-branco',
   },
   {
@@ -54,7 +54,7 @@ export const problemsMock: Array<Problem> = [
     status: ProblemStatus.TODO,
     title: 'Reverse Linked List',
     tags: ['linked list', 'recursion'],
-    difficulty: 'easy',
+    difficulty: 'Fácil',
     slug: 'reverse-linked-list',
   },
   {
@@ -62,7 +62,7 @@ export const problemsMock: Array<Problem> = [
     status: ProblemStatus.DONE,
     title: 'Find Minimum in Rotated Sorted Array',
     tags: ['array', 'binary search'],
-    difficulty: 'medium',
+    difficulty: 'Difícil',
     slug: 'find-minimum-in-rotated-sorted-array',
   },
   {
@@ -70,7 +70,7 @@ export const problemsMock: Array<Problem> = [
     status: ProblemStatus.ERROR,
     title: 'Word Ladder',
     tags: ['graph', 'bfs'],
-    difficulty: 'hard',
+    difficulty: 'Muito Difícil',
     slug: 'word-ladder',
   },
   {
@@ -78,7 +78,7 @@ export const problemsMock: Array<Problem> = [
     status: ProblemStatus.TODO,
     title: 'Course Schedule',
     tags: ['graph', 'topological sort'],
-    difficulty: 'medium',
+    difficulty: 'Intermediário',
     slug: 'course-schedule',
   },
   {
@@ -86,7 +86,7 @@ export const problemsMock: Array<Problem> = [
     status: ProblemStatus.DONE,
     title: 'Climbing Stairs',
     tags: ['dynamic programming'],
-    difficulty: 'easy',
+    difficulty: 'Muito Fácil',
     slug: 'climbing-stairs',
   },
   {
@@ -94,7 +94,11 @@ export const problemsMock: Array<Problem> = [
     status: ProblemStatus.ERROR,
     title: 'Trapping Rain Water',
     tags: ['array', 'two pointers'],
-    difficulty: 'hard',
+    difficulty: 'Muito Fácil',
     slug: 'trapping-rain-water',
   },
 ];
+
+export const tagsMock = Array.from(
+  new Set(problemsMock.flatMap((problem) => problem.tags)),
+);

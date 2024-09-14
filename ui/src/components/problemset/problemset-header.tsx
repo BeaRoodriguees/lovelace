@@ -3,11 +3,18 @@
 import classes from './problemset-header.module.css';
 
 import { TextInput } from '@mantine/core';
-import { Button } from '@mantine/core';
 import { Title } from '@mantine/core';
-import { IconFilter, IconSearch } from '@tabler/icons-react';
+import { IconSearch } from '@tabler/icons-react';
+import FilterDropdownMenu from './filter-menu';
+import { ProblemSetFilterData } from '@/lib/types';
 
-export default function ProblemsetHeader() {
+interface ProblemsetHeaderProps {
+  currentFilters: ProblemSetFilterData;
+  applyFilters: (filters: ProblemSetFilterData) => void;
+  tags: Array<string>;
+}
+
+export default function ProblemsetHeader(props: ProblemsetHeaderProps) {
   return (
     <div className={classes.container}>
       <Title order={2} textWrap="wrap">
@@ -20,14 +27,7 @@ export default function ProblemsetHeader() {
           placeholder="Encontrar um problema"
           leftSection={<IconSearch size={16} />}
         ></TextInput>
-        <Button
-          variant="lovelace-dark"
-          justify="center"
-          leftSection={<IconFilter size={16} />}
-          radius="md"
-        >
-          Filtrar
-        </Button>
+        <FilterDropdownMenu {...props} />
       </div>
     </div>
   );
