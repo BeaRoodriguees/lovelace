@@ -141,7 +141,10 @@ export default function Problem() {
                           <span>Tópicos: {problem.topics.join(', ')}</span>
                           <span>
                             Tempo limite:{' '}
-                            <span style={{ fontWeight: 800 }}>
+                            <span
+                              style={{ fontWeight: 800 }}
+                              aria-label={problem.timeLimit + ' segundos'}
+                            >
                               {problem.timeLimit}s{' '}
                             </span>
                             | Memória limite:{' '}
@@ -291,9 +294,7 @@ export default function Problem() {
                               Envie um arquivo
                             </Text>
                             <Text size="sm" c="dimmed" inline mt={7}>
-                              Arraste e solte o arquivo para submetê-lo.
-                              Aceitaremos apenas arquivos da linguagem escolhida
-                              acima
+                              Selecione um ou solte o arquivo para submetê-lo.
                             </Text>
                           </Group>
                         </div>

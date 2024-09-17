@@ -8,6 +8,10 @@
   }
 }
 
+.tab {
+  border-bottom: 1px solid var(--mantine-color-dark-9);
+}
+
 .disabled {
   border: 1px solid gray;
   border-radius: 12px;
