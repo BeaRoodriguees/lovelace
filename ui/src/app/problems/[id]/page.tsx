@@ -219,17 +219,18 @@ export default function Problem(props: Partial<DropzoneProps>) {
                 maxSize={5 * 1024 ** 2}
                 styles={{
                   root: {
-                    border: '2px dashed white', // Change the border to white
-                    backgroundColor: 'transparent', // Optionally, ensure the background stays transparent
+                    border: '2px dashed white',
+                    backgroundColor: 'transparent',
+                    borderRadius: '12px',
+                    padding: '20px',
                   },
                 }}
                 {...props}
               >
                 <Group
                   justify="center"
-                  gap="xl"
-                  mih={220}
-                  style={{ pointerEvents: 'none' }}
+                  gap="md"
+                  style={{ pointerEvents: 'none', minHeight: '20px' }}
                 >
                   <Dropzone.Accept>
                     <IconCloudUpload
@@ -286,6 +287,11 @@ export default function Problem(props: Partial<DropzoneProps>) {
                 <Title order={4} ta="center">
                   Suas Últimas Submissões
                 </Title>
+                <Flex
+                  justify="space-between"
+                  align="flex-end"
+                  style={{ marginBottom: '1rem' }}
+                ></Flex>
                 <Table highlightOnHover>
                   <thead>
                     <tr>
@@ -296,40 +302,40 @@ export default function Problem(props: Partial<DropzoneProps>) {
                   </thead>
                   <tbody>
                     <tr>
-                      <td style={{ textAlign: 'center' }}>
+                      <th style={{ textAlign: 'center' }}>
                         <IconBrandCpp size={24} />
-                      </td>
-                      <td style={{ textAlign: 'center' }}>
+                      </th>
+                      <th style={{ textAlign: 'center' }}>
                         13/08/2019 às 21:15:28
-                      </td>
-                      <td style={{ textAlign: 'center' }}>AC</td>
+                      </th>
+                      <th style={{ textAlign: 'center' }}>AC</th>
                     </tr>
                     <tr>
-                      <td style={{ textAlign: 'center' }}>
+                      <th style={{ textAlign: 'center' }}>
                         <IconBrandPython size={24} />
-                      </td>
-                      <td style={{ textAlign: 'center' }}>
+                      </th>
+                      <th style={{ textAlign: 'center' }}>
                         13/08/2019 às 21:15:28
-                      </td>
-                      <td style={{ textAlign: 'center' }}>WA</td>
+                      </th>
+                      <th style={{ textAlign: 'center' }}>WA</th>
                     </tr>
                     <tr>
-                      <td style={{ textAlign: 'center' }}>
+                      <th style={{ textAlign: 'center' }}>
                         <IconBrandNodejs size={24} />
-                      </td>
-                      <td style={{ textAlign: 'center' }}>
+                      </th>
+                      <th style={{ textAlign: 'center' }}>
                         13/08/2019 às 21:15:28
-                      </td>
-                      <td style={{ textAlign: 'center' }}>TL</td>
+                      </th>
+                      <th style={{ textAlign: 'center' }}>TL</th>
                     </tr>
                     <tr>
-                      <td style={{ textAlign: 'center' }}>
+                      <th style={{ textAlign: 'center' }}>
                         <IconLetterC size={24} />
-                      </td>
-                      <td style={{ textAlign: 'center' }}>
+                      </th>
+                      <th style={{ textAlign: 'center' }}>
                         13/08/2019 às 21:15:28
-                      </td>
-                      <td style={{ textAlign: 'center' }}>ER</td>
+                      </th>
+                      <th style={{ textAlign: 'center' }}>ER</th>
                     </tr>
                   </tbody>
                 </Table>
