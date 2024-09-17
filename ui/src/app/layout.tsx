@@ -20,7 +20,7 @@ export default async function RootLayout({
 }) {
   const session = await getServerSession(authConfig);
   return (
-    <html lang="pt-br">
+    <html lang="pt-BR">
       <head>
         <ColorSchemeScript defaultColorScheme="dark" />
       </head>

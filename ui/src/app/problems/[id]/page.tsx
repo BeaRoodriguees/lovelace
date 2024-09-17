@@ -122,106 +122,102 @@ export default function Problem() {
             <Tabs.Panel value="description" mt={'xl'} mx={'xl'}>
               <Grid gutter={'xs'}>
                 <Grid.Col span={8}>
-                  <Flex justify={'center'}>
-                    <Box>
-                      <div>
-                        <Title order={1}>{problem.title}</Title>
-                        <Flex
-                          justify="space-between"
-                          align="flex-end"
-                          style={{ marginBottom: '1rem' }}
-                        >
+                  <Box>
+                    <div>
+                      <Title order={1}>{problem.title}</Title>
+                      <Flex
+                        justify="space-between"
+                        align="flex-end"
+                        style={{ marginBottom: '1rem' }}
+                      >
+                        <span>
+                          Criado por{' '}
+                          <span style={{ fontWeight: 800 }}>
+                            {problem.author}
+                          </span>{' '}
+                          em {problem.createdAt}
+                        </span>
+                        <Flex direction={'column'}>
+                          <span>Tópicos: {problem.topics.join(', ')}</span>
                           <span>
-                            Criado por{' '}
+                            Tempo limite:{' '}
                             <span style={{ fontWeight: 800 }}>
-                              {problem.author}
-                            </span>{' '}
-                            em {problem.createdAt}
-                          </span>
-                          <Flex direction={'column'}>
-                            <span>Tópicos: {problem.topics.join(', ')}</span>
-                            <span>
-                              Tempo limite:{' '}
-                              <span style={{ fontWeight: 800 }}>
-                                {problem.timeLimit}s{' '}
-                              </span>
-                              | Memória limite:{' '}
-                              <span style={{ fontWeight: 800 }}>
-                                {problem.memoryLimit} MB
-                              </span>{' '}
+                              {problem.timeLimit}s{' '}
                             </span>
-                          </Flex>
+                            | Memória limite:{' '}
+                            <span style={{ fontWeight: 800 }}>
+                              {problem.memoryLimit} MB
+                            </span>{' '}
+                          </span>
                         </Flex>
-                      </div>
-                      <Divider my="md" />
+                      </Flex>
+                    </div>
+                    <Divider my="md" />
 
-                      {problem.description
-                        .split('\n')
-                        .map((paragraph, index) => (
-                          <Text key={index} pt={'xs'} ta={'justify'}>
-                            {paragraph}
-                          </Text>
-                        ))}
+                    {problem.description.split('\n').map((paragraph, index) => (
+                      <Text key={index} pt={'xs'} ta={'justify'}>
+                        {paragraph}
+                      </Text>
+                    ))}
 
-                      {/* Entry */}
-                      <Title pt={'sm'} order={2}>
-                        Entrada
-                      </Title>
-                      <Text>{problem.input}</Text>
+                    {/* Entry */}
+                    <Title pt={'sm'} order={2}>
+                      Entrada
+                    </Title>
+                    <Text>{problem.input}</Text>
 
-                      {/* Output */}
-                      <Title pt={'sm'} order={2}>
-                        Saída
-                      </Title>
-                      <Text>Saída: {problem.output}</Text>
+                    {/* Output */}
+                    <Title pt={'sm'} order={2}>
+                      Saída
+                    </Title>
+                    <Text>{problem.output}</Text>
 
-                      {/* Examples */}
-                      <Title pt={'md'} order={2}>
-                        Casos de teste
-                      </Title>
-                      <Table>
-                        <Table.Thead>
-                          <Table.Tr>
-                            <Table.Th>Exemplo de Entrada</Table.Th>
-                            <Table.Th>Exemplo de Saída</Table.Th>
-                          </Table.Tr>
-                        </Table.Thead>
-                        <Table.Tbody>
-                          {problem.testcases.map((testcase) => {
-                            const countLinesOfInput =
-                              testcase.input.split('\n').length;
-                            const countLinesOfOutput =
-                              testcase.output.split('\n').length;
-                            const maxLines = Math.max(
-                              countLinesOfInput,
-                              countLinesOfOutput,
-                            );
+                    {/* Examples */}
+                    <Title pt={'md'} order={2}>
+                      Casos de teste
+                    </Title>
+                    <Table>
+                      <Table.Thead>
+                        <Table.Tr>
+                          <Table.Th>Exemplo de Entrada</Table.Th>
+                          <Table.Th>Exemplo de Saída</Table.Th>
+                        </Table.Tr>
+                      </Table.Thead>
+                      <Table.Tbody>
+                        {problem.testcases.map((testcase) => {
+                          const countLinesOfInput =
+                            testcase.input.split('\n').length;
+                          const countLinesOfOutput =
+                            testcase.output.split('\n').length;
+                          const maxLines = Math.max(
+                            countLinesOfInput,
+                            countLinesOfOutput,
+                          );
 
-                            return (
-                              <Table.Tr key={testcase.id}>
-                                <Table.Td>
-                                  <Code block>
-                                    {testcase.input +
-                                      '\n'.repeat(
-                                        maxLines - countLinesOfInput + 1,
-                                      )}
-                                  </Code>
-                                </Table.Td>
-                                <Table.Td>
-                                  <Code block>
-                                    {testcase.output +
-                                      '\n'.repeat(
-                                        maxLines - countLinesOfOutput + 1,
-                                      )}
-                                  </Code>
-                                </Table.Td>
-                              </Table.Tr>
-                            );
-                          })}
-                        </Table.Tbody>
-                      </Table>
-                    </Box>
-                  </Flex>
+                          return (
+                            <Table.Tr key={testcase.id}>
+                              <Table.Td>
+                                <Code block>
+                                  {testcase.input +
+                                    '\n'.repeat(
+                                      maxLines - countLinesOfInput + 1,
+                                    )}
+                                </Code>
+                              </Table.Td>
+                              <Table.Td>
+                                <Code block>
+                                  {testcase.output +
+                                    '\n'.repeat(
+                                      maxLines - countLinesOfOutput + 1,
+                                    )}
+                                </Code>
+                              </Table.Td>
+                            </Table.Tr>
+                          );
+                        })}
+                      </Table.Tbody>
+                    </Table>
+                  </Box>
                 </Grid.Col>
                 <Grid.Col span={4}>
                   <Container>
@@ -341,34 +337,46 @@ export default function Problem() {
                         <tbody>
                           <tr>
                             <th style={{ textAlign: 'center' }}>
-                              <IconBrandCpp size={24} />
+                              <IconBrandCpp
+                                aria-label="linguagem c++"
+                                size={24}
+                              />
                             </th>
                             <th style={{ textAlign: 'center' }}>
                               13/08/2019 às 21:15:28
                             </th>
                             <th style={{ textAlign: 'center' }}>AC</th>
                           </tr>
+
                           <tr>
                             <th style={{ textAlign: 'center' }}>
-                              <IconBrandPython size={24} />
+                              <IconBrandPython
+                                aria-label="linguagem python"
+                                size={24}
+                              />
                             </th>
                             <th style={{ textAlign: 'center' }}>
                               13/08/2019 às 21:15:28
                             </th>
                             <th style={{ textAlign: 'center' }}>WA</th>
                           </tr>
+
                           <tr>
                             <th style={{ textAlign: 'center' }}>
-                              <IconBrandNodejs size={24} />
+                              <IconBrandNodejs
+                                aria-label="linguagem javascript"
+                                size={24}
+                              />
                             </th>
                             <th style={{ textAlign: 'center' }}>
                               13/08/2019 às 21:15:28
                             </th>
                             <th style={{ textAlign: 'center' }}>TL</th>
                           </tr>
+
                           <tr>
                             <th style={{ textAlign: 'center' }}>
-                              <IconLetterC size={24} />
+                              <IconLetterC aria-label="linguagem c" size={24} />
                             </th>
                             <th style={{ textAlign: 'center' }}>
                               13/08/2019 às 21:15:28
