@@ -16,9 +16,9 @@ import {
   Select,
   Grid,
 } from '@mantine/core';
-import { Dropzone, DropzoneProps } from '@mantine/dropzone';
+import { Dropzone } from '@mantine/dropzone';
 import { useSession } from 'next-auth/react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { problemMock } from '@/mocks/problem';
 import {
   IconNews,
@@ -30,6 +30,7 @@ import {
   IconCloudUpload,
 } from '@tabler/icons-react';
 import classes from './page.module.css';
+import { notifications } from '@mantine/notifications';
 
 export interface TestCase {
   id: number;
@@ -58,10 +59,18 @@ export interface ProblemDetail {
   //languages: Language[];
 }
 
-export default function Problem(props: Partial<DropzoneProps>) {
+enum LanguageEnum {
+  C = 'c',
+  CPP = 'cpp',
+  JAVASCRIPT = 'js',
+  PYTHON = 'py',
+}
+
+export default function Problem() {
   const session = useSession();
   const user = session.data?.user;
   const openRef = useRef<() => void>(null);
+  const [language, setLanguage] = useState<LanguageEnum | null>(null);
 
   const problem: ProblemDetail = problemMock;
 
@@ -217,7 +226,7 @@ export default function Problem(props: Partial<DropzoneProps>) {
                 <Grid.Col span={4}>
                   <Container>
                     <Group justify="center" mt="md">
-                      <Title order={4}>Envie uma solução</Title>
+                      <Text size="lg">Envie uma solução</Text>
                     </Group>
                     <Flex
                       justify="space-between"
@@ -226,7 +235,8 @@ export default function Problem(props: Partial<DropzoneProps>) {
                     ></Flex>
                     <Select
                       placeholder="Escolha uma linguagem"
-                      data={['C', 'C++', 'Javascript', 'Python']}
+                      data={Object.keys(LanguageEnum)}
+                      onChange={(value) => setLanguage(value as LanguageEnum)}
                     />
                     <Flex
                       justify="space-between"
@@ -234,20 +244,14 @@ export default function Problem(props: Partial<DropzoneProps>) {
                       style={{ marginBottom: '1rem' }}
                     ></Flex>
                     <Dropzone
+                      disabled={language == null}
+                      className={
+                        language == null ? classes.disabled : classes.dropzone
+                      }
                       openRef={openRef}
                       onDrop={(files) => console.log('accepted files', files)}
                       onReject={(files) => console.log('rejected files', files)}
                       maxSize={5 * 1024 ** 2}
-                      styles={{
-                        root: {
-                          border: '1px solid gray',
-                          backgroundColor: 'transparent',
-                          borderRadius: '12px',
-                          padding: '20px',
-                          cursor: 'grab',
-                        },
-                      }}
-                      {...props}
                     >
                       <Group
                         justify="center"
@@ -300,11 +304,20 @@ export default function Problem(props: Partial<DropzoneProps>) {
                       </Group>
                     </Dropzone>
 
-                    <Group justify="center" mt="md">
-                      <Button onClick={() => openRef.current?.()}>
-                        Submeter
-                      </Button>
-                    </Group>
+                    <Button
+                      w={'100%'}
+                      mt={'sm'}
+                      variant="gradient"
+                      disabled={language == null}
+                      onClick={() =>
+                        notifications.show({
+                          title: 'Sua submissão foi submetida!',
+                          message: 'Aguarde o resultado.',
+                        })
+                      }
+                    >
+                      Submeter
+                    </Button>
                     <Divider my="md" />
 
                     {/* Last Submissions */}
