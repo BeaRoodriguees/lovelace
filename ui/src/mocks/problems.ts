@@ -4,10 +4,10 @@ export const problemsMock: Array<Problem> = [
   {
     id: '1',
     status: ProblemStatus.TODO,
-    title: 'Two Sum',
-    tags: ['array', 'hashmap', 'recursion'],
-    difficulty: 'Fácil',
-    slug: 'two-sum',
+    title: 'Em busca do Ouro Branco',
+    tags: ['array', 'pointer', 'eof', 'recursion'],
+    difficulty: 'Difícil',
+    slug: 'em-busca-do-ouro-branco',
   },
   {
     id: '2',
@@ -44,10 +44,10 @@ export const problemsMock: Array<Problem> = [
   {
     id: '6',
     status: ProblemStatus.TODO,
-    title: 'Em busca do Ouro Branco',
-    tags: ['array', 'pointer', 'eof', 'recursion'],
-    difficulty: 'Difícil',
-    slug: 'em-busca-do-ouro-branco',
+    title: 'Two Sum',
+    tags: ['array', 'hashmap', 'recursion'],
+    difficulty: 'Fácil',
+    slug: 'two-sum',
   },
   {
     id: '7',
