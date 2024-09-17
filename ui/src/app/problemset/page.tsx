@@ -3,7 +3,7 @@
 // import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { Grid, Loader } from '@mantine/core';
-import { Pagination } from '@mantine/core';
+// import { Pagination } from '@mantine/core';
 import Navbar, { NavbarStatus } from '@/components/navbar/navbar';
 import ProblemCard from '@/components/cards/problem-card';
 import ProblemsetHeader from '@/components/problemset/problemset-header';
@@ -100,7 +100,7 @@ export default function ProblemSetList() {
           ) : (
             <span>Não há problemas.</span>
           )}
-
+          {/*
           <Pagination
             color={'gray.5'}
             autoContrast
@@ -108,7 +108,7 @@ export default function ProblemSetList() {
             size="md"
             radius="md"
             withEdges
-          ></Pagination>
+          ></Pagination> */}
         </div>
       </main>
     </>
