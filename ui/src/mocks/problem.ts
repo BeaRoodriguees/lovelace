@@ -1,7 +1,7 @@
 import { ProblemDetail } from '@/app/problems/[id]/page';
 
 export const problemMock: ProblemDetail = {
-  id: 1,
+  id: 'em-busca-do-ouro-branco',
   title: 'Em Busca do Ouro Branco',
   description: `
   Bea está desejando comer um Ouro Branco, e o único lugar perto dela que vende é a Banquinha do Paes, que fica do outro lado de uma enorme muralha, que se estende infinitamente para os dois lados. Ela sabe que há uma porta e que está a X passos de sua posição original. Só que há um problema, Bea não sabe a quantos passos a porta está dela e nem se está a sua esquerda ou direita. Porém, ela pensou uma estratégia para encontrar a porta.\n

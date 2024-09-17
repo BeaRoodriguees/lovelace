@@ -44,7 +44,7 @@ export interface Language {
 }
 
 export interface ProblemDetail {
-  id: number;
+  id: string;
   title: string;
   description: string;
   timeLimit: number;
@@ -69,283 +69,309 @@ export default function Problem(props: Partial<DropzoneProps>) {
     <>
       {user == undefined && <Navbar status={NavbarStatus.HOME} />}
       {user && <Navbar status={NavbarStatus.LOGGED} />}
-      <Tabs
-        defaultValue={'description'}
-        variant="outline"
-        classNames={{
-          root: classes.tabs,
-          list: classes.tabsList,
-          tab: classes.tab,
+      <Group
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
-        mt={'xl'}
       >
-        <Box ml={32} mr={32}>
-          <Tabs.List>
-            <Tabs.Tab
-              value="description"
-              leftSection={<IconNews size={'18'} />}
-            >
-              Descrição
-            </Tabs.Tab>
-          </Tabs.List>
-        </Box>
-        <Divider mb={'xl'} />
-        <Tabs.Panel value="description" mt={'sm'} mx={'xl'}>
-          <Grid gutter={'xs'}>
-            <Grid.Col span={8}>
-              <Container size={'lg'}>
-                <Flex justify={'center'}>
-                  <Box>
-                    <div>
-                      <Title order={1}>{problem.title}</Title>
+        <Box
+          style={{
+            maxWidth: '1500px',
+          }}
+        >
+          <Tabs
+            defaultValue={'description'}
+            variant="outline"
+            classNames={{
+              root: classes.tabs,
+              list: classes.tabsList,
+              tab: classes.tab,
+            }}
+            mt={'xl'}
+          >
+            <Box className="boxtablist">
+              <Tabs.List>
+                <Tabs.Tab
+                  value="description"
+                  leftSection={<IconNews size={'18'} />}
+                >
+                  Descrição
+                </Tabs.Tab>
+              </Tabs.List>
+            </Box>
+
+            <Divider
+              w={'99vw'}
+              style={{
+                position: 'absolute',
+                left: '0px',
+                zIndex: -1,
+              }}
+            />
+
+            <Tabs.Panel value="description" mt={'xl'} mx={'xl'}>
+              <Grid gutter={'xs'}>
+                <Grid.Col span={8}>
+                  <Flex justify={'center'}>
+                    <Box>
+                      <div>
+                        <Title order={1}>{problem.title}</Title>
+                        <Flex
+                          justify="space-between"
+                          align="flex-end"
+                          style={{ marginBottom: '1rem' }}
+                        >
+                          <span>
+                            Criado por{' '}
+                            <span style={{ fontWeight: 800 }}>
+                              {problem.author}
+                            </span>{' '}
+                            em {problem.createdAt}
+                          </span>
+                          <Flex direction={'column'}>
+                            <span>Tópicos: {problem.topics.join(', ')}</span>
+                            <span>
+                              Tempo limite:{' '}
+                              <span style={{ fontWeight: 800 }}>
+                                {problem.timeLimit}s{' '}
+                              </span>
+                              | Memória limite:{' '}
+                              <span style={{ fontWeight: 800 }}>
+                                {problem.memoryLimit} MB
+                              </span>{' '}
+                            </span>
+                          </Flex>
+                        </Flex>
+                      </div>
+                      <Divider my="md" />
+
+                      {problem.description
+                        .split('\n')
+                        .map((paragraph, index) => (
+                          <Text key={index} pt={'xs'} ta={'justify'}>
+                            {paragraph}
+                          </Text>
+                        ))}
+
+                      {/* Entry */}
+                      <Title pt={'sm'} order={2}>
+                        Entrada
+                      </Title>
+                      <Text>{problem.input}</Text>
+
+                      {/* Output */}
+                      <Title pt={'sm'} order={2}>
+                        Saída
+                      </Title>
+                      <Text>Saída: {problem.output}</Text>
+
+                      {/* Examples */}
+                      <Title pt={'md'} order={2}>
+                        Casos de teste
+                      </Title>
+                      <Table>
+                        <Table.Thead>
+                          <Table.Tr>
+                            <Table.Th>Exemplo de Entrada</Table.Th>
+                            <Table.Th>Exemplo de Saída</Table.Th>
+                          </Table.Tr>
+                        </Table.Thead>
+                        <Table.Tbody>
+                          {problem.testcases.map((testcase) => {
+                            const countLinesOfInput =
+                              testcase.input.split('\n').length;
+                            const countLinesOfOutput =
+                              testcase.output.split('\n').length;
+                            const maxLines = Math.max(
+                              countLinesOfInput,
+                              countLinesOfOutput,
+                            );
+
+                            return (
+                              <Table.Tr key={testcase.id}>
+                                <Table.Td>
+                                  <Code block>
+                                    {testcase.input +
+                                      '\n'.repeat(
+                                        maxLines - countLinesOfInput + 1,
+                                      )}
+                                  </Code>
+                                </Table.Td>
+                                <Table.Td>
+                                  <Code block>
+                                    {testcase.output +
+                                      '\n'.repeat(
+                                        maxLines - countLinesOfOutput + 1,
+                                      )}
+                                  </Code>
+                                </Table.Td>
+                              </Table.Tr>
+                            );
+                          })}
+                        </Table.Tbody>
+                      </Table>
+                    </Box>
+                  </Flex>
+                </Grid.Col>
+                <Grid.Col span={4}>
+                  <Container>
+                    <Group justify="center" mt="md">
+                      <Title order={4}>Envie uma solução</Title>
+                    </Group>
+                    <Flex
+                      justify="space-between"
+                      align="flex-end"
+                      style={{ marginBottom: '1rem' }}
+                    ></Flex>
+                    <Select
+                      placeholder="Escolha uma linguagem"
+                      data={['C', 'C++', 'Javascript', 'Python']}
+                    />
+                    <Flex
+                      justify="space-between"
+                      align="flex-end"
+                      style={{ marginBottom: '1rem' }}
+                    ></Flex>
+                    <Dropzone
+                      openRef={openRef}
+                      onDrop={(files) => console.log('accepted files', files)}
+                      onReject={(files) => console.log('rejected files', files)}
+                      maxSize={5 * 1024 ** 2}
+                      styles={{
+                        root: {
+                          border: '1px solid gray',
+                          backgroundColor: 'transparent',
+                          borderRadius: '12px',
+                          padding: '20px',
+                          cursor: 'grab',
+                        },
+                      }}
+                      {...props}
+                    >
+                      <Group
+                        justify="center"
+                        gap="md"
+                        style={{ pointerEvents: 'none', minHeight: '20px' }}
+                      >
+                        <Dropzone.Accept>
+                          <IconCloudUpload
+                            style={{
+                              width: rem(52),
+                              height: rem(52),
+                              color: 'var(--mantine-color-blue-6)',
+                            }}
+                            stroke={1.5}
+                          />
+                        </Dropzone.Accept>
+                        <Dropzone.Reject>
+                          <IconX
+                            style={{
+                              width: rem(52),
+                              height: rem(52),
+                              color: 'var(--mantine-color-red-6)',
+                            }}
+                            stroke={1.5}
+                          />
+                        </Dropzone.Reject>
+                        <Dropzone.Idle>
+                          <IconCloudUpload
+                            style={{
+                              width: rem(52),
+                              height: rem(52),
+                              color: 'var(--mantine-color-dimmed)',
+                            }}
+                            stroke={1.5}
+                          />
+                        </Dropzone.Idle>
+
+                        <div>
+                          <Group justify="center" mt="md">
+                            <Text size="xl" inline>
+                              Envie um arquivo
+                            </Text>
+                            <Text size="sm" c="dimmed" inline mt={7}>
+                              Arraste e solte o arquivo para submetê-lo.
+                              Aceitaremos apenas arquivos da linguagem escolhida
+                              acima
+                            </Text>
+                          </Group>
+                        </div>
+                      </Group>
+                    </Dropzone>
+
+                    <Group justify="center" mt="md">
+                      <Button onClick={() => openRef.current?.()}>
+                        Submeter
+                      </Button>
+                    </Group>
+                    <Divider my="md" />
+
+                    {/* Last Submissions */}
+                    <Box>
+                      <Title order={4} ta="center">
+                        Suas Últimas Submissões
+                      </Title>
                       <Flex
                         justify="space-between"
                         align="flex-end"
                         style={{ marginBottom: '1rem' }}
-                      >
-                        <span>
-                          Criado por{' '}
-                          <span style={{ fontWeight: 800 }}>
-                            {problem.author}
-                          </span>{' '}
-                          em {problem.createdAt}
-                        </span>
-                        <Flex direction={'column'}>
-                          <span>Tópicos: {problem.topics.join(', ')}</span>
-                          <span>
-                            Tempo limite:{' '}
-                            <span style={{ fontWeight: 800 }}>
-                              {problem.timeLimit}s{' '}
-                            </span>
-                            | Memória limite:{' '}
-                            <span style={{ fontWeight: 800 }}>
-                              {problem.memoryLimit} MB
-                            </span>{' '}
-                          </span>
-                        </Flex>
-                      </Flex>
-                    </div>
-                    <Divider my="md" />
-
-                    {problem.description.split('\n').map((paragraph, index) => (
-                      <Text key={index} pt={'xs'} ta={'justify'}>
-                        {paragraph}
-                      </Text>
-                    ))}
-
-                    {/* Entry */}
-                    <Title pt={'sm'} order={2}>
-                      Entrada
-                    </Title>
-                    <Text>{problem.input}</Text>
-
-                    {/* Output */}
-                    <Title pt={'sm'} order={2}>
-                      Saída
-                    </Title>
-                    <Text>Saída: {problem.output}</Text>
-
-                    {/* Examples */}
-                    <Title pt={'md'} order={2}>
-                      Casos de teste
-                    </Title>
-                    <Table>
-                      <Table.Thead>
-                        <Table.Tr>
-                          <Table.Th>Exemplo de Entrada</Table.Th>
-                          <Table.Th>Exemplo de Saída</Table.Th>
-                        </Table.Tr>
-                      </Table.Thead>
-                      <Table.Tbody>
-                        {problem.testcases.map((testcase) => {
-                          const countLinesOfInput =
-                            testcase.input.split('\n').length;
-                          const countLinesOfOutput =
-                            testcase.output.split('\n').length;
-                          const maxLines = Math.max(
-                            countLinesOfInput,
-                            countLinesOfOutput,
-                          );
-
-                          return (
-                            <Table.Tr key={testcase.id}>
-                              <Table.Td>
-                                <Code block>
-                                  {testcase.input +
-                                    '\n'.repeat(
-                                      maxLines - countLinesOfInput + 1,
-                                    )}
-                                </Code>
-                              </Table.Td>
-                              <Table.Td>
-                                <Code block>
-                                  {testcase.output +
-                                    '\n'.repeat(
-                                      maxLines - countLinesOfOutput + 1,
-                                    )}
-                                </Code>
-                              </Table.Td>
-                            </Table.Tr>
-                          );
-                        })}
-                      </Table.Tbody>
-                    </Table>
-                  </Box>
-                </Flex>
-              </Container>
-            </Grid.Col>
-            <Grid.Col span={4}>
-              <Container>
-                <Group justify="center" mt="md">
-                  <Title order={4}>Envie uma solução</Title>
-                </Group>
-                <Flex
-                  justify="space-between"
-                  align="flex-end"
-                  style={{ marginBottom: '1rem' }}
-                ></Flex>
-                <Select
-                  placeholder="Escolha uma linguagem"
-                  data={['C', 'C++', 'Javascript', 'Python']}
-                />
-                <Flex
-                  justify="space-between"
-                  align="flex-end"
-                  style={{ marginBottom: '1rem' }}
-                ></Flex>
-                <Dropzone
-                  openRef={openRef}
-                  onDrop={(files) => console.log('accepted files', files)}
-                  onReject={(files) => console.log('rejected files', files)}
-                  maxSize={5 * 1024 ** 2}
-                  styles={{
-                    root: {
-                      border: '2px dashed white',
-                      backgroundColor: 'transparent',
-                      borderRadius: '12px',
-                      padding: '20px',
-                    },
-                  }}
-                  {...props}
-                >
-                  <Group
-                    justify="center"
-                    gap="md"
-                    style={{ pointerEvents: 'none', minHeight: '20px' }}
-                  >
-                    <Dropzone.Accept>
-                      <IconCloudUpload
-                        style={{
-                          width: rem(52),
-                          height: rem(52),
-                          color: 'var(--mantine-color-blue-6)',
-                        }}
-                        stroke={1.5}
-                      />
-                    </Dropzone.Accept>
-                    <Dropzone.Reject>
-                      <IconX
-                        style={{
-                          width: rem(52),
-                          height: rem(52),
-                          color: 'var(--mantine-color-red-6)',
-                        }}
-                        stroke={1.5}
-                      />
-                    </Dropzone.Reject>
-                    <Dropzone.Idle>
-                      <IconCloudUpload
-                        style={{
-                          width: rem(52),
-                          height: rem(52),
-                          color: 'var(--mantine-color-dimmed)',
-                        }}
-                        stroke={1.5}
-                      />
-                    </Dropzone.Idle>
-
-                    <div>
-                      <Group justify="center" mt="md">
-                        <Text size="xl" inline>
-                          Envie um arquivo
-                        </Text>
-                        <Text size="sm" c="dimmed" inline mt={7}>
-                          Arraste e solte o arquivo para submetê-lo. Aceitaremos
-                          apenas arquivos da linguagem escolhida acima
-                        </Text>
-                      </Group>
-                    </div>
-                  </Group>
-                </Dropzone>
-
-                <Group justify="center" mt="md">
-                  <Button onClick={() => openRef.current?.()}>
-                    Selecione um arquivo
-                  </Button>
-                </Group>
-                <Divider my="md" />
-                <Box>
-                  <Title order={4} ta="center">
-                    Suas Últimas Submissões
-                  </Title>
-                  <Flex
-                    justify="space-between"
-                    align="flex-end"
-                    style={{ marginBottom: '1rem' }}
-                  ></Flex>
-                  <Table highlightOnHover>
-                    <thead>
-                      <tr>
-                        <th>Lang</th>
-                        <th>Horário</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th style={{ textAlign: 'center' }}>
-                          <IconBrandCpp size={24} />
-                        </th>
-                        <th style={{ textAlign: 'center' }}>
-                          13/08/2019 às 21:15:28
-                        </th>
-                        <th style={{ textAlign: 'center' }}>AC</th>
-                      </tr>
-                      <tr>
-                        <th style={{ textAlign: 'center' }}>
-                          <IconBrandPython size={24} />
-                        </th>
-                        <th style={{ textAlign: 'center' }}>
-                          13/08/2019 às 21:15:28
-                        </th>
-                        <th style={{ textAlign: 'center' }}>WA</th>
-                      </tr>
-                      <tr>
-                        <th style={{ textAlign: 'center' }}>
-                          <IconBrandNodejs size={24} />
-                        </th>
-                        <th style={{ textAlign: 'center' }}>
-                          13/08/2019 às 21:15:28
-                        </th>
-                        <th style={{ textAlign: 'center' }}>TL</th>
-                      </tr>
-                      <tr>
-                        <th style={{ textAlign: 'center' }}>
-                          <IconLetterC size={24} />
-                        </th>
-                        <th style={{ textAlign: 'center' }}>
-                          13/08/2019 às 21:15:28
-                        </th>
-                        <th style={{ textAlign: 'center' }}>ER</th>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </Box>
-              </Container>
-            </Grid.Col>
-          </Grid>
-        </Tabs.Panel>
-      </Tabs>
+                      ></Flex>
+                      <Table highlightOnHover>
+                        <thead>
+                          <tr>
+                            <th>Lang</th>
+                            <th>Horário</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th style={{ textAlign: 'center' }}>
+                              <IconBrandCpp size={24} />
+                            </th>
+                            <th style={{ textAlign: 'center' }}>
+                              13/08/2019 às 21:15:28
+                            </th>
+                            <th style={{ textAlign: 'center' }}>AC</th>
+                          </tr>
+                          <tr>
+                            <th style={{ textAlign: 'center' }}>
+                              <IconBrandPython size={24} />
+                            </th>
+                            <th style={{ textAlign: 'center' }}>
+                              13/08/2019 às 21:15:28
+                            </th>
+                            <th style={{ textAlign: 'center' }}>WA</th>
+                          </tr>
+                          <tr>
+                            <th style={{ textAlign: 'center' }}>
+                              <IconBrandNodejs size={24} />
+                            </th>
+                            <th style={{ textAlign: 'center' }}>
+                              13/08/2019 às 21:15:28
+                            </th>
+                            <th style={{ textAlign: 'center' }}>TL</th>
+                          </tr>
+                          <tr>
+                            <th style={{ textAlign: 'center' }}>
+                              <IconLetterC size={24} />
+                            </th>
+                            <th style={{ textAlign: 'center' }}>
+                              13/08/2019 às 21:15:28
+                            </th>
+                            <th style={{ textAlign: 'center' }}>ER</th>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </Box>
+                  </Container>
+                </Grid.Col>
+              </Grid>
+            </Tabs.Panel>
+          </Tabs>
+        </Box>
+      </Group>
     </>
   );
 }

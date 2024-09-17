@@ -1,7 +1,5 @@
 .tabsList {
-  max-width: calc(60rem * var(--mantine-scale));
-  margin-right: auto;
-  margin-left: auto;
+  margin-inline: var(--mantine-spacing-xl);
   position: relative;
   bottom: -1px;
 
