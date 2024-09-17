@@ -90,10 +90,10 @@ export default function Problem(props: Partial<DropzoneProps>) {
           </Tabs.List>
         </Box>
         <Divider mb={'xl'} />
-        <Tabs.Panel value="description" mt={'sm'} m={'xl'}>
-          <Grid>
-            <Grid.Col span={9}>
-              <Container>
+        <Tabs.Panel value="description" mt={'sm'} mx={'xl'}>
+          <Grid gutter={'xs'}>
+            <Grid.Col span={8}>
+              <Container size={'lg'}>
                 <Flex justify={'center'}>
                   <Box>
                     <div>
@@ -194,152 +194,154 @@ export default function Problem(props: Partial<DropzoneProps>) {
                 </Flex>
               </Container>
             </Grid.Col>
-            <Grid.Col span={3}>
-              <Group justify="center" mt="md">
-                <Title order={4}>Envie uma solução</Title>
-              </Group>
-              <Flex
-                justify="space-between"
-                align="flex-end"
-                style={{ marginBottom: '1rem' }}
-              ></Flex>
-              <Select
-                placeholder="Escolha uma linguagem"
-                data={['C', 'C++', 'Javascript', 'Python']}
-              />
-              <Flex
-                justify="space-between"
-                align="flex-end"
-                style={{ marginBottom: '1rem' }}
-              ></Flex>
-              <Dropzone
-                openRef={openRef}
-                onDrop={(files) => console.log('accepted files', files)}
-                onReject={(files) => console.log('rejected files', files)}
-                maxSize={5 * 1024 ** 2}
-                styles={{
-                  root: {
-                    border: '2px dashed white',
-                    backgroundColor: 'transparent',
-                    borderRadius: '12px',
-                    padding: '20px',
-                  },
-                }}
-                {...props}
-              >
-                <Group
-                  justify="center"
-                  gap="md"
-                  style={{ pointerEvents: 'none', minHeight: '20px' }}
-                >
-                  <Dropzone.Accept>
-                    <IconCloudUpload
-                      style={{
-                        width: rem(52),
-                        height: rem(52),
-                        color: 'var(--mantine-color-blue-6)',
-                      }}
-                      stroke={1.5}
-                    />
-                  </Dropzone.Accept>
-                  <Dropzone.Reject>
-                    <IconX
-                      style={{
-                        width: rem(52),
-                        height: rem(52),
-                        color: 'var(--mantine-color-red-6)',
-                      }}
-                      stroke={1.5}
-                    />
-                  </Dropzone.Reject>
-                  <Dropzone.Idle>
-                    <IconCloudUpload
-                      style={{
-                        width: rem(52),
-                        height: rem(52),
-                        color: 'var(--mantine-color-dimmed)',
-                      }}
-                      stroke={1.5}
-                    />
-                  </Dropzone.Idle>
-
-                  <div>
-                    <Group justify="center" mt="md">
-                      <Text size="xl" inline>
-                        Envie um arquivo
-                      </Text>
-                      <Text size="sm" c="dimmed" inline mt={7}>
-                        Arraste e solte o arquivo para submetê-lo. Aceitaremos
-                        apenas arquivos da linguagem escolhida acima
-                      </Text>
-                    </Group>
-                  </div>
+            <Grid.Col span={4}>
+              <Container>
+                <Group justify="center" mt="md">
+                  <Title order={4}>Envie uma solução</Title>
                 </Group>
-              </Dropzone>
-
-              <Group justify="center" mt="md">
-                <Button onClick={() => openRef.current?.()}>
-                  Selecione um arquivo
-                </Button>
-              </Group>
-              <Divider my="md" />
-              <Box>
-                <Title order={4} ta="center">
-                  Suas Últimas Submissões
-                </Title>
                 <Flex
                   justify="space-between"
                   align="flex-end"
                   style={{ marginBottom: '1rem' }}
                 ></Flex>
-                <Table highlightOnHover>
-                  <thead>
-                    <tr>
-                      <th>Lang</th>
-                      <th>Horário</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th style={{ textAlign: 'center' }}>
-                        <IconBrandCpp size={24} />
-                      </th>
-                      <th style={{ textAlign: 'center' }}>
-                        13/08/2019 às 21:15:28
-                      </th>
-                      <th style={{ textAlign: 'center' }}>AC</th>
-                    </tr>
-                    <tr>
-                      <th style={{ textAlign: 'center' }}>
-                        <IconBrandPython size={24} />
-                      </th>
-                      <th style={{ textAlign: 'center' }}>
-                        13/08/2019 às 21:15:28
-                      </th>
-                      <th style={{ textAlign: 'center' }}>WA</th>
-                    </tr>
-                    <tr>
-                      <th style={{ textAlign: 'center' }}>
-                        <IconBrandNodejs size={24} />
-                      </th>
-                      <th style={{ textAlign: 'center' }}>
-                        13/08/2019 às 21:15:28
-                      </th>
-                      <th style={{ textAlign: 'center' }}>TL</th>
-                    </tr>
-                    <tr>
-                      <th style={{ textAlign: 'center' }}>
-                        <IconLetterC size={24} />
-                      </th>
-                      <th style={{ textAlign: 'center' }}>
-                        13/08/2019 às 21:15:28
-                      </th>
-                      <th style={{ textAlign: 'center' }}>ER</th>
-                    </tr>
-                  </tbody>
-                </Table>
-              </Box>
+                <Select
+                  placeholder="Escolha uma linguagem"
+                  data={['C', 'C++', 'Javascript', 'Python']}
+                />
+                <Flex
+                  justify="space-between"
+                  align="flex-end"
+                  style={{ marginBottom: '1rem' }}
+                ></Flex>
+                <Dropzone
+                  openRef={openRef}
+                  onDrop={(files) => console.log('accepted files', files)}
+                  onReject={(files) => console.log('rejected files', files)}
+                  maxSize={5 * 1024 ** 2}
+                  styles={{
+                    root: {
+                      border: '2px dashed white',
+                      backgroundColor: 'transparent',
+                      borderRadius: '12px',
+                      padding: '20px',
+                    },
+                  }}
+                  {...props}
+                >
+                  <Group
+                    justify="center"
+                    gap="md"
+                    style={{ pointerEvents: 'none', minHeight: '20px' }}
+                  >
+                    <Dropzone.Accept>
+                      <IconCloudUpload
+                        style={{
+                          width: rem(52),
+                          height: rem(52),
+                          color: 'var(--mantine-color-blue-6)',
+                        }}
+                        stroke={1.5}
+                      />
+                    </Dropzone.Accept>
+                    <Dropzone.Reject>
+                      <IconX
+                        style={{
+                          width: rem(52),
+                          height: rem(52),
+                          color: 'var(--mantine-color-red-6)',
+                        }}
+                        stroke={1.5}
+                      />
+                    </Dropzone.Reject>
+                    <Dropzone.Idle>
+                      <IconCloudUpload
+                        style={{
+                          width: rem(52),
+                          height: rem(52),
+                          color: 'var(--mantine-color-dimmed)',
+                        }}
+                        stroke={1.5}
+                      />
+                    </Dropzone.Idle>
+
+                    <div>
+                      <Group justify="center" mt="md">
+                        <Text size="xl" inline>
+                          Envie um arquivo
+                        </Text>
+                        <Text size="sm" c="dimmed" inline mt={7}>
+                          Arraste e solte o arquivo para submetê-lo. Aceitaremos
+                          apenas arquivos da linguagem escolhida acima
+                        </Text>
+                      </Group>
+                    </div>
+                  </Group>
+                </Dropzone>
+
+                <Group justify="center" mt="md">
+                  <Button onClick={() => openRef.current?.()}>
+                    Selecione um arquivo
+                  </Button>
+                </Group>
+                <Divider my="md" />
+                <Box>
+                  <Title order={4} ta="center">
+                    Suas Últimas Submissões
+                  </Title>
+                  <Flex
+                    justify="space-between"
+                    align="flex-end"
+                    style={{ marginBottom: '1rem' }}
+                  ></Flex>
+                  <Table highlightOnHover>
+                    <thead>
+                      <tr>
+                        <th>Lang</th>
+                        <th>Horário</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th style={{ textAlign: 'center' }}>
+                          <IconBrandCpp size={24} />
+                        </th>
+                        <th style={{ textAlign: 'center' }}>
+                          13/08/2019 às 21:15:28
+                        </th>
+                        <th style={{ textAlign: 'center' }}>AC</th>
+                      </tr>
+                      <tr>
+                        <th style={{ textAlign: 'center' }}>
+                          <IconBrandPython size={24} />
+                        </th>
+                        <th style={{ textAlign: 'center' }}>
+                          13/08/2019 às 21:15:28
+                        </th>
+                        <th style={{ textAlign: 'center' }}>WA</th>
+                      </tr>
+                      <tr>
+                        <th style={{ textAlign: 'center' }}>
+                          <IconBrandNodejs size={24} />
+                        </th>
+                        <th style={{ textAlign: 'center' }}>
+                          13/08/2019 às 21:15:28
+                        </th>
+                        <th style={{ textAlign: 'center' }}>TL</th>
+                      </tr>
+                      <tr>
+                        <th style={{ textAlign: 'center' }}>
+                          <IconLetterC size={24} />
+                        </th>
+                        <th style={{ textAlign: 'center' }}>
+                          13/08/2019 às 21:15:28
+                        </th>
+                        <th style={{ textAlign: 'center' }}>ER</th>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </Box>
+              </Container>
             </Grid.Col>
           </Grid>
         </Tabs.Panel>
