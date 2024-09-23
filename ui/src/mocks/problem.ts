@@ -1,5 +1,5 @@
 import { ProblemDetail } from '@/app/problems/[id]/page';
-
+import { LanguageEnum, Submission, SubmissionStatus } from '@/lib/types';
 export const problemMock: ProblemDetail = {
   id: 'em-busca-do-ouro-branco',
   title: 'Em Busca do Ouro Branco',
@@ -29,3 +29,31 @@ export const problemMock: ProblemDetail = {
     },
   ],
 };
+
+export const submissionMock: Array<Submission> = [
+  {
+    language: LanguageEnum.PYTHON,
+    submittedAt: '13/08/2019 às 13:27:15',
+    status: SubmissionStatus.WRONG_ANSWER,
+  },
+  {
+    language: LanguageEnum.PYTHON,
+    submittedAt: '13/08/2019 às 13:19:22',
+    status: SubmissionStatus.WRONG_ANSWER,
+  },
+  {
+    language: LanguageEnum.CPP,
+    submittedAt: '13/08/2019 às 13:15:28',
+    status: SubmissionStatus.WRONG_ANSWER,
+  },
+  {
+    language: LanguageEnum.C,
+    submittedAt: '12/08/2019 às 11:01:57',
+    status: SubmissionStatus.ERROR,
+  },
+  {
+    language: LanguageEnum.JAVASCRIPT,
+    submittedAt: '12/08/2019 às 10:28:02',
+    status: SubmissionStatus.TIME_LIMIT,
+  },
+];

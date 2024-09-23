@@ -15,11 +15,13 @@ import {
   rem,
   Select,
   Grid,
+  SimpleGrid,
+  Loader,
 } from '@mantine/core';
-import { Dropzone } from '@mantine/dropzone';
+import { Dropzone, FileWithPath } from '@mantine/dropzone';
 import { useSession } from 'next-auth/react';
 import { useRef, useState } from 'react';
-import { problemMock } from '@/mocks/problem';
+import { problemMock, submissionMock } from '@/mocks/problem';
 import {
   IconNews,
   IconX,
@@ -31,7 +33,8 @@ import {
 } from '@tabler/icons-react';
 import classes from './page.module.css';
 import { notifications } from '@mantine/notifications';
-
+import { forceDelay } from '@/lib/utils';
+import { LanguageEnum, Submission, SubmissionStatus } from '@/lib/types';
 export interface TestCase {
   id: number;
   input: string;
@@ -59,20 +62,56 @@ export interface ProblemDetail {
   //languages: Language[];
 }
 
-enum LanguageEnum {
-  C = 'c',
-  CPP = 'cpp',
-  JAVASCRIPT = 'js',
-  PYTHON = 'py',
-}
+const LANG_ICON_MAP = {
+  [LanguageEnum.C]: <IconLetterC aria-label="linguagem C" size={24} />,
+  [LanguageEnum.PYTHON]: (
+    <IconBrandPython aria-label="linguagem python" size={24} />
+  ),
+  [LanguageEnum.CPP]: <IconBrandCpp aria-label="linguagem python" size={24} />,
+  [LanguageEnum.JAVASCRIPT]: (
+    <IconBrandNodejs aria-label="linguagem python" size={24} />
+  ),
+};
 
 export default function Problem() {
   const session = useSession();
   const user = session.data?.user;
   const openRef = useRef<() => void>(null);
   const [language, setLanguage] = useState<LanguageEnum | null>(null);
+  const [files, setFiles] = useState<FileWithPath[]>([]);
+  const [submissions, setSubmissions] =
+    useState<Array<Submission>>(submissionMock);
+  const [submissionLoading, setSubmissionLoading] = useState<boolean>(false);
 
   const problem: ProblemDetail = problemMock;
+
+  const previews = files.map((file, index) => {
+    return <span key={index}>{file.name}</span>;
+  });
+
+  async function handleSubmit() {
+    notifications.show({
+      title: 'Sua submissão foi submetida!',
+      message: 'Aguarde o resultado.',
+    });
+    setFiles([]);
+    setLanguage(null);
+
+    setSubmissionLoading(true);
+    await forceDelay(5000);
+
+    const newsubs = [
+      {
+        language: LanguageEnum.PYTHON,
+        submittedAt: '13/08/2019 às 14:02:30',
+        status: SubmissionStatus.ACCEPTED,
+      },
+      ...submissions,
+    ];
+
+    setSubmissions(newsubs);
+    setSubmissionLoading(false);
+  }
 
   return (
     <>
@@ -235,6 +274,7 @@ export default function Problem() {
                     <Select
                       placeholder="Escolha uma linguagem"
                       data={Object.keys(LanguageEnum)}
+                      value={language}
                       onChange={(value) => setLanguage(value as LanguageEnum)}
                     />
                     <Flex
@@ -248,7 +288,7 @@ export default function Problem() {
                         language == null ? classes.disabled : classes.dropzone
                       }
                       openRef={openRef}
-                      onDrop={(files) => console.log('accepted files', files)}
+                      onDrop={setFiles}
                       onReject={(files) => console.log('rejected files', files)}
                       maxSize={5 * 1024 ** 2}
                     >
@@ -301,17 +341,19 @@ export default function Problem() {
                       </Group>
                     </Dropzone>
 
+                    <SimpleGrid
+                      cols={{ base: 1 }}
+                      mt={previews.length > 0 ? 'sm' : 0}
+                    >
+                      {previews}
+                    </SimpleGrid>
+
                     <Button
                       w={'100%'}
                       mt={'sm'}
                       variant="gradient"
-                      disabled={language == null}
-                      onClick={() =>
-                        notifications.show({
-                          title: 'Sua submissão foi submetida!',
-                          message: 'Aguarde o resultado.',
-                        })
-                      }
+                      disabled={previews.length === 0}
+                      onClick={() => handleSubmit()}
                     >
                       Submeter
                     </Button>
@@ -336,54 +378,30 @@ export default function Problem() {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <th style={{ textAlign: 'center' }}>
-                              <IconBrandCpp
-                                aria-label="linguagem c++"
-                                size={24}
-                              />
-                            </th>
-                            <th style={{ textAlign: 'center' }}>
-                              13/08/2019 às 21:15:28
-                            </th>
-                            <th style={{ textAlign: 'center' }}>AC</th>
-                          </tr>
-
-                          <tr>
-                            <th style={{ textAlign: 'center' }}>
-                              <IconBrandPython
-                                aria-label="linguagem python"
-                                size={24}
-                              />
-                            </th>
-                            <th style={{ textAlign: 'center' }}>
-                              13/08/2019 às 21:15:28
-                            </th>
-                            <th style={{ textAlign: 'center' }}>WA</th>
-                          </tr>
-
-                          <tr>
-                            <th style={{ textAlign: 'center' }}>
-                              <IconBrandNodejs
-                                aria-label="linguagem javascript"
-                                size={24}
-                              />
-                            </th>
-                            <th style={{ textAlign: 'center' }}>
-                              13/08/2019 às 21:15:28
-                            </th>
-                            <th style={{ textAlign: 'center' }}>TL</th>
-                          </tr>
-
-                          <tr>
-                            <th style={{ textAlign: 'center' }}>
-                              <IconLetterC aria-label="linguagem c" size={24} />
-                            </th>
-                            <th style={{ textAlign: 'center' }}>
-                              13/08/2019 às 21:15:28
-                            </th>
-                            <th style={{ textAlign: 'center' }}>ER</th>
-                          </tr>
+                          {submissionLoading ? (
+                            <tr>
+                              <th></th>
+                              <th>
+                                <Loader color="gray" size="sm" />
+                              </th>
+                              <th></th>
+                            </tr>
+                          ) : undefined}
+                          {submissions.map((submission, index) => {
+                            return (
+                              <tr key={index}>
+                                <th style={{ textAlign: 'center' }}>
+                                  {LANG_ICON_MAP[submission.language]}
+                                </th>
+                                <th style={{ textAlign: 'center' }}>
+                                  {submission.submittedAt}
+                                </th>
+                                <th style={{ textAlign: 'center' }}>
+                                  {submission.status}
+                                </th>
+                              </tr>
+                            );
+                          })}
                         </tbody>
                       </Table>
                     </Box>
