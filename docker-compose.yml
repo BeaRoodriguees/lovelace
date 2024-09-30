@@ -1,0 +1,35 @@
+services:
+  pgsql:
+    image: postgres:14-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    env_file:
+      - ./api/.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "5432:5432"
+    networks:
+      - lovelace-network
+
+  lovelace_api:
+    build:
+      context: .
+      dockerfile: ./api/Dockerfile
+    entrypoint: ./entrypoint.sh
+    ports:
+      - "8000:8000"
+    depends_on:
+      pgsql:
+        condition: service_healthy
+    env_file:
+      - ./api/.env
+    networks:
+      - lovelace-network
+volumes:
+  pgdata:
+networks:
+  lovelace-network:
