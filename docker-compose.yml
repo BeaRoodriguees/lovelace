@@ -15,6 +15,16 @@ services:
     networks:
       - lovelace-network
 
+  pgadmin:
+    image: dpage/pgadmin4
+    env_file:
+      - .env
+    ports:
+      - "89:80"
+    networks:
+      - lovelace-network
+    attach: false # Hides bloat from pgadmin on console
+  
   api:
     build:
       context: .
