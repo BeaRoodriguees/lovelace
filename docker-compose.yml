@@ -15,7 +15,7 @@ services:
     networks:
       - lovelace-network
 
-  lovelace_api:
+  api:
     build:
       context: .
       dockerfile: ./api/Dockerfile
@@ -29,6 +29,19 @@ services:
       - .env
     networks:
       - lovelace-network
+  
+  ui:
+    build:
+      context: .
+      dockerfile: ./ui/Dockerfile
+    entrypoint: ./entrypoint.sh
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    networks:
+      - lovelace-network
+
 volumes:
   pgdata:
 networks:

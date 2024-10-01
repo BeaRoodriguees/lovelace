@@ -82,7 +82,7 @@ export default function RegistrationForm() {
     formData.append('email', credentials.email);
     formData.append('password', credentials.password);
 
-    const res = await fetch('http://localhost:8000/users', {
+    const res = await fetch(`${process.env.API_URL}/users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials),
