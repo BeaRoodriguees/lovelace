@@ -35,6 +35,13 @@ services:
       context: .
       dockerfile: ./ui/Dockerfile
     entrypoint: ./entrypoint.sh
+    develop:
+      watch:
+        - action: sync
+          path: ./ui/src
+          target: /app/src
+          ignore:
+            - node_modules/
     ports:
       - "3000:3000"
     env_file:
