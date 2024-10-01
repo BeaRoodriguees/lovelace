@@ -20,7 +20,7 @@ Inspirado por Ada Lovelace, a primeira programadora da história, o Lovelace é 
 Para criar o usuário admin siga os seguintes passos:
 
 1. Execute o sistema como mostrado acima
-2. Em outro terminal, execute o comando `docker compose exec api python create_admin.py`
+2. Em outro terminal, execute o comando `docker compose exec api python scripts/create_admin.py`
 
 ### Acesso ao banco de dados via PgAdmin
 Para Fazer queries direto ao banco de dados e visualizar tabelas, use o PgAdmin.
