@@ -20,6 +20,14 @@ services:
       context: .
       dockerfile: ./api/Dockerfile
     entrypoint: ./entrypoint.sh
+    develop:
+      watch:
+        - action: sync
+          path: ./api/lovelace
+          target: /app/lovelace
+          ignore:
+            - __pycache__/
+            - routers/__pycache__/
     ports:
       - "8000:8000"
     depends_on:
