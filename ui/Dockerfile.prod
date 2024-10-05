@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY /ui/package.json /ui/package-lock.json ./
 
-RUN npm ci --production
+RUN npm ci
 
 COPY /ui .
 
