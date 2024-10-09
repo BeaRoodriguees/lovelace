@@ -1,7 +1,14 @@
 # Lovelace
 Inspirado por Ada Lovelace, a primeira programadora da história, o Lovelace é um espaço dedicado ao aprendizado e aprimoramento das habilidades de programação.
 
-## Execução da aplicação usando containers
+## Execução da aplicação usando containers (Produção)
+1. Instale o [Docker](https://docs.docker.com/engine/install/). 
+2. Crie o arquivo `.env` copiando o arquivo `.env.prod` e inserindo valores apropriados para as variáveis de ambiente.
+3. Execute o domando `docker compose -f docker-compose.prod.yml up --build`
+4. Acesse o frontend via `<host ip>/`
+5. Acesse a api via `<host ip>/api/v1/`
+
+## Execução da aplicação usando containers (Desenvolvimento)
 1. Instale o [Docker](https://docs.docker.com/engine/install/). Para Windows sugerimos o [Docker Desktop](https://docs.docker.com/desktop/install/windows-install/)
 2. Crie um arquivo `.env` copiando o arquivo `.env.example` e inserindo valores apropriados para as variáveis de ambiente.
 3. Execute o comando `docker compose up --build --watch`, aguarde a inicialização.
