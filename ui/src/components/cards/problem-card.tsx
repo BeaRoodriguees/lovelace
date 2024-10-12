@@ -29,7 +29,7 @@ export default function ProblemCard({ data, ...rest }: ProblemCardProps) {
 
   // If the card is clickable, problem link is passed to the Root
   // NOTE: Temporary problem url
-  const problemLink = `/problemset/${data.slug}`;
+  const problemLink = `/problems/${data.id}`;
   return (
     <div {...rest}>
       <LovelaceCard.Root type={cardType} href={problemLink}>

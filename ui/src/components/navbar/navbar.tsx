@@ -21,9 +21,6 @@ function NavbarLoggedOptions() {
         <Anchor href="/problemset" c={'gray.0'} fw={700}>
           Problemas
         </Anchor>
-        <Anchor href="/groupset" c={'dark.1'} fw={600}>
-          Turmas
-        </Anchor>
       </Group>
       <Input placeholder="Buscar" leftSection={<IconSearch size={16} />} />
       <Avatar></Avatar>

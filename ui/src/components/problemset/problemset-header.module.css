@@ -1,0 +1,27 @@
+.container {
+  width: 100%;
+  display: flex;
+  padding: 12px 0px;
+  align-items: center;
+  border-bottom: 2px solid
+    light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-3));
+  justify-content: space-between;
+  min-width: 500px;
+  gap: 12px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.filter {
+  flex-shrink: 0;
+}
+
+.search {
+  flex: 0 1 400px;
+}

@@ -2,12 +2,32 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-from sqlalchemy.pool import StaticPool
+from testcontainers.postgres import PostgresContainer
 
 from lovelace.app import app
 from lovelace.database import get_session
 from lovelace.models import Role, User, table_registry
 from lovelace.security import get_password_hash
+
+
+@pytest.fixture(scope='session')
+def engine():
+    with PostgresContainer('postgres:14-alpine', driver='psycopg') as postgres:
+        _engine = create_engine(postgres.get_connection_url())
+
+        with _engine.begin():
+            yield _engine
+
+
+@pytest.fixture
+def session(engine):
+    table_registry.metadata.create_all(engine)
+
+    with Session(engine) as session:
+        yield session
+        session.rollback()
+
+    table_registry.metadata.drop_all(engine)
 
 
 @pytest.fixture
@@ -20,22 +40,6 @@ def client(session):
         yield client
 
     app.dependency_overrides.clear()
-
-
-@pytest.fixture
-def session():
-    engine = create_engine(
-        'sqlite:///:memory:',
-        connect_args={'check_same_thread': False},
-        poolclass=StaticPool,
-    )
-
-    table_registry.metadata.create_all(engine)
-
-    with Session(engine) as session:
-        yield session
-
-    table_registry.metadata.drop_all(engine)
 
 
 @pytest.fixture

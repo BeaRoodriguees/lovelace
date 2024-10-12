@@ -1,0 +1,73 @@
+services:
+  pgsql:
+    image: postgres:14-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "5432:5432"
+    networks:
+      - lovelace-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    env_file:
+      - .env
+    ports:
+      - "89:80"
+    networks:
+      - lovelace-network
+    attach: false # Hides bloat from pgadmin on console
+  
+  api:
+    build:
+      context: .
+      dockerfile: ./api/Dockerfile
+    entrypoint: ./entrypoint.sh
+    develop:
+      watch:
+        - action: sync
+          path: ./api/lovelace
+          target: /app/lovelace
+          ignore:
+            - __pycache__/
+            - routers/__pycache__/
+    ports:
+      - "8000:8000"
+    depends_on:
+      pgsql:
+        condition: service_healthy
+    env_file:
+      - .env
+    networks:
+      - lovelace-network
+  
+  ui:
+    build:
+      context: .
+      dockerfile: ./ui/Dockerfile
+    entrypoint: ./entrypoint.sh
+    develop:
+      watch:
+        - action: sync
+          path: ./ui/src
+          target: /app/src
+          ignore:
+            - node_modules/
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    networks:
+      - lovelace-network
+
+volumes:
+  pgdata:
+networks:
+  lovelace-network:
