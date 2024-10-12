@@ -14,7 +14,7 @@ Inspirado por Ada Lovelace, a primeira programadora da história, o Lovelace é 
 3. Execute o comando `docker compose up --build --watch`, aguarde a inicialização.
 
 >[!NOTE]
-> A flag `--build` só é necessária quando há uma mudança no código e desejamos reconstruir a imagen e o container. 
+> A flag `--build` só é necessária quando há uma mudança no código e desejamos reconstruir a imagem e o container. 
 >
 >Já a flag `--watch` faz com que, durante a execução do container, as mudanças feitas na pasta original sejam replicadas dentro do container.
 
