@@ -112,7 +112,7 @@ class Tag:
 
 @table_registry.mapped_as_dataclass
 class ProblemsTags:
-    __tablenanme__ = 'problems_tags'
+    __tablename__ = 'problems_tags'
 
     problem_id: Mapped[int] = mapped_column(primary_key=True)
     tag_id: Mapped[int] = mapped_column(primary_key=True)
