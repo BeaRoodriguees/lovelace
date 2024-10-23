@@ -34,7 +34,7 @@ export const authConfig: NextAuthOptions = {
         payload.append('grant_type', 'password');
 
         // Request jwt token with user Login data
-        const token_res = await fetch('http://localhost:8000/auth/token', {
+        const token_res = await fetch(`${process.env.API_URL}/auth/token`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -49,7 +49,7 @@ export const authConfig: NextAuthOptions = {
         const token = data.access_token;
 
         // Request for logged user data
-        const user_res = await fetch('http://localhost:8000/auth/me', {
+        const user_res = await fetch(`${process.env.API_URL}/auth/me`, {
           method: 'GET',
           headers: { Authorization: `Bearer ${token}` },
         });
