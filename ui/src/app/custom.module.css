@@ -1,0 +1,38 @@
+.root {
+  &[data-variant='lovelace-secondary'] {
+    background-color: var(--mantine-color-default);
+    border: 2px solid
+      light-dark(var(--mantine-color-dark-3), var(--mantine-color-dark-2));
+    color: light-dark(var(--mantine-color-dark-4), var(--mantine-color-dark-1));
+    transition: background-color 0.1s linear;
+  }
+  &[data-variant='lovelace-secondary']:hover {
+    background-color: light-dark(
+      var(--mantine-color-gray-1),
+      var(--mantine-color-dark-7)
+    );
+  }
+  &[data-variant='lovelace-secondary']:focus {
+    outline: 2px solid
+      light-dark(var(--mantine-color-dark-3), var(--mantine-color-dark-2));
+    outline-offset: 2px;
+  }
+
+  &[data-variant='lovelace-primary'] {
+    background-color: var(--mantine-color-text);
+    color: var(--mantine-color-body);
+    transition: background-color 0.1s linear;
+  }
+
+  &[data-variant='lovelace-primary']:hover {
+    background-color: light-dark(
+      var(--mantine-color-dark-8),
+      var(--mantine-color-gray-3)
+    );
+  }
+  &[data-variant='lovelace-primary']:focus {
+    outline: 2px solid
+      light-dark(var(--mantine-color-dark-3), var(--mantine-color-dark-2));
+    outline-offset: 2px;
+  }
+}

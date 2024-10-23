@@ -4,7 +4,7 @@ import { useForm } from '@mantine/form';
 import {
   TextInput,
   PasswordInput,
-  // Checkbox,
+  Checkbox,
   Anchor,
   Paper,
   Title,
@@ -82,7 +82,7 @@ export default function RegistrationForm() {
     formData.append('email', credentials.email);
     formData.append('password', credentials.password);
 
-    const res = await fetch('http://localhost:8000/users', {
+    const res = await fetch(`http:localhost:8000/users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials),
@@ -184,12 +184,12 @@ export default function RegistrationForm() {
               {...form.getInputProps('confirmPassword')}
             />
             <Group justify="space-between" mt="lg">
-              {/* <Checkbox
+              <Checkbox
                 label="Eu concordo com os termos"
                 classNames={{ label: classes.label }}
                 key={form.key('agree')}
                 {...form.getInputProps('agree')}
-              /> */}
+              />
             </Group>
             <Button fullWidth variant="gradient" mt="lg" type="submit">
               Cadastrar conta
