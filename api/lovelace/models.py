@@ -1,7 +1,7 @@
 from datetime import datetime
 from enum import Enum
 
-from sqlalchemy import ForeignKey, func
+from sqlalchemy import Column, ForeignKey, Table, func
 from sqlalchemy.orm import Mapped, mapped_column, registry, relationship
 from sqlalchemy.schema import PrimaryKeyConstraint
 
@@ -35,9 +35,17 @@ class SubmissonStatus(str, Enum):
     time_limit_exceeded = 'TIME_LIMIT_EXCEEDED'
     presentation_error = 'PRESENTATION_ERROR'
     pending = 'PENDING'
-    testing = 'TESTING'
+    running = 'RUNNING'
     memory_limit_exceeded = 'MEMORY_LIMIT_EXCEEDED'
     server_error = 'SERVER_ERROR'
+
+
+problems_tags = Table(
+    'problems_tags',
+    table_registry.metadata,
+    Column('problem_id', ForeignKey('problems.id'), primary_key=True),
+    Column('tag_id', ForeignKey('tags.id'), primary_key=True),
+)
 
 
 @table_registry.mapped_as_dataclass
@@ -60,7 +68,7 @@ class User:
     updated_at: Mapped[datetime] = mapped_column(
         init=False, server_default=func.now(), onupdate=func.now()
     )
-    sumbissions: Mapped[list['Submission']] = relationship(
+    submissions: Mapped[list['Submission']] = relationship(
         init=False, back_populates='user', cascade='all, delete-orphan'
     )
 
@@ -74,13 +82,15 @@ class Problem:
     description: Mapped[str]
     problem_input: Mapped[str]
     problem_output: Mapped[str]
-    sumbissions: Mapped[list['Submission']] = relationship(
-        init=False, back_populates='user', cascade='all, delete-orphan'
+    submissions: Mapped[list['Submission']] = relationship(
+        init=False, back_populates='problems', cascade='all, delete-orphan'
     )
     difficulty: Mapped[Difficulty]
     status: Mapped[ProblemStatus] = mapped_column(
         default=ProblemStatus.todo, server_default='todo'
     )
+    time_limit: Mapped[int]
+    memory_limit: Mapped[int]
 
 
 @table_registry.mapped_as_dataclass
@@ -111,12 +121,11 @@ class Tag:
 
 
 @table_registry.mapped_as_dataclass
-class ProblemsTags:
-    __tablenanme__ = 'problems_tags'
+class TestCase:
+    __tablename__ = 'test_cases'
 
-    problem_id: Mapped[int] = mapped_column(primary_key=True)
-    tag_id: Mapped[int] = mapped_column(primary_key=True)
-    problem: Mapped[Problem] = relationship(init=False)
-    tag: Mapped[Tag] = relationship(init=False)
-
-    __table_args__ = (PrimaryKeyConstraint('problem_id', 'tag_id'),)
+    id: Mapped[int] = mapped_column(init=False, primary_key=True)
+    problem_id: Mapped[int] = mapped_column(ForeignKey('problems.id'))
+    input: Mapped[str]
+    output: Mapped[str]
+    is_sample: Mapped[bool]
