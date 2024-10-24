@@ -74,42 +74,14 @@ class User:
 
 
 @table_registry.mapped_as_dataclass
-class Problem:
-    __tablename__ = 'problems'
+class TestCase:
+    __tablename__ = 'test_cases'
 
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
-    name: Mapped[str] = mapped_column(unique=True)
-    description: Mapped[str]
-    problem_input: Mapped[str]
-    problem_output: Mapped[str]
-    submissions: Mapped[list['Submission']] = relationship(
-        init=False, back_populates='problems', cascade='all, delete-orphan'
-    )
-    difficulty: Mapped[Difficulty]
-    status: Mapped[ProblemStatus] = mapped_column(
-        default=ProblemStatus.todo, server_default='todo'
-    )
-    time_limit: Mapped[int]
-    memory_limit: Mapped[int]
-
-
-@table_registry.mapped_as_dataclass
-class Submission:
-    __tablename__ = 'submissions'
-
-    id: Mapped[int] = mapped_column(init=False, primary_key=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
-    user: Mapped[User] = relationship(init=False, back_populates='submissions')
     problem_id: Mapped[int] = mapped_column(ForeignKey('problems.id'))
-    problem: Mapped[Problem] = relationship(
-        init=False, back_populates='submissions'
-    )
-    body: Mapped[str]
-    created_at: Mapped[datetime] = mapped_column(
-        init=False, server_default=func.now()
-    )
-    language: Mapped[str]
-    status: Mapped[SubmissonStatus]
+    input: Mapped[str]
+    output: Mapped[str]
+    is_sample: Mapped[bool]
 
 
 @table_registry.mapped_as_dataclass
@@ -121,11 +93,36 @@ class Tag:
 
 
 @table_registry.mapped_as_dataclass
-class TestCase:
-    __tablename__ = 'test_cases'
+class Problem:
+    __tablename__ = 'problems'
 
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
+    name: Mapped[str] = mapped_column(unique=True)
+    description: Mapped[str]
+    problem_input: Mapped[str]
+    problem_output: Mapped[str]
+    difficulty: Mapped[Difficulty]
+    time_limit: Mapped[int]
+    memory_limit: Mapped[int]
+    testcases: Mapped[list[TestCase]] = relationship()
+    tags: Mapped[list[Tag]] = relationship(secondary=problems_tags)
+
+
+@table_registry.mapped_as_dataclass
+class Submission:
+    __tablename__ = 'submissions'
+
+    id: Mapped[int] = mapped_column(init=False, primary_key=True)
+
+    user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
+    user: Mapped[User] = relationship(back_populates='submissions')
+
     problem_id: Mapped[int] = mapped_column(ForeignKey('problems.id'))
-    input: Mapped[str]
-    output: Mapped[str]
-    is_sample: Mapped[bool]
+    problem: Mapped[Problem] = relationship()
+
+    body: Mapped[str]
+    created_at: Mapped[datetime] = mapped_column(
+        init=False, server_default=func.now()
+    )
+    language: Mapped[str]
+    status: Mapped[SubmissonStatus]
