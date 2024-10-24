@@ -1,6 +1,7 @@
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
+import './global.css';
 import '@mantine/notifications/styles.css';
 
 import { ColorSchemeScript } from '@mantine/core';
@@ -19,9 +20,9 @@ export default async function RootLayout({
 }) {
   const session = await getServerSession(authConfig);
   return (
-    <html lang="pt-br">
+    <html lang="pt-BR">
       <head>
-        <ColorSchemeScript />
+        <ColorSchemeScript defaultColorScheme="dark" />
       </head>
       <body>
         <Providers session={session}>{children}</Providers>
