@@ -78,7 +78,9 @@ class TestCase:
     __tablename__ = 'test_cases'
 
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
-    problem_id: Mapped[int] = mapped_column(ForeignKey('problems.id'))
+    problem_id: Mapped[int] = mapped_column(
+        ForeignKey('problems.id'), init=False
+    )
     input: Mapped[str]
     output: Mapped[str]
     is_sample: Mapped[bool]
