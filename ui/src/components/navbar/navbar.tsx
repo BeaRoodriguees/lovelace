@@ -6,17 +6,18 @@ import {
   Input,
   Burger,
   Box,
-  Drawer,
-  Divider,
-  ScrollArea,
   rem,
-  NavLink,
+  Menu,
 } from '@mantine/core';
 import { IconLovelace } from '@/components/misc/icon-lovelace';
-import { IconHome2, IconSearch } from '@tabler/icons-react';
+import {
+  IconSearch,
+  IconTerminal,
+  IconUser,
+  IconUsersGroup,
+} from '@tabler/icons-react';
 import classes from './navbar.module.css';
 import AvatarMenu from '../misc/AvatarMenu';
-import { useDisclosure } from '@mantine/hooks';
 
 export enum NavbarStatus {
   HOME = 'HOME',
@@ -30,18 +31,57 @@ function NavbarAuthOptions() {
 
 function NavbarLoggedOptions() {
   return (
-    <Group visibleFrom="sm" className={classes.menu}>
-      <Group>
-        <Anchor href="/problemset" c={'gray.0'} fw={700}>
-          Problemas
-        </Anchor>
-        <Anchor href="/groupset" c={'dark.1'} fw={600}>
-          Turmas
-        </Anchor>
+    <Box>
+      <Group visibleFrom="sm" className={classes.menu}>
+        <Group>
+          <Anchor href="/problemset" c={'gray.0'} fw={700}>
+            Problemas
+          </Anchor>
+          <Anchor href="/groupset" c={'dark.1'} fw={600}>
+            Turmas
+          </Anchor>
+        </Group>
+        <Input placeholder="Buscar" leftSection={<IconSearch size={16} />} />
+        <AvatarMenu />
       </Group>
-      <Input placeholder="Buscar" leftSection={<IconSearch size={16} />} />
-      <AvatarMenu />
-    </Group>
+
+      <Menu shadow="md" width={250}>
+        <Menu.Target>
+          <Burger aria-label="Menu burger" hiddenFrom="sm" size="sm" />
+        </Menu.Target>
+
+        <Menu.Dropdown>
+          <Menu.Label>Menu</Menu.Label>
+          <Menu.Item
+            component="a"
+            href="/problemset"
+            leftSection={
+              <IconTerminal style={{ width: rem(14), height: rem(14) }} />
+            }
+          >
+            Problemas
+          </Menu.Item>
+          <Menu.Item
+            component="a"
+            href="/groupset"
+            leftSection={
+              <IconUsersGroup style={{ width: rem(14), height: rem(14) }} />
+            }
+          >
+            Turmas
+          </Menu.Item>
+          <Menu.Item
+            component="a"
+            href=""
+            leftSection={
+              <IconUser style={{ width: rem(14), height: rem(14) }} />
+            }
+          >
+            Perfil
+          </Menu.Item>
+        </Menu.Dropdown>
+      </Menu>
+    </Box>
   );
 }
 
@@ -59,9 +99,6 @@ function NavbarUnloggedOptions() {
 }
 
 export default function Navbar({ status }: { status?: NavbarStatus }) {
-  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
-    useDisclosure(false);
-
   return (
     <Box>
       <nav className={classes.nav}>
@@ -71,38 +108,8 @@ export default function Navbar({ status }: { status?: NavbarStatus }) {
           {status === NavbarStatus.AUTH && <NavbarAuthOptions />}
           {status === NavbarStatus.LOGGED && <NavbarLoggedOptions />}
           {status === NavbarStatus.HOME && <NavbarUnloggedOptions />}
-
-          <Burger
-            aria-label="Menu burger"
-            opened={drawerOpened}
-            onClick={toggleDrawer}
-            hiddenFrom="sm"
-            size="sm"
-          />
         </Group>
       </nav>
-
-      <Drawer
-        opened={drawerOpened}
-        onClose={closeDrawer}
-        position="right"
-        title="Menu"
-      >
-        <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
-          <NavLink
-            href="/problemset"
-            label="Problemas"
-            leftSection={<IconHome2 size="1rem" stroke={1.5} />}
-          />
-          <NavLink
-            href="/groupset"
-            label="Turmas"
-            leftSection={<IconHome2 size="1rem" stroke={1.5} />}
-          />
-
-          <Divider my="sm" />
-        </ScrollArea>
-      </Drawer>
     </Box>
   );
 }
