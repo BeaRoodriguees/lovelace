@@ -1,9 +1,22 @@
 'use client';
-import { Group, Button, Anchor, Input } from '@mantine/core';
+import {
+  Group,
+  Button,
+  Anchor,
+  Input,
+  Burger,
+  Box,
+  Drawer,
+  Divider,
+  ScrollArea,
+  rem,
+  NavLink,
+} from '@mantine/core';
 import { IconLovelace } from '@/components/misc/icon-lovelace';
-import { IconSearch } from '@tabler/icons-react';
+import { IconHome2, IconSearch } from '@tabler/icons-react';
 import classes from './navbar.module.css';
 import AvatarMenu from '../misc/AvatarMenu';
+import { useDisclosure } from '@mantine/hooks';
 
 export enum NavbarStatus {
   HOME = 'HOME',
@@ -46,15 +59,50 @@ function NavbarUnloggedOptions() {
 }
 
 export default function Navbar({ status }: { status?: NavbarStatus }) {
-  return (
-    <nav className={classes.nav}>
-      <Group justify="space-between" h="100%">
-        <IconLovelace className={classes.logo} />
+  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
+    useDisclosure(false);
 
-        {status === NavbarStatus.AUTH && <NavbarAuthOptions />}
-        {status === NavbarStatus.LOGGED && <NavbarLoggedOptions />}
-        {status === NavbarStatus.HOME && <NavbarUnloggedOptions />}
-      </Group>
-    </nav>
+  return (
+    <Box>
+      <nav className={classes.nav}>
+        <Group justify="space-between" h="100%">
+          <IconLovelace className={classes.logo} />
+
+          {status === NavbarStatus.AUTH && <NavbarAuthOptions />}
+          {status === NavbarStatus.LOGGED && <NavbarLoggedOptions />}
+          {status === NavbarStatus.HOME && <NavbarUnloggedOptions />}
+
+          <Burger
+            aria-label="Menu burger"
+            opened={drawerOpened}
+            onClick={toggleDrawer}
+            hiddenFrom="sm"
+            size="sm"
+          />
+        </Group>
+      </nav>
+
+      <Drawer
+        opened={drawerOpened}
+        onClose={closeDrawer}
+        position="right"
+        title="Menu"
+      >
+        <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
+          <NavLink
+            href="/problemset"
+            label="Problemas"
+            leftSection={<IconHome2 size="1rem" stroke={1.5} />}
+          />
+          <NavLink
+            href="/groupset"
+            label="Turmas"
+            leftSection={<IconHome2 size="1rem" stroke={1.5} />}
+          />
+
+          <Divider my="sm" />
+        </ScrollArea>
+      </Drawer>
+    </Box>
   );
 }
