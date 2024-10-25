@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Adiciona o projeto ao ambiente virtual (possibilita o uso de scripts)
+# As dependências não são instaladas novamente!
+poetry install -q
+
 # Executa as migrações do banco de dados
 poetry run alembic upgrade head
 
