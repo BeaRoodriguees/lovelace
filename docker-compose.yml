@@ -50,15 +50,18 @@ services:
       context: .
       dockerfile: ./ui/Dockerfile
     entrypoint: ./entrypoint.sh
-    develop:
-      watch:
-        - action: sync
-          path: ./ui/src
-          target: /app/src
-          ignore:
-            - node_modules/
+    # develop:
+    #   watch:
+    #     - action: sync
+    #       path: ./ui/src
+    #       target: /app/src
+    #       ignore:
+    #         - node_modules/
     ports:
       - "3000:3000"
+    volumes:
+      - ./ui/src:/app/src
+      - ./ui/public:/app/public
     env_file:
       - .env
     networks:
