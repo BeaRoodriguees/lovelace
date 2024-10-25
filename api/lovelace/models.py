@@ -68,9 +68,6 @@ class User:
     updated_at: Mapped[datetime] = mapped_column(
         init=False, server_default=func.now(), onupdate=func.now()
     )
-    submissions: Mapped[list['Submission']] = relationship(
-        init=False, back_populates='user', cascade='all, delete-orphan'
-    )
 
 
 @table_registry.mapped_as_dataclass
@@ -117,10 +114,10 @@ class Submission:
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
 
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
-    user: Mapped[User] = relationship(back_populates='submissions')
+    user: Mapped[User] = relationship(init=False)
 
     problem_id: Mapped[int] = mapped_column(ForeignKey('problems.id'))
-    problem: Mapped[Problem] = relationship()
+    problem: Mapped[Problem] = relationship(init=False)
 
     body: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(
