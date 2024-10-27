@@ -19,7 +19,7 @@ export default function ProblemsetHeader(props: ProblemsetHeaderProps) {
   const [search, setSearch] = useState('');
   const [timer, setTimer] = useState<NodeJS.Timeout>();
   const { applyFilters, currentFilters } = props;
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 1080px)');
 
   function updateSearch(event: React.ChangeEvent<HTMLInputElement>) {
     setSearch(event.target.value);
@@ -33,8 +33,6 @@ export default function ProblemsetHeader(props: ProblemsetHeaderProps) {
 
     setTimer(newTimer);
   }
-
-  
 
   return (
     <div className={classes.container}>
