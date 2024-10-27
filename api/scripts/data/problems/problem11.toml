@@ -1,0 +1,43 @@
+name = "A festa dos Expendables"
+difficulty = "medium"
+time_limit = 5000
+memory_limit = 500
+
+description = '''
+A festa dos Expendables está chegando. Porém, Pedro está muito preocupado, pois ele acredita que a festa terá poucos convidados. Como ele sabe que Perazzo tem muitas amigas, Pedro o convenceu de convidar algumas. Logo, Perazzo imediatamente pega seu celular e envia um SMS para sua amiga Ana. No minuto seguinte, Ana convida Bia. No segundo minuto após Perazzo ter convidado Ana, Ana convida Clara e Bia convida Dara.
+
+Pedro notou que a quantidade de amigas de Perazzo que foram convidadas a comparecer ao evento dobra a cada minuto. Ele está bastante feliz, porém Vivi está bastante desesperado com a quantidade de pessoas (pois a festa ocorrerá na casa dele). Como todos os Expendables estão se preparando para a festa, Vivi pediu que você escrevesse um programa que o informasse a quantidade de amigas de Perazzo que confirmaram presença na festa, após um determinado tempo em minutos.
+'''
+
+problem_input = '''
+A entrada será um único inteiro N (0 <= N <= 10^5), que representa a quantidade de minutos após Perazzo convidar Ana.
+'''
+
+problem_output = '''
+Imprima a quantidade de amigas de Perazzo que confirmaram presença na festa após N minutos. Como a resposta pode ser muito grande, nunca imprima mais que 50 dígitos em uma única linha.
+
+Por exemplo, se a resposta tiver 120 dígitos, imprima os 50 primeiros dígitos na primeira linha, seguido de uma quebra de linha, depois imprima os outros 50 na segunda linha, seguido de uma quebra de linha e por fim, imprima os 20 dígitos restantes na terceira linha, também seguida de uma quebra de linha.
+'''
+
+[[testcases]]
+input = '''
+2
+'''
+output = '''
+4
+'''
+is_sample = true
+
+[[testcases]]
+input = '''
+400
+'''
+output = '''
+25822498780869085896559191720030118743297057928292
+23512830659356540647622016841194629645353280137831
+435903171972747493376
+'''
+is_sample = true
+
+[[tags]]
+name = " lógica matemática"

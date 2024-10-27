@@ -1,0 +1,30 @@
+name = "Acima da média"
+difficulty = "very_easy"
+time_limit = 1000
+memory_limit = 500
+
+description = '''
+Dados três números em ponto flutuante queremos saber quantos deles estão acima da média aritmética.
+'''
+
+problem_input = '''
+Três números positivos, menores ou iguais a 10.0 e com dois decimais, no máximo.
+'''
+
+problem_output = '''
+A quantidade dos que estão acima da média.
+'''
+
+[[testcases]]
+input = '''
+2.0
+9.0
+10.0
+'''
+output = '''
+2
+'''
+is_sample = true
+
+[[tags]]
+name = "decisão"
