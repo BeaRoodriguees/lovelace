@@ -1,4 +1,5 @@
 'use client';
+
 import {
   Group,
   Button,
@@ -18,6 +19,8 @@ import {
 } from '@tabler/icons-react';
 import classes from './navbar.module.css';
 import AvatarMenu from '../misc/AvatarMenu';
+import { useSession } from 'next-auth/react';
+import { useState } from 'react';
 
 export enum NavbarStatus {
   HOME = 'HOME',
@@ -30,6 +33,9 @@ function NavbarAuthOptions() {
 }
 
 function NavbarLoggedOptions() {
+  const session = useSession();
+  const user = session.data?.user;
+
   return (
     <Box>
       <Group visibleFrom="sm" className={classes.menu}>
@@ -47,7 +53,7 @@ function NavbarLoggedOptions() {
 
       <Menu shadow="md" width={250}>
         <Menu.Target>
-          <Burger aria-label="Menu burger" hiddenFrom="sm" size="sm" />
+          <Burger aria-label="Menu de Navegação" hiddenFrom="sm" size="sm" />
         </Menu.Target>
 
         <Menu.Dropdown>
@@ -72,7 +78,7 @@ function NavbarLoggedOptions() {
           </Menu.Item>
           <Menu.Item
             component="a"
-            href=""
+            href={`/profile/${user?.username}`}
             leftSection={
               <IconUser style={{ width: rem(14), height: rem(14) }} />
             }
@@ -86,15 +92,58 @@ function NavbarLoggedOptions() {
 }
 
 function NavbarUnloggedOptions() {
+  const [opened, setOpened] = useState(false);
   return (
-    <Group visibleFrom="sm">
-      <Button component="a" href="/register" variant="default">
-        Cadastrar
-      </Button>
-      <Button component="a" href="/login" variant="gradient" autoContrast>
-        Entrar
-      </Button>
-    </Group>
+    <>
+      <Group visibleFrom="sm">
+        <Button component="a" href="/register" variant="default">
+          Cadastrar
+        </Button>
+        <Button component="a" href="/login" variant="gradient" autoContrast>
+          Entrar
+        </Button>
+      </Group>
+
+      <Group align="right" hiddenFrom="sm">
+        <Menu
+          opened={opened}
+          onClose={() => setOpened(false)}
+          onOpen={() => setOpened(true)}
+          withinPortal
+        >
+          <Menu.Target>
+            <Burger
+              opened={opened}
+              onClick={() => setOpened((prev: boolean) => !prev)}
+              aria-label="Abrir menu de navegação"
+            />
+          </Menu.Target>
+
+          <Menu.Dropdown>
+            <Menu.Item>
+              <Button
+                variant="transparent"
+                fullWidth
+                component="a"
+                href="/register"
+              >
+                Cadastro
+              </Button>
+            </Menu.Item>
+            <Menu.Item>
+              <Button
+                variant="transparent"
+                fullWidth
+                component="a"
+                href="/login"
+              >
+                Login
+              </Button>
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
+      </Group>
+    </>
   );
 }
 

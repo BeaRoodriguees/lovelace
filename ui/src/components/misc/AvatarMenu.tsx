@@ -17,6 +17,7 @@ export default function AvatarMenu() {
     >
       <Menu.Target>
         <Avatar
+          src={user?.image}
           name={user?.username ?? undefined}
           color="initials"
           className={classes.avatar}
@@ -27,6 +28,8 @@ export default function AvatarMenu() {
         <Menu.Label>Meu Perfil</Menu.Label>
         <MenuDivider />
         <Menu.Item
+          component="a"
+          href={`/profile/${user?.username}`}
           leftSection={<IconUser style={{ width: rem(14), height: rem(14) }} />}
         >
           Ver Perfil
