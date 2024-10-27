@@ -8,7 +8,11 @@
   height: 100vh;
 }
 
-
+@media (max-width: 1200px) {
+  .container {
+    background-image: none;
+  }
+}
 
 .wrapper {
   display: flex;
