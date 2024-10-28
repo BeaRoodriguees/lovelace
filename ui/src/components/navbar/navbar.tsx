@@ -12,14 +12,15 @@ import {
 } from '@mantine/core';
 import { IconLovelace } from '@/components/misc/icon-lovelace';
 import {
+  IconLogout2,
   IconSearch,
   IconTerminal,
   IconUser,
   IconUsersGroup,
 } from '@tabler/icons-react';
 import classes from './navbar.module.css';
-import AvatarMenu from '../misc/AvatarMenu';
-import { useSession } from 'next-auth/react';
+import AvatarMenu from './AvatarMenu';
+import { signOut, useSession } from 'next-auth/react';
 import { useState } from 'react';
 
 export enum NavbarStatus {
@@ -84,6 +85,15 @@ function NavbarLoggedOptions() {
             }
           >
             Perfil
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => signOut()}
+            color="red"
+            leftSection={
+              <IconLogout2 style={{ width: rem(14), height: rem(14) }} />
+            }
+          >
+            Sair da Conta
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>

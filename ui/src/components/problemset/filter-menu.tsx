@@ -1,7 +1,7 @@
 'use client';
 
 import { Popover, Button, Text, MultiSelect } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { FocusTrap } from '@mantine/core';
 import { IconFilter } from '@tabler/icons-react';
 import { useState } from 'react';
@@ -76,6 +76,8 @@ export default function FilterDropdownMenu({
     setOpened(false);
   }
 
+  const isMobile = useMediaQuery('(max-width: 1080px)');
+
   return (
     <Popover
       opened={opened}
@@ -87,22 +89,39 @@ export default function FilterDropdownMenu({
       closeOnEscape={false}
     >
       <Popover.Target>
-        <Button
-          onClick={() =>
-            setOpened((o) => {
-              toggleFocusTrap();
-              return !o;
-            })
-          }
-          leftSection={<IconFilter stroke={2} />}
-          rightSection={
-            filterCounter ? <CounterDisplay n={filterCounter} /> : null
-          }
-          variant={'lovelace-secondary'}
-          {...rest}
-        >
-          Filtros
-        </Button>
+        {isMobile ? (
+          <Button
+            variant="default"
+            onClick={() =>
+              setOpened((o) => {
+                toggleFocusTrap();
+                return !o;
+              })
+            }
+            rightSection={
+              filterCounter ? <CounterDisplay n={filterCounter} /> : null
+            }
+          >
+            <IconFilter size={16} />
+          </Button>
+        ) : (
+          <Button
+            onClick={() =>
+              setOpened((o) => {
+                toggleFocusTrap();
+                return !o;
+              })
+            }
+            leftSection={<IconFilter stroke={2} />}
+            rightSection={
+              filterCounter ? <CounterDisplay n={filterCounter} /> : null
+            }
+            variant={'lovelace-secondary'}
+            {...rest}
+          >
+            Filtros
+          </Button>
+        )}
       </Popover.Target>
 
       <Popover.Dropdown className={classes.menu}>

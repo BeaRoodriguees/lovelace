@@ -3,7 +3,7 @@
 import classes from './problemset-header.module.css';
 import { Button, TextInput } from '@mantine/core';
 import { Title } from '@mantine/core';
-import { IconFilter, IconSearch } from '@tabler/icons-react';
+import { IconSearch } from '@tabler/icons-react';
 import FilterDropdownMenu from './filter-menu';
 import { ProblemSetFilterData } from '@/lib/types';
 import { useState } from 'react';
@@ -41,37 +41,21 @@ export default function ProblemsetHeader(props: ProblemsetHeaderProps) {
       </Title>
       <div className={classes.actions}>
         {isMobile ? (
-          <>
-            <Button
-              variant="default"
-              onClick={() => {
-                /* handle search icon click */
-              }}
-            >
-              <IconSearch size={16} />
-            </Button>
-            <Button
-              variant="default"
-              onClick={() => {
-                /* handle filter icon click */
-              }}
-            >
-              <IconFilter size={16} />
-            </Button>
-          </>
+          <Button variant="default">
+            <IconSearch size={16} />
+          </Button>
         ) : (
-          <>
-            <TextInput
-              radius="md"
-              placeholder="Encontrar um problema"
-              leftSection={<IconSearch size={16} />}
-              className={classes.search}
-              value={search}
-              onChange={updateSearch}
-            ></TextInput>
-            <FilterDropdownMenu className={classes.filter} {...props} />
-          </>
+          <TextInput
+            radius="md"
+            placeholder="Encontrar um problema"
+            leftSection={<IconSearch size={16} />}
+            className={classes.search}
+            value={search}
+            onChange={updateSearch}
+          ></TextInput>
         )}
+
+        <FilterDropdownMenu className={classes.filter} {...props} />
       </div>
     </div>
   );
