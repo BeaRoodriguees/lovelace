@@ -1,0 +1,128 @@
+name = "Duelo no RU"
+difficulty = "easy"
+time_limit = 1000
+memory_limit = 500
+
+description = '''
+Túlio e Pedro estavam decidindo quem iria levar as bandejas depois do almoço no RU. Depois de muita argumentação eles pensaram em resolver essa disputa com uma partida de "Armague".
+
+Esse jogo consiste em três duelos entre as cartas dos jogadores.
+
+Cada carta possui 3 atributos: Classe, Ataque e Vida. O jogo segue a seguinte ordem: Em cada duelo, a carta com menos vida ataca primeiro (Caso sejam iguais, Pedro começa). Se a carta que sofreu o ataque não morrer, ela irá atacar de volta, encerrando o duelo com apenas um ataque de cada.
+
+
+Antes do começo do duelo, as cartas podem receber bonus de ataque ou vida, isso é dado seguindo a relação entre as classes:
+
+Caso 1: Duelo entre Guerreiro e Arqueiro. O guerreiro recebe um aumento de 30% em relação a sua vida.
+
+Caso 2: Duelo entre Arqueiro e Mago. O arqueiro recebe um aumento de 25% em relação ao seu ataque.
+
+Caso 3: Duelo entre Mago e Guerreiro. O mago recebe um aumento de 15% em sua vida e em seu ataque.
+
+
+O vencedor do duelo é aquele cuja carta conseguir matar a carta inimiga. Em casos em que nenhuma carta foi eliminada, o vencedor é aquele com mais pontos de vida. Caso ainda tenha empates, o vencedor será aquele com maior pontos de ataque.
+
+É garantido que os ataques nunca serão iguais.
+
+OBSERVAÇÕES
+
+obs1: Um ataque consiste em subtrair a vida do inimigo pelos pontos de ataque do agressor.
+
+obs2: Considere que para uma carta morrer, ela deve ter pontos de vida <= 0.
+
+
+Em cada duelo, você deve indicar quem foi o vitorioso.
+
+No final da partida também é preciso indicar quem foi o jogador vencedor.
+
+Leia a descrição de saída para mais detalhes.
+'''
+
+problem_input = '''
+Os dados das cartas são dados nessa ordem: Classe, Ataque e vida.
+
+Classe é um inteiro podendo ser: 1 (Guerreiro), 2 (Mago) ou 3 (Arqueiro).
+
+Ataque e vida são variáveis do tipo Double.
+
+OBS: Ataque e vida são > 0.
+
+
+Primeiro vem as 3 cartas do Pedro, seguidas pelas 3 cartas do Túlio.
+
+classe1 ataque1 vida1
+
+classe2 ataque2 vida2
+
+classe3 ataque3 vida3
+
+classe4 ataque4 vida4
+
+classe5 ataque5 vida5
+
+classe6 ataque6 vida6
+'''
+
+problem_output = '''
+Para cada duelo, deve informar o vencedor seguindo o exemplo: "RodadaX:  _nome do ganhador_" 
+
+Onde X indica a rodada atual, começando na rodada 1 e indo até a rodada 3.
+
+Os nomes dos ganhadores são: "Pedro" ou "Tulio".
+
+obs1: Tem um espaço depois do ":"
+
+obs2: Não tem um espaço entre rodada e o número dela.
+
+No fim dos 3 duelos, deve indicar o jogador vencedor, sendo esse aquele que mais venceu duelos.
+
+"Tulio vitorioso" ou "Pedro vitorioso"
+
+obs3: Toda linha da saída deve ser seguida por uma quebra de linha.
+'''
+
+[[testcases]]
+input = '''
+1 15 10
+1 15 10
+1 70 100
+3 40 15
+3 40 16
+3 49.9 150
+'''
+output = '''
+Rodada1: Pedro
+Rodada2: Tulio
+Rodada3: Pedro
+Pedro vitorioso
+'''
+is_sample = true
+
+[[testcases]]
+input = '''
+2 15 10
+3 10 15
+1 15 10
+2 10 15
+3 15 10
+1 10 15
+'''
+output = '''
+Rodada1: Pedro
+Rodada2: Tulio
+Rodada3: Pedro
+Pedro vitorioso
+'''
+is_sample = true
+
+[[tags]]
+name = "acumulador"
+
+[[tags]]
+name = "decisão"
+
+[[tags]]
+name = "lógica matemática"
+
+[[tags]]
+name = "função"

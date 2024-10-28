@@ -1,0 +1,89 @@
+name = "A Fuga do Paffocan"
+difficulty = "hard"
+time_limit = 1000
+memory_limit = 500
+
+description = '''
+Gabriel Paçoqueiro, nosso não tão querido Paffocan, foi preso recentemente por seus crimes inomináveis contra seus funcionários. Contudo, em um belo dia, Paffocan engenhosamente escapou da cadeia e agora está solto, pondo em risco a vida de seus ex-assessores e novinhas desavisadas nas ruas. Ele deixou pistas para a polícia, desafiando-os a encontrá-lo, contendo coordenadas de possíveis locais que ele pode estar, bem como mensagens codificados indicando o nome desses locais. Sherlock Holmes, em toda sua sabedoria, notou que a codificação utilizada pelo Paffocan nas mensagens se assemelha à Cifra de César, que consiste em substituir letras do texto por outras seguindo um número fixo de vezes de acordo com a ordem alfabética. Por exemplo, se chave da codificação for 3, significa que na mensagem original as letras estavam 3 posições atrás em relação à mensagem codificada seguindo a ordem alfabética. 
+
+
+Seu trabalho é ajudar a polícia, criando uma programa que seja capaz de decodificar as mensagens deixadas pelo Paffocan e, no final, imprima uma matriz 12x12 preenchida com "o" nos lugares onde Paffocan não esteve e "x" nos lugares que ele indicou em suas mensagens.
+'''
+
+problem_input = '''
+Um número inteiro n representando a quantidade de mensagens que Paffoca deixou
+
+(Logo após, um inteiro x indicando a chave de de codificação e em seguida a mensagem codificada. 
+
+Por fim, a coordenada desse local no formato x y) isso se repetirá n vezes.
+'''
+
+problem_output = '''
+As mensgens decodificadas na ordem em que foram inseridas no programa
+
+Uma matriz 12x12 com "o" nos nas coordenadas onde Paffoca não passou e "x" nas coordenadas indicadas por ele.
+'''
+
+[[testcases]]
+input = '''
+3
+3 Sdodflr gr Sodqdowr
+5 4
+7 Jhzh kv Isblghv
+4 6
+5 Wzf if Rtjif
+7 9
+'''
+output = '''
+Palacio do Planalto
+Casa do Bluezao
+Rua da Moeda
+o o o o o o o o o o o o 
+o o o o o o o o o o o o 
+o o o o o o o o o o o o 
+o o o o x o o o o o o o 
+o o o o o o o o o o o o 
+o o o x o o o o o o o o 
+o o o o o o o o o o o o 
+o o o o o o o o o o o o 
+o o o o o o x o o o o o 
+o o o o o o o o o o o o 
+o o o o o o o o o o o o 
+o o o o o o o o o o o o
+'''
+is_sample = true
+
+[[testcases]]
+input = '''
+2
+6 Morju Rgtinky
+6 8
+10 Zbksk no Lyk Fskqow
+1 1
+'''
+output = '''
+Gildo Lanches
+Praia de Boa Viagem
+x o o o o o o o o o o o 
+o o o o o o o o o o o o 
+o o o o o o o o o o o o 
+o o o o o o o o o o o o 
+o o o o o o o o o o o o 
+o o o o o o o o o o o o 
+o o o o o o o o o o o o 
+o o o o o x o o o o o o 
+o o o o o o o o o o o o 
+o o o o o o o o o o o o 
+o o o o o o o o o o o o 
+o o o o o o o o o o o o
+'''
+is_sample = true
+
+[[tags]]
+name = "array"
+
+[[tags]]
+name = "array bidimensional"
+
+[[tags]]
+name = "string"

@@ -1,11 +1,17 @@
 FROM python:3.12-slim
+
+RUN pip install poetry
 ENV POETRY_VIRTUALENVS_CREATE=false
 
 WORKDIR /app
-COPY /api .
 
+COPY /api/entrypoint.sh .
 RUN ["chmod", "+x", "./entrypoint.sh"]
-RUN pip install poetry
+
+COPY /api/pyproject.toml .
+COPY /api/poetry.lock .
+COPY /api/alembic.ini .
+COPY /api/README.md . 
 
 RUN poetry config installer.max-workers 10
 RUN poetry install --no-interaction --no-ansi

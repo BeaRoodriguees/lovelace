@@ -11,23 +11,28 @@ Inspirado por Ada Lovelace, a primeira programadora da história, o Lovelace é 
 ## Execução da aplicação usando containers (Desenvolvimento)
 1. Instale o [Docker](https://docs.docker.com/engine/install/). Para Windows sugerimos o [Docker Desktop](https://docs.docker.com/desktop/install/windows-install/)
 2. Crie um arquivo `.env` copiando o arquivo `.env.example` e inserindo valores apropriados para as variáveis de ambiente.
-3. Execute o comando `docker compose up --build --watch`, aguarde a inicialização.
+3. Execute o comando `docker compose up --build`, aguarde a inicialização.
 
 >[!NOTE]
 > A flag `--build` só é necessária quando há uma mudança no código e desejamos reconstruir a imagem e o container. 
->
->Já a flag `--watch` faz com que, durante a execução do container, as mudanças feitas na pasta original sejam replicadas dentro do container.
 
 >[!WARNING]
 > Caso algum problema que não faz sentido esteja acontecendo, use o comando `docker compose up --build --force-recreate` para recriar os containers do zero.
 > 
-> Para criar imagens sem a camada de cache, use `docker compose build --no-cache <service>`.
+> Para criar imagens sem a camada de cache, use `docker compose build --no-cache`.
 
 ### Criação do usuário admin
 Para criar o usuário admin siga os seguintes passos:
 
 1. Execute o sistema como mostrado acima
 2. Em outro terminal, execute o comando `docker compose exec api python scripts/create_admin.py`
+
+### Criação de migrações
+Caso a estrutura do banco de dados seja modificada, é necessária a geração de uma migration. Para isso faça:
+
+1. Crie a migração usando o comando `docker compose exec api alembic revision --autogenerate -m "explique"`
+2. Reinicie o container para aplicar as migrações usando `docker compose restart api`
+3. **Lembre-se de commitar a migração para que a mudança seja aplicada para todos.**
 
 ### Acesso ao banco de dados via PgAdmin
 Para Fazer queries direto ao banco de dados e visualizar tabelas, use o PgAdmin.

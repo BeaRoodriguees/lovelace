@@ -1,0 +1,90 @@
+name = "Ambrósio desastrado"
+difficulty = "very_easy"
+time_limit = 1000
+memory_limit = 500
+
+description = '''
+O jovem Ambrósio estava decifrando uma mensagem escrevendo letra por letra em pedaços de papel. Em cada pedaço Ambrósio escreveu uma letra e um número representando sua posição, da seguinte forma:
+
+1 M
+2 e
+3 n
+4 s
+5 a
+6 g
+7 e
+8 m
+
+Porém Ambrósio esbarrou na mesa e bagunçou todos os pedaços. Ajude-o a reorganizar a mensagem.
+'''
+
+problem_input = '''
+Um inteiro N representando a quantidade de pedaços. (0 < N < 200)
+N linhas contendo um inteiro M e um caractere C. (1 < M <= N)
+'''
+
+problem_output = '''
+Todos os caracteres dos pedaços na ordem correta.
+'''
+
+[[testcases]]
+input = '''
+19
+1 h
+8 t
+2 o
+18 p
+3 j
+12 r
+13 o
+5 v
+16 d
+6 a
+11 p
+15 a
+9 e
+17 e
+14 v
+7 i
+10 r
+19 1
+4 e
+'''
+output = '''
+hojevaiterprovadep1
+'''
+is_sample = true
+
+[[testcases]]
+input = '''
+16
+5 s
+9 a
+8 r
+16 0
+12 o
+13 t
+1 v
+15 1
+4 o
+2 a
+6 t
+10 r
+7 i
+3 m
+11 n
+14 a
+'''
+output = '''
+vamostirarnota10
+'''
+is_sample = true
+
+[[tags]]
+name = "array"
+
+[[tags]]
+name = "repetição"
+
+[[tags]]
+name = "ordenação"

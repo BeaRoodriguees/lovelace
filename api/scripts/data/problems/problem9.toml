@@ -1,0 +1,44 @@
+name = "Calculando a média com ponteiros"
+difficulty = "easy"
+time_limit = 1000
+memory_limit = 500
+
+description = '''
+Crie um programa que tenha apenas uma função com assinatura void calcular_media (int *A, int *B), além da principal, que receberá como parâmetros dois ponteiros contendo os endereços de A e B. O programa deverá identificar qual das duas variáveis possui o maior e o menor valor para realizar as seguintes operações:
+
+    Após identificado a variável de menor valor, calcular a média dos valores de A e B (média = (A+B) / 2) e armazenar o resultado na variável que contém o menor valor. Por exemplo, caso a variável A seja 2 e a variável B seja 4, a média deverá ser salva na variável A.
+    Como se trata da divisão de dois inteiros, queremos saber se houve resto dessa divisão. Portanto, o programa deverá armazenar o resto da divisão na variável na variável de maior valor. Por exemplo, caso a média tenha sido armazenada na variável A, o resto deverá ser armazenado na variável B.
+'''
+
+problem_input = '''
+Dois números inteiros A e B.
+
+-2
+
+4
+'''
+
+problem_output = '''
+Os novos valores de A e B.
+
+A = 1
+
+B = 0
+'''
+
+[[testcases]]
+input = '''
+23
+-31
+'''
+output = '''
+A = 0
+B = -4
+'''
+is_sample = true
+
+[[tags]]
+name = "função"
+
+[[tags]]
+name = "ponteiro"
