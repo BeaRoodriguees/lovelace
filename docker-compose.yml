@@ -29,14 +29,11 @@ services:
     build:
       context: .
       dockerfile: ./api/Dockerfile
-    entrypoint: ./entrypoint.sh
+    entrypoint: [ "/bin/sh", "./entrypoint.sh" ]
     ports:
       - "8000:8000"
     volumes:
-      - ./api/lovelace:/app/lovelace
-      - ./api/migrations:/app/migrations
-      - ./api/scripts:/app/scripts
-      - ./api/tests:/app/tests
+      - ./api:/app
     depends_on:
       pgsql:
         condition: service_healthy
