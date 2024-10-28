@@ -1,0 +1,37 @@
+name = "Inverter uma string"
+difficulty = "very_easy"
+time_limit = 1000
+memory_limit = 500
+
+description = '''
+Leia uma string e inverta o seu conteúdo. Exemplo: Se a string digitada for "JANELA", então você deve imprimir: "ALENAJ".
+'''
+
+problem_input = '''
+Você receberá uma única linha contendo uma string com no máximo 255 caracteres.
+'''
+
+problem_output = '''
+Imprima a string recebida com os seus caracteres invertidos também em uma única linha, seguida de um final de linha.
+'''
+
+[[testcases]]
+input = '''
+janela
+'''
+output = '''
+alenaj
+'''
+is_sample = true
+
+[[tags]]
+name = "array"
+
+[[tags]]
+name = "repetição"
+
+[[tags]]
+name = "caractere"
+
+[[tags]]
+name = "string"
