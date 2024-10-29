@@ -91,7 +91,7 @@ export default function FilterDropdownMenu({
       <Popover.Target>
         {isMobile ? (
           <Button
-            variant="default"
+            variant={'lovelace-secondary'}
             onClick={() =>
               setOpened((o) => {
                 toggleFocusTrap();

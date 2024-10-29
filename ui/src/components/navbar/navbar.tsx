@@ -86,6 +86,9 @@ function NavbarLoggedOptions() {
           >
             Perfil
           </Menu.Item>
+
+          <Menu.Divider />
+
           <Menu.Item
             onClick={() => signOut()}
             color="red"

@@ -1,13 +1,11 @@
 'use client';
 
 import classes from './problemset-header.module.css';
-import { Button, TextInput } from '@mantine/core';
-import { Title } from '@mantine/core';
+import { TextInput, Title } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import FilterDropdownMenu from './filter-menu';
 import { ProblemSetFilterData } from '@/lib/types';
 import { useState } from 'react';
-import { useMediaQuery } from '@mantine/hooks';
 
 interface ProblemsetHeaderProps {
   currentFilters: ProblemSetFilterData;
@@ -19,7 +17,6 @@ export default function ProblemsetHeader(props: ProblemsetHeaderProps) {
   const [search, setSearch] = useState('');
   const [timer, setTimer] = useState<NodeJS.Timeout>();
   const { applyFilters, currentFilters } = props;
-  const isMobile = useMediaQuery('(max-width: 1080px)');
 
   function updateSearch(event: React.ChangeEvent<HTMLInputElement>) {
     setSearch(event.target.value);
@@ -40,20 +37,14 @@ export default function ProblemsetHeader(props: ProblemsetHeaderProps) {
         Problemas
       </Title>
       <div className={classes.actions}>
-        {isMobile ? (
-          <Button variant="default">
-            <IconSearch size={16} />
-          </Button>
-        ) : (
-          <TextInput
-            radius="md"
-            placeholder="Encontrar um problema"
-            leftSection={<IconSearch size={16} />}
-            className={classes.search}
-            value={search}
-            onChange={updateSearch}
-          ></TextInput>
-        )}
+        <TextInput
+          radius="md"
+          placeholder="Encontrar um problema"
+          leftSection={<IconSearch size={16} />}
+          className={classes.search}
+          value={search}
+          onChange={updateSearch}
+        ></TextInput>
 
         <FilterDropdownMenu className={classes.filter} {...props} />
       </div>
