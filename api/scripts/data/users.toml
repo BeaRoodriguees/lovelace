@@ -1,0 +1,41 @@
+[[users]]
+username = "arthurpmrs"
+password = "User123"
+email = "apmrs@ic.ufal.br"
+role = "user"
+is_active = true
+
+[[users]]
+username = "Bea"
+password = "User123"
+email = "brc@ic.ufal.br"
+role = "user"
+is_active = true
+
+[[users]]
+username = "KeeOth"
+password = "User123"
+email = "ggo@ic.ufal.br"
+role = "user"
+is_active = true
+
+[[users]]
+username = "Romao"
+password = "User123"
+email = "dsr@ic.ufal.br"
+role = "user"
+is_active = true
+
+[[users]]
+username = "Filipe"
+password = "User123"
+email = "fffsp@ic.ufal.br"
+role = "user"
+is_active = true
+
+[[users]]
+username = "superadmin"
+password = "User123"
+email = "super@admin.com"
+role = "admin"
+is_active = true

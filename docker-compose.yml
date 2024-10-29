@@ -6,7 +6,7 @@ services:
     env_file:
       - .env
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}" ]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -24,22 +24,16 @@ services:
     networks:
       - lovelace-network
     attach: false # Hides bloat from pgadmin on console
-  
+
   api:
     build:
       context: .
       dockerfile: ./api/Dockerfile
-    entrypoint: ./entrypoint.sh
-    develop:
-      watch:
-        - action: sync
-          path: ./api/lovelace
-          target: /app/lovelace
-          ignore:
-            - __pycache__/
-            - routers/__pycache__/
+    entrypoint: [ "/bin/sh", "./entrypoint.sh" ]
     ports:
       - "8000:8000"
+    volumes:
+      - ./api:/app
     depends_on:
       pgsql:
         condition: service_healthy
@@ -47,21 +41,17 @@ services:
       - .env
     networks:
       - lovelace-network
-  
+
   ui:
     build:
       context: .
       dockerfile: ./ui/Dockerfile
     entrypoint: ./entrypoint.sh
-    develop:
-      watch:
-        - action: sync
-          path: ./ui/src
-          target: /app/src
-          ignore:
-            - node_modules/
     ports:
       - "3000:3000"
+    volumes:
+      - ./ui/src:/app/src
+      - ./ui/public:/app/public
     env_file:
       - .env
     networks:

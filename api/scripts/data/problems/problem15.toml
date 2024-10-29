@@ -1,0 +1,51 @@
+name = "Gato no Chapéu"
+difficulty = "very_hard"
+time_limit = 1000
+memory_limit = 500
+
+description = '''
+Uma homenagem a Theodore Seuss Geisel
+
+Um gato esperto anda em um quarto bagunçado que ele precisa limpar. Ao invés de fazer todo o trabalho sozinho, ele decide que seus gatos ajudantes devem fazer o trabalho. Ele mantêm seus gatos ajudantes(menores) dentro de seu chapéu. Cada gato ajudante tem seu próprio chapéu, e assim por diante. Eventualmente, os gatos chegam ao tamanho mínimo. Estes gatos menores não têm gatos adicionais em seus chapéus. Estes gatos azarados fazem a limpeza.
+
+O número de gatos dentro de cada chapéu de gato maior é uma constante, n. A altura destes gatos-no-chapéu é (1/(n+1)) vezes a altura do gato que possui o chapéu de onde eles sairam
+
+    Os gatos menores são de tamanho um;
+    Estes são os gatos que fazem o trabalho.
+
+Todas as alturas são inteiros positivos
+
+Dada a altura do gato inicial e o número de gatos trabalhadores (os de altura um), encontre o número de gatos que não estão fazendo trabalho algum (gatos de altura maior que um) e também determine a soma da altura de todos os gatos (a altura de uma pilha de todos os gatos em pé um cima do outro).
+'''
+
+problem_input = '''
+A entrada consiste de uma seqüência de especificações dos gatos-no-chapéu. Cada especificação é uma única linha que consiste de dois inteiros positivos, separados por espaço. O primeiro inteiro é a altura do gato inicial, e o segundo inteiro é o número de gatos trabalhadores.
+
+Um par de 0's em uma linha indica o fim da entrada
+'''
+
+problem_output = '''
+Para cada linha de entrada (especificações dos gatos-no-chapéu), imprima o número de gatos que não estão trabalhando, seguido por um espaço, seguido pela altura da pilha de gatos. Deve haver uma linha de saída para cada linha de entrada, exceto para a "0 0" que termina a entrada.
+'''
+
+[[testcases]]
+input = '''
+3 2
+9 4
+27 8
+81 16
+243 32
+0 0
+'''
+output = '''
+1 5
+3 19
+7 65
+15 211
+31 665
+
+'''
+is_sample = true
+
+[[tags]]
+name = " lógica matemática"

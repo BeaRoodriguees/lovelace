@@ -1,0 +1,81 @@
+name = "Aquele com a bola"
+difficulty = "hard"
+time_limit = 1000
+memory_limit = 500
+
+description = '''
+Joey e Ross estão jogando uma bola um para o outro por horas sem derrubar, Monica resolve participar, e por causa de sua mania de organização, pede para você criar um código que diga para eles qual a melhor ordem para o ciclo, dizendo quem deverá jogar pra quem, visando minimizar o risco de alguém derrubar a bola.
+
+Você deverá colocar em ordem crescente, o array que contém o nome dos participantes, de acordo com as habilidades de arremesso.
+
+E em ordem decrescente, o outro array, se baseando nas habilidades de recepção.
+
+Isso servirá para você relacionar mais facilmente um lançador com um recebedor, sabendo que se a bola está saindo da mão de quem está no índice 2 do array de arremessos, ela deve ir pra quem está no índice 2 do array de recepção.
+
+Obs.: A bola sempre começa com o melhor lançador.
+
+Ex.: 
+
+Joey 20, Chandler 25, Ross 30, Monica 40 (habilidades de arremesso);
+Monica 30, Ross 20, Joey 10 , Chandler 1 (habilidades de recepção);
+
+Monica deverá jogar para Chandler, pois ele tem a menor habilidade para receber a bola;
+
+Chandler para Ross;
+
+Ross para Joey;
+
+E Joey para Monica fechando o ciclo;
+
+Nunca ocorrerá de alguém ficar de fora do ciclo (seu código precisa apenas achar qual sera o ciclo, as entradas serão amigáveis)
+'''
+
+problem_input = '''
+X
+Indicando a quantidade de pessoas que irão participar;
+X*2 linhas 
+Nome Numero
+Contando primeiro X linhas com os nomes dos participantes e um inteiro ao lado indicando a habilidade de arremessar;
+
+E mais X linhas com o nome e a habilidade de receber;
+'''
+
+problem_output = '''
+X linhas
+
+contendo
+"Arremessador para Recebedor"
+
+E uma linha depois que o ciclo for fechado:
+"I am anything but a dropper"
+'''
+
+[[testcases]]
+input = '''
+4
+Joey 20
+Chandler 25
+Ross 30
+Monica 40
+Monica 30
+Ross 20
+Chandler 1
+Joey 10
+'''
+output = '''
+Monica para Chandler
+Chandler para Ross
+Ross para Joey
+Joey para Monica
+I am anything but a dropper
+'''
+is_sample = true
+
+[[tags]]
+name = "array"
+
+[[tags]]
+name = "ordenação"
+
+[[tags]]
+name = "busca"
