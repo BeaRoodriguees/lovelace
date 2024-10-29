@@ -6,7 +6,7 @@ services:
     env_file:
       - .env
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}" ]
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -23,13 +23,12 @@ services:
       - "89:80"
     networks:
       - lovelace-network
-    attach: false # Hides bloat from pgadmin on console
 
   api:
     build:
       context: .
       dockerfile: ./api/Dockerfile
-    entrypoint: [ "/bin/sh", "./entrypoint.sh" ]
+    entrypoint: ["/bin/sh", "./entrypoint.sh"]
     ports:
       - "8000:8000"
     volumes:
@@ -57,7 +56,20 @@ services:
     networks:
       - lovelace-network
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - lovelace-network
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+      - rabbitmq-log:/var/log/rabbitmq
+
 volumes:
   pgdata:
+  rabbitmq-data:
+  rabbitmq-log:
 networks:
   lovelace-network:
