@@ -112,13 +112,10 @@ class Submission:
     __tablename__ = 'submissions'
 
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
-
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
     user: Mapped[User] = relationship(init=False)
-
     problem_id: Mapped[int] = mapped_column(ForeignKey('problems.id'))
     problem: Mapped[Problem] = relationship(init=False)
-
     body: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(
         init=False, server_default=func.now()

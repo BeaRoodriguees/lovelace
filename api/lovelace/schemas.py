@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict, EmailStr
 
-from lovelace.models import Role
+from lovelace.models import Difficulty, Role
 
 
 class CreateUserSchema(BaseModel):
@@ -34,3 +34,25 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     username: str | None = None
+
+
+class TestcaseSchema(BaseModel):
+    input: str
+    output: str
+    is_sample: bool
+
+
+class ProblemSchema(BaseModel):
+    name: str
+    description: str
+    input: str
+    output: str
+    difficulty: Difficulty
+    time_limit: int
+    memory_limit: int
+    testcases: list[TestcaseSchema]
+    tags: list[str]
+
+
+class ProblemList(BaseModel):
+    problems: list[ProblemSchema]
