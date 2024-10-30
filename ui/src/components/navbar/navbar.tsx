@@ -136,6 +136,7 @@ function NavbarUnloggedOptions() {
             <Menu.Item>
               <Button
                 variant="transparent"
+                color="blue.7"
                 fullWidth
                 component="a"
                 href="/register"
@@ -146,6 +147,7 @@ function NavbarUnloggedOptions() {
             <Menu.Item>
               <Button
                 variant="transparent"
+                color="blue.7"
                 fullWidth
                 component="a"
                 href="/login"
