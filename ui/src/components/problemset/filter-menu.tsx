@@ -112,7 +112,7 @@ export default function FilterDropdownMenu({
                 return !o;
               })
             }
-            leftSection={<IconFilter stroke={2} />}
+            leftSection={<IconFilter size={16} />}
             rightSection={
               filterCounter ? <CounterDisplay n={filterCounter} /> : null
             }
