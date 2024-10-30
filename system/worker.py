@@ -4,7 +4,7 @@ import pika
 import tempfile
 import os
 
-RABBITMQ_HOST = 'localhost'
+RABBITMQ_HOST = 'rabbitmq'
 QUEUE_NAME = 'submission_queue'
 
 

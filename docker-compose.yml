@@ -66,6 +66,16 @@ services:
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
       - rabbitmq-log:/var/log/rabbitmq
+    
+  worker:
+    build:
+      context: .
+      dockerfile: ./system/Dockerfile
+    volumes:
+      - ./system:/app
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - lovelace-network
 
 volumes:
   pgdata:

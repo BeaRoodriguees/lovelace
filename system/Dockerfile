@@ -1,9 +1,11 @@
-FROM debian:bullseye-slim
+FROM python:3.12-slim
 
-RUN apt update -y && apt upgrade -y
+WORKDIR /app
 
-RUN apt-get install python3.10 gcc g++ curl -y
+COPY /system/requirements.txt .
+RUN ["pip", "install", "-r", "requirements.txt"]
 
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh
-RUN bash nodesource_setup.sh
-RUN apt-get install -y nodejs
+COPY /system .
+
+CMD ["tail", "-f", "/dev/null"]
+# CMD ["python", "./worker.py"]
