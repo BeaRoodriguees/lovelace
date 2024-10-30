@@ -40,7 +40,9 @@ def get_problemset(session: Session):
 # get_problem
 @router.get('/{problem_id}', response_model=ProblemSchema)
 def get_problem(problem_id: int, session: Session):
-    problem = session.scalars(select(Problem).where(Problem.id == problem_id))
+    problem = session.scalars(
+        select(Problem).where(Problem.id == problem_id)
+    ).first()
 
     return ProblemSchema.model_validate(problem)
 

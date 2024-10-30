@@ -37,21 +37,31 @@ class TokenData(BaseModel):
 
 
 class TestcaseSchema(BaseModel):
+    id: int
     input: str
     output: str
     is_sample: bool
+    model_config = ConfigDict(from_attributes=True)
+
+
+class TagSchema(BaseModel):
+    id: int
+    name: str
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ProblemSchema(BaseModel):
+    id: int
     name: str
     description: str
-    input: str
-    output: str
+    problem_input: str
+    problem_output: str
     difficulty: Difficulty
     time_limit: int
     memory_limit: int
     testcases: list[TestcaseSchema]
-    tags: list[str]
+    tags: list[TagSchema]
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ProblemList(BaseModel):
