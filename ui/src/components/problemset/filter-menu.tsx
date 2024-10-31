@@ -89,39 +89,22 @@ export default function FilterDropdownMenu({
       closeOnEscape={false}
     >
       <Popover.Target>
-        {isMobile ? (
-          <Button
-            variant={'lovelace-secondary'}
-            onClick={() =>
-              setOpened((o) => {
-                toggleFocusTrap();
-                return !o;
-              })
-            }
-            rightSection={
-              filterCounter ? <CounterDisplay n={filterCounter} /> : null
-            }
-          >
-            <IconFilter size={16} />
-          </Button>
-        ) : (
-          <Button
-            onClick={() =>
-              setOpened((o) => {
-                toggleFocusTrap();
-                return !o;
-              })
-            }
-            leftSection={<IconFilter size={16} />}
-            rightSection={
-              filterCounter ? <CounterDisplay n={filterCounter} /> : null
-            }
-            variant={'lovelace-secondary'}
-            {...rest}
-          >
-            Filtros
-          </Button>
-        )}
+        <Button
+          onClick={() =>
+            setOpened((o) => {
+              toggleFocusTrap();
+              return !o;
+            })
+          }
+          leftSection={isMobile ? undefined : <IconFilter size={20} />}
+          rightSection={
+            filterCounter ? <CounterDisplay n={filterCounter} /> : null
+          }
+          variant={'lovelace-secondary'}
+          {...rest}
+        >
+          {isMobile ? <IconFilter size={20} /> : 'Filtros'}
+        </Button>
       </Popover.Target>
 
       <Popover.Dropdown className={classes.menu}>
