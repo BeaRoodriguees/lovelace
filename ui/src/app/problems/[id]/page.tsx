@@ -35,6 +35,7 @@ import classes from './page.module.css';
 import { notifications } from '@mantine/notifications';
 import { forceDelay } from '@/lib/utils';
 import { LanguageEnum, Submission, SubmissionStatus } from '@/lib/types';
+
 export interface TestCase {
   id: number;
   input: string;
@@ -160,7 +161,7 @@ export default function Problem() {
 
             <Tabs.Panel value="description" mt={'xl'} mx={'xl'}>
               <Grid gutter={'xs'}>
-                <Grid.Col span={8}>
+                <Grid.Col span={{ base: 12, lg: 8 }}>
                   <Box>
                     <div>
                       <Title order={1}>{problem.title}</Title>
@@ -177,7 +178,13 @@ export default function Problem() {
                           em {problem.createdAt}
                         </span>
                         <Flex direction={'column'}>
-                          <span>Tópicos: {problem.topics.join(', ')}</span>
+                          <span>
+                            Tópicos:{' '}
+                            <span style={{ fontWeight: 800 }}>
+                              {' '}
+                              {problem.topics.join(', ')}{' '}
+                            </span>{' '}
+                          </span>
                           <span>
                             Tempo limite:{' '}
                             <span
@@ -261,10 +268,10 @@ export default function Problem() {
                     </Table>
                   </Box>
                 </Grid.Col>
-                <Grid.Col span={4}>
+                <Grid.Col span={{ base: 12, lg: 4 }}>
                   <Container>
                     <Group justify="center" mt="md">
-                      <Text size="lg">Envie uma solução</Text>
+                      <Title order={4}>Envie uma solução</Title>
                     </Group>
                     <Flex
                       justify="space-between"

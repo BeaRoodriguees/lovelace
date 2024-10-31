@@ -1,7 +1,7 @@
 'use client';
 
 import { Popover, Button, Text, MultiSelect } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { FocusTrap } from '@mantine/core';
 import { IconFilter } from '@tabler/icons-react';
 import { useState } from 'react';
@@ -76,6 +76,8 @@ export default function FilterDropdownMenu({
     setOpened(false);
   }
 
+  const isMobile = useMediaQuery('(max-width: 1080px)');
+
   return (
     <Popover
       opened={opened}
@@ -94,14 +96,14 @@ export default function FilterDropdownMenu({
               return !o;
             })
           }
-          leftSection={<IconFilter stroke={2} />}
+          leftSection={isMobile ? undefined : <IconFilter size={20} />}
           rightSection={
             filterCounter ? <CounterDisplay n={filterCounter} /> : null
           }
           variant={'lovelace-secondary'}
           {...rest}
         >
-          Filtros
+          {isMobile ? <IconFilter size={20} /> : 'Filtros'}
         </Button>
       </Popover.Target>
 

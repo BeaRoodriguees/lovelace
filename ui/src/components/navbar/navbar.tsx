@@ -1,8 +1,10 @@
 'use client';
-import { Group, Button, Box, Avatar, Anchor, Input } from '@mantine/core';
+
+import { Group, Box } from '@mantine/core';
 import { IconLovelace } from '@/components/misc/icon-lovelace';
-import { IconSearch } from '@tabler/icons-react';
 import classes from './navbar.module.css';
+import LoggedMenu from './navbar-menus/LoggedMenu';
+import UnloggedMenu from './navbar-menus/UnloggedMenu';
 
 export enum NavbarStatus {
   HOME = 'HOME',
@@ -14,33 +16,6 @@ function NavbarAuthOptions() {
   return null;
 }
 
-function NavbarLoggedOptions() {
-  return (
-    <Group visibleFrom="sm" className={classes.menu}>
-      <Group>
-        <Anchor href="/problemset" c={'gray.0'} fw={700}>
-          Problemas
-        </Anchor>
-      </Group>
-      <Input placeholder="Buscar" leftSection={<IconSearch size={16} />} />
-      <Avatar></Avatar>
-    </Group>
-  );
-}
-
-function NavbarUnloggedOptions() {
-  return (
-    <Group visibleFrom="sm">
-      <Button component="a" href="/register" variant="default">
-        Cadastrar
-      </Button>
-      <Button component="a" href="/login" variant="gradient" autoContrast>
-        Entrar
-      </Button>
-    </Group>
-  );
-}
-
 export default function Navbar({ status }: { status?: NavbarStatus }) {
   return (
     <Box>
@@ -49,8 +24,8 @@ export default function Navbar({ status }: { status?: NavbarStatus }) {
           <IconLovelace className={classes.logo} />
 
           {status === NavbarStatus.AUTH && <NavbarAuthOptions />}
-          {status === NavbarStatus.LOGGED && <NavbarLoggedOptions />}
-          {status === NavbarStatus.HOME && <NavbarUnloggedOptions />}
+          {status === NavbarStatus.LOGGED && <LoggedMenu />}
+          {status === NavbarStatus.HOME && <UnloggedMenu />}
         </Group>
       </nav>
     </Box>
