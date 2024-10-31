@@ -1,20 +1,24 @@
 .container {
-  height: 90vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
+  overflow: hidden;
+  background-image: url('/adaBackground.png');
+  background-size: 30vw;
+  background-position-x: right;
+  background-position-y: bottom;
+  background-repeat: no-repeat;
+  height: 100vh;
 }
 
-.image {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+@media (max-width: 1200px) {
+  .container {
+    background-image: none;
+  }
 }
 
-.content {
+.wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex: 1;
+  padding: 0 2rem;
+  height: 100%;
 }
