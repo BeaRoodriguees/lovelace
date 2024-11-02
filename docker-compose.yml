@@ -74,6 +74,7 @@ services:
     volumes:
       - ./system:/app
       - /var/run/docker.sock:/var/run/docker.sock
+      - worker-code:/app/code
     networks:
       - lovelace-network
 
@@ -81,5 +82,6 @@ volumes:
   pgdata:
   rabbitmq-data:
   rabbitmq-log:
+  worker-code:
 networks:
   lovelace-network:
