@@ -1,16 +1,15 @@
 import json
 import os
-import subprocess
 import tempfile
-import time
+from functools import partial
 from pathlib import Path
 
 import docker
 import pika
+from docker import DockerClient
 
 RABBITMQ_HOST = "rabbitmq"
 QUEUE_NAME = "submission_queue"
-
 
 SUFFIX = {"python": ".py", "c": ".c", "cpp": ".cpp", "javascript": ".js"}
 
@@ -22,52 +21,42 @@ COMMAND = {
 }
 
 
-def callback(ch, method, properties, body):
+def get_container_volume(client: DockerClient, volume_name: str):
+    container_id = os.getenv("HOSTNAME")
+    container_origem = client.containers.get(container_id)
+    mounts = container_origem.attrs["Mounts"]
+
+    volume = None
+    for mount in mounts:
+        if mount.get("Name", "") == volume_name:
+            volume = mount["Source"]
+            break
+
+    if volume is None:
+        raise RuntimeError("Expected volume not configured on Worker.")
+
+    return volume
+
+
+def callback(ch, method, properties, body, client, code_volume):
     message = json.loads(body.decode("utf-8"))
     language = message["language"]
     code = message["code"]
 
-    client = docker.from_env()
-    container_id = os.getenv("HOSTNAME")
-    container_origem = client.containers.get(container_id)
-    mounts = container_origem.attrs["Mounts"]
-    print(mounts)
-    volume_origem = None
-    for mount in mounts:
-        if mount.get("Name", "") == "lovelace_worker-code":
-            volume_origem = mount["Source"]
-            break
-    print(volume_origem)
     try:
-        with tempfile.TemporaryDirectory(dir="/app/code") as temp_dir:
+        with tempfile.TemporaryDirectory(dir="/code") as temp_dir:
             temp_dir = Path(temp_dir)
-            temp_dir_name = temp_dir.name
-            # file_path = os.path.join(temp_dir, f"main{SUFFIX[language]}")
             file_path = temp_dir / f"main{SUFFIX[language]}"
-            print(temp_dir)
-            print(temp_dir_name)
-            print(file_path)
 
             with open(file_path, "w") as file:
                 file.write(code)
 
-            time.sleep(1)
-
-            resultado = subprocess.run(
-                ["ls", "-la", temp_dir], capture_output=True, text=True
-            )
-
-            # Imprime a saída do comando 'ls'
-            print("Saída do comando ls:")
-            print(resultado.stdout)
-
             output = client.containers.run(
                 "executor",
                 command=COMMAND[language],
-                # command="ls",
-                volumes={volume_origem: {"bind": "/code", "mode": "rw"}},
+                volumes={code_volume: {"bind": "/code", "mode": "rw"}},
                 remove=True,
-                working_dir=f"/code/{temp_dir_name}",
+                working_dir=f"/code/{temp_dir.name}",
                 network_disabled=True,
             )
 
@@ -77,12 +66,19 @@ def callback(ch, method, properties, body):
 
 
 def receive_submission():
+    client = docker.from_env()
+
+    code_volume = get_container_volume(client, "lovelace_worker-code")
+    callback_with_args = partial(callback, client=client, code_volume=code_volume)
+
     connection = pika.BlockingConnection(pika.ConnectionParameters(host=RABBITMQ_HOST))
     channel = connection.channel()
 
     channel.queue_declare(queue=QUEUE_NAME)
 
-    channel.basic_consume(queue=QUEUE_NAME, on_message_callback=callback, auto_ack=True)
+    channel.basic_consume(
+        queue=QUEUE_NAME, on_message_callback=callback_with_args, auto_ack=True
+    )
 
     print(" [*] Waiting for messages. To exit press CTRL+C")
     channel.start_consuming()
