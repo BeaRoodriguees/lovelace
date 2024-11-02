@@ -21,6 +21,29 @@ COMMAND = {
 }
 
 
+def check_and_build_image(client: DockerClient, image_name: str):
+    images = client.images.list()
+    image_names = [image.tags[0] if image.tags else None for image in images]
+
+    if image_name not in image_names:
+        print(f"Image '{image_name}' not found. Building...")
+
+        try:
+            image, build_logs = client.images.build(
+                path=".", tag=image_name, dockerfile="./Dockerfile.executor"
+            )
+
+            # Log do build
+            for log in build_logs:
+                if "stream" in log:
+                    print(log["stream"], end="")
+        except Exception as e:
+            print(e)
+            raise RuntimeError("Image build failed.")
+    else:
+        print(f"Image '{image_name}' found!")
+
+
 def get_container_volume(client: DockerClient, volume_name: str):
     container_id = os.getenv("HOSTNAME")
     container_origem = client.containers.get(container_id)
@@ -67,6 +90,8 @@ def callback(ch, method, properties, body, client, code_volume):
 
 def receive_submission():
     client = docker.from_env()
+
+    check_and_build_image(client, "executor")
 
     code_volume = get_container_volume(client, "lovelace_worker-code")
     callback_with_args = partial(callback, client=client, code_volume=code_volume)
