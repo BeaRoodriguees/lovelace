@@ -56,6 +56,20 @@ services:
     networks:
       - lovelace-network
 
+  worker:
+    build:
+      context: .
+      dockerfile: ./system/Dockerfile
+    volumes:
+      - ./system:/app
+      - /var/run/docker.sock:/var/run/docker.sock
+      - worker-code:/code
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - lovelace-network
+    
   rabbitmq:
     image: rabbitmq:3-management-alpine
     ports:
@@ -66,10 +80,16 @@ services:
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
       - rabbitmq-log:/var/log/rabbitmq
-
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    
 volumes:
   pgdata:
   rabbitmq-data:
   rabbitmq-log:
+  worker-code:
 networks:
   lovelace-network:
