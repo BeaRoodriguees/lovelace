@@ -1,22 +1,18 @@
-from http import HTTPStatus
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from lovelace.database import get_session
-from lovelace.models import Problem, Submission, User
+from lovelace.models import Problem, Submission, User, problems_user_status
 from lovelace.schemas import (
     ProblemList,
     ProblemsAndSubmissions,
     ProblemSchema,
     SubmissionSchema,
-    TestcaseSchema,
-    UserList,
-    UserSchema,
 )
-from lovelace.security import get_current_user, get_password_hash
+from lovelace.security import get_current_user
 
 Session = Annotated[Session, Depends(get_session)]
 CurrentUser = Annotated[User, Depends(get_current_user)]
@@ -27,12 +23,18 @@ router = APIRouter(prefix='/problemset', tags=['problemset'])
 
 # get_problems
 @router.get('/', response_model=ProblemList)
-def get_problemset(session: Session):
-    problemset = session.scalars(select(Problem)).all()
+def get_problemset(session: Session, current_user: CurrentUser):
+
+    stmt = (
+        select(Problem, problems_user_status.c.status)
+        .join(problems_user_status)
+        .where(problems_user_status.c.user_id == current_user.id)
+    )
+    problemset = session.execute(stmt).all()
 
     response_problemset = ProblemList(
         problems=[
-            ProblemSchema.model_validate(problem) for problem in problemset
+            (ProblemSchema.model_validate(problem), status) for problem, status in problemset
         ]
     )
 

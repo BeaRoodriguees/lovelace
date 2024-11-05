@@ -2,7 +2,7 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, EmailStr
 
-from lovelace.models import Difficulty, Role, SubmissionStatus
+from lovelace.models import Difficulty, Role, SubmissionStatus, ProblemStatus
 
 
 class CreateUserSchema(BaseModel):
@@ -76,7 +76,7 @@ class ProblemSchema(BaseModel):
 
 
 class ProblemList(BaseModel):
-    problems: list[ProblemSchema]
+    problems: list[tuple[ProblemSchema, ProblemStatus]]
 
 
 class ProblemsAndSubmissions(BaseModel):
