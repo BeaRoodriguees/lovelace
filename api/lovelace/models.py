@@ -3,7 +3,6 @@ from datetime import datetime
 
 from sqlalchemy import Column, Enum, ForeignKey, Table, func
 from sqlalchemy.orm import Mapped, mapped_column, registry, relationship
-from sqlalchemy.schema import PrimaryKeyConstraint
 
 table_registry = registry()
 
@@ -114,8 +113,8 @@ class Problem:
     created_at: Mapped[datetime] = mapped_column(
         init=False, server_default=func.now()
     )
-    author_id: Mapped[int] = mapped_column(ForeignKey('users.id'), init=False)
-    author: Mapped[User] = relationship()
+    author_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
+    author: Mapped[User] = relationship(init=False)
     testcases: Mapped[list[TestCase]] = relationship()
     tags: Mapped[list[Tag]] = relationship(secondary=problems_tags)
 

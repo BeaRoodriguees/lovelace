@@ -2,6 +2,7 @@ name = "Aquele com a bola"
 difficulty = "hard"
 time_limit = 1000
 memory_limit = 500
+username = "superadmin"
 
 description = '''
 Joey e Ross estão jogando uma bola um para o outro por horas sem derrubar, Monica resolve participar, e por causa de sua mania de organização, pede para você criar um código que diga para eles qual a melhor ordem para o ciclo, dizendo quem deverá jogar pra quem, visando minimizar o risco de alguém derrubar a bola.

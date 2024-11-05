@@ -2,6 +2,7 @@ name = "Inverter uma string"
 difficulty = "very_easy"
 time_limit = 1000
 memory_limit = 500
+username = "superadmin"
 
 description = '''
 Leia uma string e inverta o seu conteúdo. Exemplo: Se a string digitada for "JANELA", então você deve imprimir: "ALENAJ".
