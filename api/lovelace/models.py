@@ -1,19 +1,19 @@
+import enum
 from datetime import datetime
-from enum import Enum
 
-from sqlalchemy import Column, ForeignKey, Table, func
+from sqlalchemy import Column, Enum, ForeignKey, Table, func
 from sqlalchemy.orm import Mapped, mapped_column, registry, relationship
 from sqlalchemy.schema import PrimaryKeyConstraint
 
 table_registry = registry()
 
 
-class Role(str, Enum):
+class Role(str, enum.Enum):
     admin = 'admin'
     user = 'user'
 
 
-class Difficulty(str, Enum):
+class Difficulty(str, enum.Enum):
     very_hard = 'very_hard'
     hard = 'hard'
     medium = 'medium'
@@ -21,13 +21,13 @@ class Difficulty(str, Enum):
     very_easy = 'very_easy'
 
 
-class ProblemStatus(str, Enum):
+class ProblemStatus(str, enum.Enum):
     todo = 'todo'
     correct = 'correct'
     wrong = 'wrong'
 
 
-class SubmissonStatus(str, Enum):
+class SubmissionStatus(str, enum.Enum):
     wrong_answer = 'WRONG ANSWER'
     accepted = 'ACCEPTED'
     compilation_error = 'COMPILATION_ERROR'
@@ -45,6 +45,14 @@ problems_tags = Table(
     table_registry.metadata,
     Column('problem_id', ForeignKey('problems.id'), primary_key=True),
     Column('tag_id', ForeignKey('tags.id'), primary_key=True),
+)
+
+problems_user_status = Table(
+    'problems_user_status',
+    table_registry.metadata,
+    Column('user_id', ForeignKey('users.id'), primary_key=True),
+    Column('problem_id', ForeignKey('problems.id'), primary_key=True),
+    Column('status', Enum(ProblemStatus), default=ProblemStatus.todo),
 )
 
 
@@ -103,6 +111,11 @@ class Problem:
     difficulty: Mapped[Difficulty]
     time_limit: Mapped[int]
     memory_limit: Mapped[int]
+    created_at: Mapped[datetime] = mapped_column(
+        init=False, server_default=func.now()
+    )
+    author_id: Mapped[int] = mapped_column(ForeignKey('users.id'), init=False)
+    author: Mapped[User] = relationship()
     testcases: Mapped[list[TestCase]] = relationship()
     tags: Mapped[list[Tag]] = relationship(secondary=problems_tags)
 
@@ -121,4 +134,4 @@ class Submission:
         init=False, server_default=func.now()
     )
     language: Mapped[str]
-    status: Mapped[SubmissonStatus]
+    status: Mapped[SubmissionStatus]

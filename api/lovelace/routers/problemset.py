@@ -6,10 +6,12 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from lovelace.database import get_session
-from lovelace.models import Problem, User
+from lovelace.models import Problem, Submission, User
 from lovelace.schemas import (
     ProblemList,
+    ProblemsAndSubmissions,
     ProblemSchema,
+    SubmissionSchema,
     TestcaseSchema,
     UserList,
     UserSchema,
@@ -38,13 +40,26 @@ def get_problemset(session: Session):
 
 
 # get_problem
-@router.get('/{problem_id}', response_model=ProblemSchema)
-def get_problem(problem_id: int, session: Session):
+@router.get('/{problem_id}', response_model=ProblemsAndSubmissions)
+def get_problem(problem_id: int, current_user: CurrentUser, session: Session):
     problem = session.scalars(
         select(Problem).where(Problem.id == problem_id)
     ).first()
+    submissions = session.scalars(
+        select(Submission).where(
+            Submission.problem_id == problem_id
+            and Submission.user_id == current_user.id
+        )
+    )
+    problems_and_submissions = ProblemsAndSubmissions(
+        problem=ProblemSchema.model_validate(problem),
+        submission=[
+            SubmissionSchema.model_validate(submission)
+            for submission in submissions
+        ],
+    )
 
-    return ProblemSchema.model_validate(problem)
+    return problems_and_submissions
 
 
 # post

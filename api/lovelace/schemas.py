@@ -1,6 +1,8 @@
+from datetime import datetime
+
 from pydantic import BaseModel, ConfigDict, EmailStr
 
-from lovelace.models import Difficulty, Role
+from lovelace.models import Difficulty, Role, SubmissionStatus
 
 
 class CreateUserSchema(BaseModel):
@@ -50,6 +52,15 @@ class TagSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class SubmissionSchema(BaseModel):
+    id: int
+    body: str
+    created_at: datetime
+    language: str
+    status: SubmissionStatus
+    model_config = ConfigDict(from_attributes=True)
+
+
 class ProblemSchema(BaseModel):
     id: int
     name: str
@@ -66,3 +77,9 @@ class ProblemSchema(BaseModel):
 
 class ProblemList(BaseModel):
     problems: list[ProblemSchema]
+
+
+class ProblemsAndSubmissions(BaseModel):
+    problem: ProblemSchema
+    submission: list[SubmissionSchema]
+    model_config = ConfigDict(from_attributes=True)
