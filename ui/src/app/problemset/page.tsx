@@ -4,7 +4,8 @@
 import { useState } from 'react';
 import { Grid, Loader } from '@mantine/core';
 // import { Pagination } from '@mantine/core';
-import Navbar, { NavbarStatus } from '@/components/navbar/navbar';
+import Navbar from '@/components/navbar/navbar';
+import { NavbarStatus } from '@/lib/types';
 import ProblemCard from '@/components/cards/problem-card';
 import ProblemsetHeader from '@/components/problemset/problemset-header';
 import { Problem, ProblemSetFilterData } from '@/lib/types';

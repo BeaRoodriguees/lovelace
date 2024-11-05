@@ -60,16 +60,27 @@ export interface Language {
   name: string;
 }
 
+export interface Tags {
+  id: number;
+  name: string;
+}
+
 export interface ProblemDetail {
   id: string;
-  title: string;
+  name: string;
   description: string;
-  timeLimit: number;
-  memoryLimit: number;
+  time_limit: number;
+  memory_limit: number;
   author: string;
   createdAt: string;
-  topics: string[];
-  input: string;
-  output: string;
+  tags: Tags[];
+  problem_input: string;
+  problem_output: string;
   testcases: TestCase[];
+}
+
+export enum NavbarStatus {
+  HOME = 'HOME',
+  LOGGED = 'LOGGED',
+  AUTH = 'AUTH',
 }
