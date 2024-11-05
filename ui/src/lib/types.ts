@@ -47,3 +47,29 @@ export enum SubmissionStatus {
   WRONG_ANSWER = 'WA',
   MEMORY_LIMITE = 'ML',
 }
+
+export interface TestCase {
+  id: number;
+  input: string;
+  output: string;
+}
+
+export interface Language {
+  id: number;
+  icon: object;
+  name: string;
+}
+
+export interface ProblemDetail {
+  id: string;
+  title: string;
+  description: string;
+  timeLimit: number;
+  memoryLimit: number;
+  author: string;
+  createdAt: string;
+  topics: string[];
+  input: string;
+  output: string;
+  testcases: TestCase[];
+}
