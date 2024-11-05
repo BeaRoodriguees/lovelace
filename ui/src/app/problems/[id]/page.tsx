@@ -29,7 +29,6 @@ export default async function Problem({ params }: { params: { id: string } }) {
   };
 
   const problem = await getProblem();
-  console.log(problem);
 
   return (
     <>
