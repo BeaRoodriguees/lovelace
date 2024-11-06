@@ -79,7 +79,8 @@ class ProblemList(BaseModel):
     problems: list[tuple[ProblemSchema, ProblemStatus]]
 
 
-class ProblemsAndSubmissions(BaseModel):
+class ProblemData(BaseModel):
     problem: ProblemSchema
-    submission: list[SubmissionSchema]
+    submissions: list[SubmissionSchema]
+    user_status: ProblemStatus
     model_config = ConfigDict(from_attributes=True)
