@@ -1,12 +1,12 @@
 'use client';
 
-import { Grid, Loader } from '@mantine/core';
+import { Grid, Loader, Pagination } from '@mantine/core';
 import ProblemsetHeader from './problemset-header';
 import ProblemCard from '../cards/problem-card';
 import classes from './problemset-page.module.css';
 import { useState } from 'react';
 import { Problem, ProblemSetFilterData, Tags } from '@/lib/types';
-import { forceDelay } from '@/lib/utils';
+import { chunk, forceDelay } from '@/lib/utils';
 
 interface ProblemsetProps {
   problemList: Array<Problem>;
@@ -14,6 +14,7 @@ interface ProblemsetProps {
 }
 
 export default function ProblemsetPage(props: ProblemsetProps) {
+  const [activePage, setPage] = useState(1);
   const [loading, setLoading] = useState<boolean>(false);
   // Isso é necessário, pois a ação de paginação vai requerer informações dos
   // filtros ativos. Imagine que o usuário quer visualizar apenas os problemas
@@ -69,6 +70,19 @@ export default function ProblemsetPage(props: ProblemsetProps) {
     setLoading(false);
   }
 
+  const problemsChunks = chunk(problems, 12);
+
+  let items = undefined;
+  if (problemsChunks.length > 0) {
+    items = problemsChunks[activePage - 1].map((problem, index) => {
+      return (
+        <Grid.Col key={index} span={{ base: 12, lg: 6 }}>
+          <ProblemCard data={problem} />
+        </Grid.Col>
+      );
+    });
+  }
+
   return (
     <main>
       <div className={classes.container}>
@@ -79,28 +93,23 @@ export default function ProblemsetPage(props: ProblemsetProps) {
         />
         {loading ? (
           <Loader color="gray" size="lg" />
-        ) : problems.length > 0 ? (
+        ) : items ? (
           <Grid gutter="sm" className={classes.problems}>
-            {problems.map((problem, index) => {
-              return (
-                <Grid.Col key={index} span={{ base: 12, lg: 6 }}>
-                  <ProblemCard data={problem} />
-                </Grid.Col>
-              );
-            })}
+            {items}
           </Grid>
         ) : (
           <span>Não há problemas.</span>
         )}
-        {/*
-      <Pagination
-        color={'gray.5'}
-        autoContrast
-        total={1}
-        size="md"
-        radius="md"
-        withEdges
-      ></Pagination> */}
+        <Pagination
+          color={'gray.5'}
+          autoContrast
+          total={problemsChunks.length}
+          value={activePage}
+          onChange={setPage}
+          size="md"
+          radius="md"
+          withEdges
+        ></Pagination>
       </div>
     </main>
   );
