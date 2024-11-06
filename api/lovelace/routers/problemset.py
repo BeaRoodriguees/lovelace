@@ -10,6 +10,7 @@ from lovelace.models import (
     ProblemStatus,
     Submission,
     SubmissionStatus,
+    Tag,
     User,
 )
 from lovelace.schemas import (
@@ -17,6 +18,7 @@ from lovelace.schemas import (
     ProblemData,
     ProblemSchema,
     SubmissionSchema,
+    TagSchema,
 )
 from lovelace.security import get_current_user
 
@@ -107,6 +109,11 @@ def get_problem_data(
         submissions=[SubmissionSchema.model_validate(s) for s in submissions],
         user_status=status,
     )
+
+
+@router.get('/tags', response_model=list[TagSchema])
+def get_tags(session: CurrentSession):
+    return session.scalars(Select(Tag).order_by(Tag.name))
 
 
 @router.get('/', response_model=ProblemList)
