@@ -38,34 +38,34 @@ export default function ProblemsetPage(props: ProblemsetProps) {
 
     // Mock filters
     setLoading(true);
-    await forceDelay(700);
+    await forceDelay(300);
     setFilters(filterData);
 
-    // const filteredProblems = props.problemList.filter((problem) => {
-    //   const titleMatch = filterData.titleFragment
-    //     ? problem.name
-    //         .toLowerCase()
-    //         .includes(filterData.titleFragment.toLowerCase())
-    //     : true;
+    const filteredProblems = props.problemList.filter((problem) => {
+      const titleMatch = filterData.titleFragment
+        ? problem.name
+            .toLowerCase()
+            .includes(filterData.titleFragment.toLowerCase())
+        : true;
 
-    //   const tagsMatch = filterData.tags.every((tag) =>
-    //     problem.tags.includes(tag),
-    //   );
+      const tagsMatch = filterData.tags.every((tag) =>
+        problem.tags.map((tag) => tag.name).includes(tag),
+      );
 
-    //   const statusMatch =
-    //     filterData.status.length > 0
-    //       ? filterData.status.includes(problem.status)
-    //       : true;
+      const statusMatch =
+        filterData.status.length > 0
+          ? filterData.status.includes(problem.user_status)
+          : true;
 
-    //   const difficultyMatch =
-    //     filterData.difficulties.length > 0
-    //       ? filterData.difficulties.includes(problem.difficulty)
-    //       : true;
+      const difficultyMatch =
+        filterData.difficulties.length > 0
+          ? filterData.difficulties.includes(problem.difficulty)
+          : true;
 
-    //   return titleMatch && tagsMatch && statusMatch && difficultyMatch;
-    // });
+      return titleMatch && tagsMatch && statusMatch && difficultyMatch;
+    });
 
-    setProblems(props.problemList);
+    setProblems(filteredProblems);
     setLoading(false);
   }
 

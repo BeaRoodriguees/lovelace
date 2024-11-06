@@ -18,8 +18,8 @@ interface FilterDropdownMenuProps
 }
 
 const statusSelectData = [
-  { value: ProblemStatus.DONE, label: 'Feito' },
-  { value: ProblemStatus.ERROR, label: 'Errado' },
+  { value: ProblemStatus.CORRECT, label: 'Feito' },
+  { value: ProblemStatus.WRONG, label: 'Errado' },
   { value: ProblemStatus.TODO, label: 'Para fazer' },
 ];
 
@@ -48,6 +48,7 @@ export default function FilterDropdownMenu({
   }
 
   async function handleApplyFilters(values: ProblemSetFilterData) {
+    console.log('values', values);
     let count = 0;
     if (values.tags.length > 0) {
       count += 1;
