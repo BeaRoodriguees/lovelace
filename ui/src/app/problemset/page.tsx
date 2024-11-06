@@ -1,7 +1,14 @@
 import { authConfig } from '@/auth.config';
 import Navbar from '@/components/navbar/navbar';
 import ProblemsetPage from '@/components/problemset/problemsetPage';
-import { NavbarStatus, Problem, ProblemStatus, Tags } from '@/lib/types';
+import {
+  NavbarStatus,
+  Problem,
+  ProblemDifficulty,
+  ProblemStatus,
+  Tags,
+} from '@/lib/types';
+import { mapToEnum } from '@/lib/utils';
 import { getServerSession } from 'next-auth';
 
 interface ProblemsetResponse {
@@ -68,6 +75,7 @@ export default async function ProblemSetList() {
     (data: ProblemsetResponse) => {
       return {
         ...data.problem,
+        difficulty: mapToEnum(ProblemDifficulty, data.problem.difficulty),
         user_status: data.user_status as ProblemStatus,
       };
     },

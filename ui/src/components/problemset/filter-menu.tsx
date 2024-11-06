@@ -8,7 +8,12 @@ import { useState } from 'react';
 import { CloseButton } from '@mantine/core';
 import classes from './filter-menu.module.css';
 import { useForm } from '@mantine/form';
-import { ProblemSetFilterData, ProblemStatus, Tags } from '@/lib/types';
+import {
+  ProblemDifficulty,
+  ProblemSetFilterData,
+  ProblemStatus,
+  Tags,
+} from '@/lib/types';
 
 interface FilterDropdownMenuProps
   extends React.HTMLAttributes<HTMLButtonElement> {
@@ -48,7 +53,6 @@ export default function FilterDropdownMenu({
   }
 
   async function handleApplyFilters(values: ProblemSetFilterData) {
-    console.log('values', values);
     let count = 0;
     if (values.tags.length > 0) {
       count += 1;
@@ -139,13 +143,7 @@ export default function FilterDropdownMenu({
               <MultiSelect
                 label="Dificuldade"
                 placeholder="Selecione uma ou mais dificuldades"
-                data={[
-                  'Muito Fácil',
-                  'Fácil',
-                  'Intermediário',
-                  'Difícil',
-                  'Muito Difícil',
-                ]}
+                data={Object.values(ProblemDifficulty)}
                 classNames={{ pill: classes.pill }}
                 key={form.key('difficulties')}
                 {...form.getInputProps('difficulties')}
