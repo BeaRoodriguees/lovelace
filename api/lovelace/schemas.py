@@ -72,11 +72,9 @@ class ProblemSchema(BaseModel):
     memory_limit: int
     testcases: list[TestcaseSchema]
     tags: list[TagSchema]
+    created_at: datetime
+    author: UserSchema
     model_config = ConfigDict(from_attributes=True)
-
-
-class ProblemList(BaseModel):
-    problems: list[tuple[ProblemSchema, ProblemStatus]]
 
 
 class ProblemData(BaseModel):
@@ -84,3 +82,8 @@ class ProblemData(BaseModel):
     submissions: list[SubmissionSchema]
     user_status: ProblemStatus
     model_config = ConfigDict(from_attributes=True)
+
+
+class ProblemAndStatus(BaseModel):
+    problem: ProblemSchema
+    user_status: ProblemStatus
