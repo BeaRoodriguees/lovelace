@@ -77,12 +77,13 @@ class ProblemSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class ProblemList(BaseModel):
-    problems: list[tuple[ProblemSchema, ProblemStatus]]
-
-
 class ProblemData(BaseModel):
     problem: ProblemSchema
     submissions: list[SubmissionSchema]
     user_status: ProblemStatus
     model_config = ConfigDict(from_attributes=True)
+
+
+class ProblemAndStatus(BaseModel):
+    problem: ProblemSchema
+    user_status: ProblemStatus

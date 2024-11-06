@@ -13,8 +13,8 @@ from lovelace.models import (
     User,
 )
 from lovelace.schemas import (
+    ProblemAndStatus,
     ProblemData,
-    ProblemList,
     ProblemSchema,
     SubmissionSchema,
 )
@@ -23,7 +23,7 @@ from lovelace.security import get_current_user
 CurrentSession = Annotated[Session, Depends(get_session)]
 CurrentUser = Annotated[User, Depends(get_current_user)]
 
-
+ProblemList = list[ProblemAndStatus]
 router = APIRouter(prefix='/problemset', tags=['problemset'])
 
 
@@ -55,9 +55,14 @@ def get_problemset_with_status(session: Session, user_id: int) -> ProblemList:
     problemset = []
     for q in query_result:
         status = get_problem_status(q[1])
-        problemset.append((ProblemSchema.model_validate(q[0]), status))
+        problemset.append(
+            ProblemAndStatus(
+                problem=ProblemSchema.model_validate(q[0]),
+                user_status=status,
+            )
+        )
 
-    return ProblemList(problems=problemset)
+    return problemset
 
 
 def get_problem_data(
