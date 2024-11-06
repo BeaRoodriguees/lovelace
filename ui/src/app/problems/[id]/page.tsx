@@ -29,11 +29,13 @@ export default async function Problem({ params }: { params: { id: string } }) {
   };
 
   const data = await getProblem();
+  const problem = data.problem;
+  problem.created_at = new Date(Date.parse(problem.created_at));
 
   return (
     <>
       <Navbar status={NavbarStatus.LOGGED} />
-      <ProblemPage problem={data.problem} submissions={data.submissions} />
+      <ProblemPage problem={problem} submissions={data.submissions} />
     </>
   );
 }

@@ -17,6 +17,7 @@ import { notifications } from '@mantine/notifications';
 import { IconCloudUpload, IconX } from '@tabler/icons-react';
 import { useRef, useState } from 'react';
 import classes from './submitdnd.module.css';
+import { formatDate } from '@/lib/utils';
 
 interface SubmissionDndProps {
   setSubmissionLoading: (submissionLoading: boolean) => void;
@@ -33,17 +34,6 @@ export default function DropdownSection(props: SubmissionDndProps) {
     return <span key={index}>{file.name}</span>;
   });
 
-  const formatDate = (date: Date): string => {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Os meses são baseados em zero
-    const year = date.getFullYear();
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-
-    return `${day}/${month}/${year} às ${hours}:${minutes}:${seconds}`;
-  };
-
   async function handleSubmit() {
     notifications.show({
       title: 'Sua submissão foi submetida!',
@@ -55,6 +45,7 @@ export default function DropdownSection(props: SubmissionDndProps) {
     props.setSubmissionLoading(true);
     await forceDelay(5000);
 
+    // TODO: puxar os dados do backend
     const newsubs = [
       {
         language: LanguageEnum.PYTHON,

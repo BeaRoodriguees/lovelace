@@ -65,14 +65,22 @@ export interface Tags {
   name: string;
 }
 
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  role: string;
+  is_active: boolean;
+}
+
 export interface ProblemDetail {
   id: string;
   name: string;
   description: string;
   time_limit: number;
   memory_limit: number;
-  author: string;
-  createdAt: string;
+  author: User;
+  created_at: Date;
   tags: Tags[];
   problem_input: string;
   problem_output: string;

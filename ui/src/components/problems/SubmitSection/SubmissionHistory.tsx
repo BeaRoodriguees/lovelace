@@ -37,7 +37,7 @@ export default function SubmissionHistory(props: SubmissionHistoryProps) {
         style={{ marginBottom: '1rem' }}
       ></Flex>
 
-      {props.submissions == undefined ? (
+      {!props.submissions ? (
         <Flex direction="column" align="center" w="100%">
           <Text>Não há submissões para este problema.</Text>
         </Flex>

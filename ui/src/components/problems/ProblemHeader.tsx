@@ -2,6 +2,7 @@
 
 import { ProblemDetail } from '@/lib/types';
 import { Flex, Title } from '@mantine/core';
+import { formatDate } from '@/lib/utils';
 
 export default function ProblemHeader({ problem }: { problem: ProblemDetail }) {
   return (
@@ -13,8 +14,9 @@ export default function ProblemHeader({ problem }: { problem: ProblemDetail }) {
         style={{ marginBottom: '1rem' }}
       >
         <span>
-          Criado por <span style={{ fontWeight: 700 }}>{problem.author}</span>{' '}
-          em {problem.createdAt}
+          Criado por{' '}
+          <span style={{ fontWeight: 700 }}>{problem.author.username}</span> em{' '}
+          {formatDate(problem.created_at)}
         </span>
         <Flex direction="column">
           <span>
