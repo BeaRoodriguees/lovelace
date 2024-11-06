@@ -1,21 +1,18 @@
 from pathlib import Path
 
 import tomllib
-from sqlalchemy import insert, select, update
 from sqlalchemy.orm import Session
 
 from lovelace.database import engine
 from lovelace.models import (
     Difficulty,
     Problem,
-    ProblemStatus,
     Role,
     Submission,
     SubmissionStatus,
     Tag,
     TestCase,
     User,
-    problems_user_status,
 )
 from lovelace.security import get_password_hash
 
@@ -79,45 +76,6 @@ def get_and_add_problems(session):
     session.add_all(problems)
 
 
-def add_problem_user_status(session, submission):
-    status = session.scalar(
-        select(problems_user_status.c.status)
-        .where(problems_user_status.c.user_id == submission.user_id)
-        .where(problems_user_status.c.problem_id == submission.problem_id)
-    )
-
-    if not status:
-        stmt = insert(problems_user_status).values(
-            user_id=submission.user_id,
-            problem_id=submission.problem_id,
-            status=ProblemStatus.todo
-        )
-        session.execute(stmt)
-        session.commit()
-        return
-
-    if status == ProblemStatus.correct:
-        return
-    elif submission.status == SubmissionStatus.accepted:
-        stmt = (
-            update(problems_user_status)
-            .where(problems_user_status.c.user_id == submission.user_id)
-            .where(problems_user_status.c.problem_id == submission.problem_id)
-            .values(status=ProblemStatus.correct)
-        )
-        session.execute(stmt)
-    else:
-        stmt = (
-            update(problems_user_status)
-            .where(problems_user_status.c.user_id == submission.user_id)
-            .where(problems_user_status.c.problem_id == submission.problem_id)
-            .values(status=ProblemStatus.wrong)
-        )
-        session.execute(stmt)
-
-    session.commit()
-
-
 def get_and_add_submissions(session):
     if (
         session.query(Problem).count() == 0
@@ -143,9 +101,8 @@ def get_and_add_submissions(session):
             )
             submission.pop('username')
             submission_model = Submission(
-                    **submission, problem_id=problem_id, user_id=user_id
-                )
-            add_problem_user_status(session, submission_model)
+                **submission, problem_id=problem_id, user_id=user_id
+            )
             submissions.append(submission_model)
 
     session.add_all(submissions)

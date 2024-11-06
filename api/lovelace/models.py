@@ -1,7 +1,7 @@
 import enum
 from datetime import datetime
 
-from sqlalchemy import Column, Enum, ForeignKey, Table, func
+from sqlalchemy import Column, ForeignKey, Table, func
 from sqlalchemy.orm import Mapped, mapped_column, registry, relationship
 
 table_registry = registry()
@@ -44,14 +44,6 @@ problems_tags = Table(
     table_registry.metadata,
     Column('problem_id', ForeignKey('problems.id'), primary_key=True),
     Column('tag_id', ForeignKey('tags.id'), primary_key=True),
-)
-
-problems_user_status = Table(
-    'problems_user_status',
-    table_registry.metadata,
-    Column('user_id', ForeignKey('users.id'), primary_key=True),
-    Column('problem_id', ForeignKey('problems.id'), primary_key=True),
-    Column('status', Enum(ProblemStatus), default=ProblemStatus.todo),
 )
 
 
