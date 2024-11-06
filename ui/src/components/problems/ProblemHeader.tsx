@@ -12,17 +12,11 @@ export default function ProblemHeader({ problem }: { problem: ProblemDetail }) {
         align="flex-end"
         style={{ marginBottom: '1rem' }}
       >
-        {/* <span>
+        <span>
           Criado por <span style={{ fontWeight: 700 }}>{problem.author}</span>{' '}
           em {problem.createdAt}
-        </span> */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: '100vw',
-          }}
-        >
+        </span>
+        <Flex direction="column">
           <span>
             Tópicos:{' '}
             <span style={{ fontWeight: 700 }}>
@@ -46,7 +40,7 @@ export default function ProblemHeader({ problem }: { problem: ProblemDetail }) {
               {problem.memory_limit / 100} MB
             </span>{' '}
           </span>
-        </div>
+        </Flex>
       </Flex>
     </div>
   );

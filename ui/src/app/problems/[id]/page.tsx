@@ -28,12 +28,12 @@ export default async function Problem({ params }: { params: { id: string } }) {
     }
   };
 
-  const problem = await getProblem();
+  const data = await getProblem();
 
   return (
     <>
       <Navbar status={NavbarStatus.LOGGED} />
-      <ProblemPage problem={problem} />
+      <ProblemPage problem={data.problem} submissions={data.submissions} />
     </>
   );
 }

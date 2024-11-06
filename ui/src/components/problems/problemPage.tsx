@@ -5,9 +5,14 @@ import { IconNews } from '@tabler/icons-react';
 import classes from './problempage.module.css';
 import ProblemBody from '@/components/problems/ProblemBody';
 import SubmitSection from '@/components/problems/SubmitSection/SubmitSection';
-import { ProblemDetail } from '@/lib/types';
+import { ProblemDetail, Submission } from '@/lib/types';
 
-export default function ProblemPage({ problem }: { problem: ProblemDetail }) {
+interface DataProps {
+  problem: ProblemDetail;
+  submissions: Array<Submission>;
+}
+
+export default function ProblemPage(props: DataProps) {
   return (
     <Group
       style={{
@@ -53,11 +58,11 @@ export default function ProblemPage({ problem }: { problem: ProblemDetail }) {
           <Tabs.Panel value="description" mt={'xl'} mx={'xl'}>
             <Grid gutter={'xs'}>
               <Grid.Col span={{ base: 12, lg: 8 }}>
-                <ProblemBody problem={problem} />
+                <ProblemBody problem={props.problem} />
               </Grid.Col>
               <Grid.Col span={{ base: 12, lg: 4 }}>
                 <Container>
-                  <SubmitSection />
+                  <SubmitSection submissionsData={props.submissions} />
                 </Container>
               </Grid.Col>
             </Grid>

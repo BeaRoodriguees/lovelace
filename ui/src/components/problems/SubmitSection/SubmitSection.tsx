@@ -5,12 +5,15 @@ import SubmitDnd from './SubmitDnd';
 import SubmissionHistory from './SubmissionHistory';
 import { useState } from 'react';
 import { Submission } from '@/lib/types';
-import { submissionMock } from '@/mocks/problem';
 
-export default function SubmitSection() {
+export default function SubmitSection({
+  submissionsData,
+}: {
+  submissionsData: Array<Submission>;
+}) {
   const [submissionLoading, setSubmissionLoading] = useState<boolean>(false);
   const [submissions, setSubmissions] =
-    useState<Array<Submission>>(submissionMock);
+    useState<Array<Submission>>(submissionsData);
 
   return (
     <div>
