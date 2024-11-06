@@ -72,6 +72,8 @@ class ProblemSchema(BaseModel):
     memory_limit: int
     testcases: list[TestcaseSchema]
     tags: list[TagSchema]
+    created_at: datetime
+    author: UserSchema
     model_config = ConfigDict(from_attributes=True)
 
 
