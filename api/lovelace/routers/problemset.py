@@ -1,11 +1,17 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends
-from sqlalchemy import select
+from sqlalchemy import Select, func, select
 from sqlalchemy.orm import Session
 
 from lovelace.database import get_session
-from lovelace.models import Problem, Submission, User, problems_user_status
+from lovelace.models import (
+    Problem,
+    ProblemStatus,
+    Submission,
+    SubmissionStatus,
+    User,
+)
 from lovelace.schemas import (
     ProblemList,
     ProblemsAndSubmissions,
@@ -21,24 +27,39 @@ CurrentUser = Annotated[User, Depends(get_current_user)]
 router = APIRouter(prefix='/problemset', tags=['problemset'])
 
 
+def get_problemset_with_user_status(session: Session, user_id: int):
+    stmt = (
+        Select(
+            Problem,
+            func.bool_or(Submission.status == SubmissionStatus.accepted)
+        )
+        .join(Submission,
+                (Problem.id == Submission.problem_id)
+                & (Submission.user_id == user_id),
+                isouter=True)
+        .group_by(Problem.id)
+    )
+    query_result = session.execute(stmt).all()
+
+    problemset = []
+    for q in query_result:
+        if q[1] is None:
+            status = ProblemStatus.todo
+        elif q[1] is True:
+            status = ProblemStatus.correct
+        else:
+            status = ProblemStatus.wrong
+
+        problemset.append(
+            (ProblemSchema.model_validate(q[0]), status)
+        )
+    return ProblemList(problems=problemset)
+
+
 # get_problems
 @router.get('/', response_model=ProblemList)
 def get_problemset(session: Session, current_user: CurrentUser):
-
-    stmt = (
-        select(Problem, problems_user_status.c.status)
-        .join(problems_user_status)
-        .where(problems_user_status.c.user_id == current_user.id)
-    )
-    problemset = session.execute(stmt).all()
-
-    response_problemset = ProblemList(
-        problems=[
-            (ProblemSchema.model_validate(problem), status) for problem, status in problemset
-        ]
-    )
-
-    return response_problemset
+    return get_problemset_with_user_status(session, current_user.id)
 
 
 # get_problem

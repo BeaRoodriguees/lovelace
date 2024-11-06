@@ -2,7 +2,7 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, EmailStr
 
-from lovelace.models import Difficulty, Role, SubmissionStatus, ProblemStatus
+from lovelace.models import Difficulty, ProblemStatus, Role, SubmissionStatus
 
 
 class CreateUserSchema(BaseModel):
