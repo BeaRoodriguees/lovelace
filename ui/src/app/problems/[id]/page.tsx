@@ -23,6 +23,7 @@ export default async function Problem({ params }: { params: { id: string } }) {
 
       return res.json();
     } catch (error) {
+      console.log(error);
       throw new Error('Erro de conexão com o servidor');
     }
   };
