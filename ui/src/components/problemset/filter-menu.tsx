@@ -8,13 +8,13 @@ import { useState } from 'react';
 import { CloseButton } from '@mantine/core';
 import classes from './filter-menu.module.css';
 import { useForm } from '@mantine/form';
-import { ProblemSetFilterData, ProblemStatus } from '@/lib/types';
+import { ProblemSetFilterData, ProblemStatus, Tags } from '@/lib/types';
 
 interface FilterDropdownMenuProps
   extends React.HTMLAttributes<HTMLButtonElement> {
   currentFilters: ProblemSetFilterData;
   applyFilters: (filters: ProblemSetFilterData) => void;
-  tags: Array<string>;
+  tags: Array<Tags>;
 }
 
 const statusSelectData = [
@@ -152,7 +152,7 @@ export default function FilterDropdownMenu({
               <MultiSelect
                 label="Tópicos"
                 placeholder="Selecione um ou mais tópicos"
-                data={tags}
+                data={tags.map((tag) => tag.name)}
                 searchable
                 key={form.key('tags')}
                 {...form.getInputProps('tags')}

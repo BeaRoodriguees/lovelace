@@ -13,12 +13,12 @@ export default function ProblemCard({ data, ...rest }: ProblemCardProps) {
   let cardType;
   let icon = undefined;
 
-  switch (data.status) {
-    case ProblemStatus.ERROR:
+  switch (data.user_status) {
+    case ProblemStatus.WRONG:
       cardType = CardType.ERROR;
       icon = IconX;
       break;
-    case ProblemStatus.DONE:
+    case ProblemStatus.CORRECT:
       cardType = CardType.SUCCESS;
       icon = IconCheck;
       break;
@@ -35,7 +35,7 @@ export default function ProblemCard({ data, ...rest }: ProblemCardProps) {
       <LovelaceCard.Root type={cardType} href={problemLink}>
         <LovelaceCard.Status icon={icon} type={cardType} />
         <LovelaceCard.Content>
-          <LovelaceCard.Title text={data.title} />
+          <LovelaceCard.Title text={data.name} />
           <LovelaceCard.Tags tags={data.tags} />
         </LovelaceCard.Content>
         <LovelaceCard.Side label={'Dificuldade'} text={data.difficulty} />

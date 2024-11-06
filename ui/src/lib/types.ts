@@ -1,7 +1,7 @@
 export enum ProblemStatus {
-  DONE = 'DONE',
-  TODO = 'TODO',
-  ERROR = 'ERROR',
+  CORRECT = 'correct',
+  TODO = 'todo',
+  WRONG = 'wrong',
 }
 
 export enum CardType {
@@ -11,15 +11,6 @@ export enum CardType {
   DISABLED = 'DISABLED',
 }
 
-export type Problem = {
-  id: string;
-  status: ProblemStatus;
-  title: string;
-  tags: Array<string>;
-  difficulty: string;
-  slug: string;
-};
-
 export type ProblemSetFilterData = {
   tags: Array<string>;
   difficulties: Array<string>;
@@ -28,15 +19,15 @@ export type ProblemSetFilterData = {
 };
 
 export enum LanguageEnum {
-  C = 'c',
-  CPP = 'cpp',
-  JAVASCRIPT = 'js',
-  PYTHON = 'py',
+  C = 'C',
+  CPP = 'CPP',
+  JAVASCRIPT = 'Javascript',
+  PYTHON = 'Python',
 }
 
 export type Submission = {
   language: LanguageEnum;
-  submittedAt: string;
+  created_at: string;
   status: SubmissionStatus;
 };
 
@@ -73,10 +64,11 @@ export interface User {
   is_active: boolean;
 }
 
-export interface ProblemDetail {
+export interface Problem {
   id: string;
   name: string;
   description: string;
+  difficulty: string;
   time_limit: number;
   memory_limit: number;
   author: User;
@@ -85,6 +77,7 @@ export interface ProblemDetail {
   problem_input: string;
   problem_output: string;
   testcases: TestCase[];
+  user_status: ProblemStatus;
 }
 
 export enum NavbarStatus {

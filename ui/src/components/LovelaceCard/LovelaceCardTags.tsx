@@ -1,8 +1,9 @@
 import { Badge } from '@mantine/core';
 import classes from './LovelaceCardTags.module.css';
+import { Tags } from '@/lib/types';
 
 interface LovelaceCardTagsProps {
-  tags: Array<string>;
+  tags: Array<Tags>;
 }
 
 export default function LovelaceCardTags({ tags }: LovelaceCardTagsProps) {
@@ -11,7 +12,7 @@ export default function LovelaceCardTags({ tags }: LovelaceCardTagsProps) {
       {tags.map((tag, index) => {
         return (
           <Badge variant="outline" size="sm" key={index}>
-            {tag}
+            {tag.name}
           </Badge>
         );
       })}

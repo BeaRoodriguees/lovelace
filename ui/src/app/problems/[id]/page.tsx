@@ -6,8 +6,7 @@ import { authConfig } from '@/auth.config';
 
 export default async function Problem({ params }: { params: { id: string } }) {
   const session = await getServerSession(authConfig);
-
-  const getProblem = async () => {
+  const getData = async () => {
     try {
       const res = await fetch(
         `${process.env.API_URL}/problemset/${params.id}`,
@@ -28,7 +27,7 @@ export default async function Problem({ params }: { params: { id: string } }) {
     }
   };
 
-  const data = await getProblem();
+  const data = await getData();
   const problem = data.problem;
   problem.created_at = new Date(Date.parse(problem.created_at));
 

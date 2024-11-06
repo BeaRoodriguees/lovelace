@@ -1,6 +1,7 @@
 'use client';
 
 import { LanguageEnum, Submission } from '@/lib/types';
+import { formatDate } from '@/lib/utils';
 import { Box, Flex, Loader, Table, Title, Text } from '@mantine/core';
 import {
   IconBrandCpp,
@@ -37,7 +38,7 @@ export default function SubmissionHistory(props: SubmissionHistoryProps) {
         style={{ marginBottom: '1rem' }}
       ></Flex>
 
-      {!props.submissions ? (
+      {props.submissions.length === 0 ? (
         <Flex direction="column" align="center" w="100%">
           <Text>Não há submissões para este problema.</Text>
         </Flex>
@@ -68,7 +69,7 @@ export default function SubmissionHistory(props: SubmissionHistoryProps) {
                     {LANG_ICON_MAP[submission.language]}
                   </th>
                   <th style={{ textAlign: 'center' }}>
-                    {submission.submittedAt}
+                    {formatDate(new Date(Date.parse(submission.created_at)))}
                   </th>
                   <th style={{ textAlign: 'center' }}>{submission.status}</th>
                 </tr>
