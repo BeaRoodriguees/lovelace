@@ -9,7 +9,7 @@ from lovelace.models import (
     Problem,
     Role,
     Submission,
-    SubmissonStatus,
+    SubmissionStatus,
     Tag,
     TestCase,
     User,
@@ -32,10 +32,11 @@ def get_users():
     return users
 
 
-def get_problems():
+def get_and_add_problems(session):
     folder = Path('scripts/data/problems')
     problems = []
 
+    # Get problems from file
     for filename in folder.iterdir():
         if filename.suffix == '.toml':
             with open(folder / filename.name, 'rb') as data:
@@ -46,9 +47,33 @@ def get_problems():
                 ]
                 problem['tags'] = [Tag(**tag) for tag in problem['tags']]
 
-                problems.append(Problem(**problem))
+                author_id = (
+                    session.query(User.id)
+                    .filter(User.username == problem['username'])
+                    .first()[0]
+                )
+                problem.pop('username')
 
-    return problems
+                problems.append(Problem(**problem, author_id=author_id))
+
+    # Add tags from problems
+    existing_tags = set([tag.name for tag in session.query(Tag).all()])
+    inserting_tags = []
+    for problem in problems:
+        inserting_tags.extend([tag.name for tag in problem.tags])
+
+    tags = set(inserting_tags) - existing_tags
+
+    session.add_all([Tag(name=tag) for tag in tags])
+
+    # Pull problem tags fro mdatabase and add them to the problem
+    for i, problem in enumerate(problems):
+        tags_names = [tag.name for tag in problem.tags]
+        problems[i].tags = (
+            session.query(Tag).filter(Tag.name.in_(tags_names)).all()
+        )
+
+    session.add_all(problems)
 
 
 def get_and_add_submissions(session):
@@ -62,7 +87,7 @@ def get_and_add_submissions(session):
     with open('scripts/data/submissions.toml', 'rb') as file:
         data = tomllib.load(file)
         for submission in data['submissions']:
-            submission['status'] = SubmissonStatus(submission['status'])
+            submission['status'] = SubmissionStatus(submission['status'])
             problem_id = (
                 session.query(Problem.id)
                 .filter(Problem.name == submission['problem_name'])
@@ -75,12 +100,10 @@ def get_and_add_submissions(session):
                 .first()[0]
             )
             submission.pop('username')
-
-            submissions.append(
-                Submission(
-                    **submission, problem_id=problem_id, user_id=user_id
-                )
+            submission_model = Submission(
+                **submission, problem_id=problem_id, user_id=user_id
             )
+            submissions.append(submission_model)
 
     session.add_all(submissions)
 
@@ -91,32 +114,12 @@ def is_populated():
 
 
 def populate():
-    users = get_users()
-    problems = get_problems()
-
     with Session(engine) as session:
-        # Add all tags
-        existing_tags = set([tag.name for tag in session.query(Tag).all()])
-        inserting_tags = []
-        for problem in problems:
-            inserting_tags.extend([tag.name for tag in problem.tags])
-
-        tags = set(inserting_tags) - existing_tags
-
-        session.add_all([Tag(name=tag) for tag in tags])
-
-        # Pull problem tags fro mdatabase and add them to the problem
-        for i, problem in enumerate(problems):
-            tags_names = [tag.name for tag in problem.tags]
-            problems[i].tags = (
-                session.query(Tag).filter(Tag.name.in_(tags_names)).all()
-            )
+        # Add all users
+        session.add_all(get_users())
 
         # Add all problems
-        session.add_all(problems)
-
-        # Add all users
-        session.add_all(users)
+        get_and_add_problems(session)
 
         # Add all submissions
         get_and_add_submissions(session)

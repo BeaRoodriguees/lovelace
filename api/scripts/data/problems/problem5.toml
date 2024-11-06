@@ -2,6 +2,7 @@ name = "Balanceamento de Parênteses"
 difficulty = "very_easy"
 time_limit = 1000
 memory_limit = 500
+username = "superadmin"
 
 description = '''
 Em uma dada string, você deve indicar se os parênteses e colchetes estão balanceados.

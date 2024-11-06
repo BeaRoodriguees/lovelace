@@ -4,6 +4,7 @@
 # Custom
 .coverage
 lovelace.db
+query.py
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
