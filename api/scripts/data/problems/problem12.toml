@@ -2,6 +2,7 @@ name = "Grafos Ponderado BFS"
 difficulty = "medium"
 time_limit = 1000
 memory_limit = 500
+username = "superadmin"
 
 description = '''
 Implemente o algoritmo de busca em largura em um Grafo não-orientado e ponderado. Na busca, partindo do vértice de origem 's', devem ser acessados todos os vértices à uma distância d <= dist_limiar.

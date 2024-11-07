@@ -5,12 +5,7 @@ import { IconLovelace } from '@/components/misc/icon-lovelace';
 import classes from './navbar.module.css';
 import LoggedMenu from './navbar-menus/LoggedMenu';
 import UnloggedMenu from './navbar-menus/UnloggedMenu';
-
-export enum NavbarStatus {
-  HOME = 'HOME',
-  LOGGED = 'LOGGED',
-  AUTH = 'AUTH',
-}
+import { NavbarStatus } from '@/lib/types';
 
 function NavbarAuthOptions() {
   return null;

@@ -23,9 +23,9 @@ export default function LoggedMenu() {
           <Anchor href="/problemset" c={'gray.0'} fw={700}>
             Problemas
           </Anchor>
-          <Anchor href="/groupset" c={'dark.1'} fw={600}>
+          {/* <Anchor href="/groupset" c={'dark.1'} fw={600}>
             Turmas
-          </Anchor>
+          </Anchor> */}
         </Group>
         <Input placeholder="Buscar" leftSection={<IconSearch size={16} />} />
         <AvatarMenu />
@@ -53,6 +53,7 @@ export default function LoggedMenu() {
             leftSection={
               <IconUsersGroup style={{ width: rem(14), height: rem(14) }} />
             }
+            disabled
           >
             Turmas
           </Menu.Item>
@@ -62,6 +63,7 @@ export default function LoggedMenu() {
             leftSection={
               <IconUser style={{ width: rem(14), height: rem(14) }} />
             }
+            disabled
           >
             Perfil
           </Menu.Item>

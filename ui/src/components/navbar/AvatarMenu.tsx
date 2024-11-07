@@ -31,6 +31,7 @@ export default function AvatarMenu() {
           component="a"
           href={`/profile/${user?.username}`}
           leftSection={<IconUser style={{ width: rem(14), height: rem(14) }} />}
+          disabled
         >
           Ver Perfil
         </Menu.Item>

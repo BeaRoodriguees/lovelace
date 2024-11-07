@@ -2,6 +2,7 @@ name = "Acima da média"
 difficulty = "very_easy"
 time_limit = 1000
 memory_limit = 500
+username = "superadmin"
 
 description = '''
 Dados três números em ponto flutuante queremos saber quantos deles estão acima da média aritmética.

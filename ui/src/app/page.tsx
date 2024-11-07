@@ -2,7 +2,8 @@
 import { useSession } from 'next-auth/react';
 import classes from './page.module.css';
 import { HomePageHero } from '@/components/misc/homepage-hero';
-import Navbar, { NavbarStatus } from '@/components/navbar/navbar';
+import Navbar from '@/components/navbar/navbar';
+import { NavbarStatus } from '@/lib/types';
 
 export default function Home() {
   const session = useSession();

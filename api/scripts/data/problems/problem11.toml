@@ -2,6 +2,7 @@ name = "A festa dos Expendables"
 difficulty = "medium"
 time_limit = 5000
 memory_limit = 500
+username = "superadmin"
 
 description = '''
 A festa dos Expendables está chegando. Porém, Pedro está muito preocupado, pois ele acredita que a festa terá poucos convidados. Como ele sabe que Perazzo tem muitas amigas, Pedro o convenceu de convidar algumas. Logo, Perazzo imediatamente pega seu celular e envia um SMS para sua amiga Ana. No minuto seguinte, Ana convida Bia. No segundo minuto após Perazzo ter convidado Ana, Ana convida Clara e Bia convida Dara.

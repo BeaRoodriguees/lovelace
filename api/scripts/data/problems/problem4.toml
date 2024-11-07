@@ -2,6 +2,7 @@ name = "Ambrósio desastrado"
 difficulty = "very_easy"
 time_limit = 1000
 memory_limit = 500
+username = "superadmin"
 
 description = '''
 O jovem Ambrósio estava decifrando uma mensagem escrevendo letra por letra em pedaços de papel. Em cada pedaço Ambrósio escreveu uma letra e um número representando sua posição, da seguinte forma:

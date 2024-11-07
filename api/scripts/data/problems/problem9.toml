@@ -2,6 +2,7 @@ name = "Calculando a média com ponteiros"
 difficulty = "easy"
 time_limit = 1000
 memory_limit = 500
+username = "superadmin"
 
 description = '''
 Crie um programa que tenha apenas uma função com assinatura void calcular_media (int *A, int *B), além da principal, que receberá como parâmetros dois ponteiros contendo os endereços de A e B. O programa deverá identificar qual das duas variáveis possui o maior e o menor valor para realizar as seguintes operações:

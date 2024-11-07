@@ -8,18 +8,23 @@ import { useState } from 'react';
 import { CloseButton } from '@mantine/core';
 import classes from './filter-menu.module.css';
 import { useForm } from '@mantine/form';
-import { ProblemSetFilterData, ProblemStatus } from '@/lib/types';
+import {
+  ProblemDifficulty,
+  ProblemSetFilterData,
+  ProblemStatus,
+  Tags,
+} from '@/lib/types';
 
 interface FilterDropdownMenuProps
   extends React.HTMLAttributes<HTMLButtonElement> {
   currentFilters: ProblemSetFilterData;
   applyFilters: (filters: ProblemSetFilterData) => void;
-  tags: Array<string>;
+  tags: Array<Tags>;
 }
 
 const statusSelectData = [
-  { value: ProblemStatus.DONE, label: 'Feito' },
-  { value: ProblemStatus.ERROR, label: 'Errado' },
+  { value: ProblemStatus.CORRECT, label: 'Feito' },
+  { value: ProblemStatus.WRONG, label: 'Errado' },
   { value: ProblemStatus.TODO, label: 'Para fazer' },
 ];
 
@@ -138,13 +143,7 @@ export default function FilterDropdownMenu({
               <MultiSelect
                 label="Dificuldade"
                 placeholder="Selecione uma ou mais dificuldades"
-                data={[
-                  'Muito Fácil',
-                  'Fácil',
-                  'Intermediário',
-                  'Difícil',
-                  'Muito Difícil',
-                ]}
+                data={Object.values(ProblemDifficulty)}
                 classNames={{ pill: classes.pill }}
                 key={form.key('difficulties')}
                 {...form.getInputProps('difficulties')}
@@ -152,7 +151,7 @@ export default function FilterDropdownMenu({
               <MultiSelect
                 label="Tópicos"
                 placeholder="Selecione um ou mais tópicos"
-                data={tags}
+                data={tags.map((tag) => tag.name)}
                 searchable
                 key={form.key('tags')}
                 {...form.getInputProps('tags')}

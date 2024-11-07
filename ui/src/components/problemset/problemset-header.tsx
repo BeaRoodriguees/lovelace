@@ -4,13 +4,13 @@ import classes from './problemset-header.module.css';
 import { TextInput, Title } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import FilterDropdownMenu from './filter-menu';
-import { ProblemSetFilterData } from '@/lib/types';
+import { ProblemSetFilterData, Tags } from '@/lib/types';
 import { useState } from 'react';
 
 interface ProblemsetHeaderProps {
   currentFilters: ProblemSetFilterData;
   applyFilters: (filters: ProblemSetFilterData) => void;
-  tags: Array<string>;
+  tags: Array<Tags>;
 }
 
 export default function ProblemsetHeader(props: ProblemsetHeaderProps) {
