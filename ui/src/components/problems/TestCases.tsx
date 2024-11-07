@@ -1,9 +1,9 @@
 'use client';
 
-import { ProblemDetail } from '@/lib/types';
+import { Problem } from '@/lib/types';
 import { Code, Table, Title } from '@mantine/core';
 
-export default function TestCase({ problem }: { problem: ProblemDetail }) {
+export default function TestCase({ problem }: { problem: Problem }) {
   return (
     <div>
       <Title pt={'md'} order={2}>

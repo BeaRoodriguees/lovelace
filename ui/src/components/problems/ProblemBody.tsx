@@ -1,11 +1,11 @@
 'use client';
 
 import { Box, Divider, Title, Text } from '@mantine/core';
-import { ProblemDetail } from '@/lib/types';
+import { Problem } from '@/lib/types';
 import ProblemHeader from './ProblemHeader';
 import TestCases from './TestCases';
 
-export default function ProblemBody({ problem }: { problem: ProblemDetail }) {
+export default function ProblemBody({ problem }: { problem: Problem }) {
   return (
     <Box>
       <ProblemHeader problem={problem} />

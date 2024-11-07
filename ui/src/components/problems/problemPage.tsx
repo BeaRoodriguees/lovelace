@@ -5,10 +5,10 @@ import { IconNews } from '@tabler/icons-react';
 import classes from './problempage.module.css';
 import ProblemBody from '@/components/problems/ProblemBody';
 import SubmitSection from '@/components/problems/SubmitSection/SubmitSection';
-import { ProblemDetail, Submission } from '@/lib/types';
+import { Problem, Submission } from '@/lib/types';
 
 interface DataProps {
-  problem: ProblemDetail;
+  problem: Problem;
   submissions: Array<Submission>;
 }
 

@@ -1,10 +1,10 @@
 'use client';
 
-import { ProblemDetail } from '@/lib/types';
+import { Problem } from '@/lib/types';
 import { Flex, Title } from '@mantine/core';
 import { formatDate } from '@/lib/utils';
 
-export default function ProblemHeader({ problem }: { problem: ProblemDetail }) {
+export default function ProblemHeader({ problem }: { problem: Problem }) {
   return (
     <div>
       <Title order={1}>{problem.name}</Title>
