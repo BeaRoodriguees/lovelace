@@ -16,7 +16,7 @@ export default function SubmitSection({
     useState<Array<Submission>>(submissionsData);
 
   return (
-    <div>
+    <div style={{ maxWidth: '650px' }}>
       <SubmitDnd
         setSubmissionLoading={setSubmissionLoading}
         setSubmissions={setSubmissions}

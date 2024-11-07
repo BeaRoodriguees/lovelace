@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Divider, Tabs, Group, Grid, Container } from '@mantine/core';
+import { Box, Divider, Tabs, Group, Grid, Flex } from '@mantine/core';
 import { IconNews } from '@tabler/icons-react';
 import classes from './problempage.module.css';
 import ProblemBody from '@/components/problems/ProblemBody';
@@ -18,6 +18,7 @@ export default function ProblemPage(props: DataProps) {
       style={{
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: '2%',
       }}
     >
       <Box
@@ -61,9 +62,15 @@ export default function ProblemPage(props: DataProps) {
                 <ProblemBody problem={props.problem} />
               </Grid.Col>
               <Grid.Col span={{ base: 12, lg: 4 }}>
-                <Container>
+                <Flex
+                  w="100%"
+                  direction="column"
+                  align="center"
+                  justify="center"
+                  style={{ margin: '0% 3%' }}
+                >
                   <SubmitSection submissionsData={props.submissions} />
-                </Container>
+                </Flex>
               </Grid.Col>
             </Grid>
           </Tabs.Panel>
