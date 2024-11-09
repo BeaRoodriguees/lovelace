@@ -13,6 +13,7 @@ import { CardType, Problem } from '@/lib/types';
 import { LovelaceCard } from '@/components/LovelaceCard';
 import classes from './problem-card.module.css';
 import { ElementType } from 'react';
+
 interface ProblemCardProps extends React.HTMLAttributes<HTMLDivElement> {
   data: Problem;
 }
@@ -21,6 +22,7 @@ export default function ProblemCard({ data, ...rest }: ProblemCardProps) {
   let cardType;
   let icon = undefined;
   let DifficultyIcon: ElementType | undefined = undefined;
+
   switch (data.user_status) {
     case ProblemStatus.WRONG:
       cardType = CardType.ERROR;
@@ -54,7 +56,6 @@ export default function ProblemCard({ data, ...rest }: ProblemCardProps) {
   }
 
   // If the card is clickable, problem link is passed to the Root
-  // NOTE: Temporary problem url
   const problemLink = `/problems/${data.id}`;
   return (
     <div {...rest}>
@@ -67,7 +68,7 @@ export default function ProblemCard({ data, ...rest }: ProblemCardProps) {
                 className={classes.icon}
                 stroke={3}
                 height={18}
-                viewBox={'0 5 24 18'}
+                viewBox={'0 5 24 18'} // Black magic
               />
             ) : null}
             <span>{data.difficulty}</span>
