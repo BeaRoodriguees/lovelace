@@ -7,8 +7,13 @@
   gap: 24px;
 }
 
+@media (max-width: 48em) {
+  .container {
+    margin: 16px 0px;
+  }
+}
+
 .problems {
-  min-width: 500px;
   width: 100%;
 }
 

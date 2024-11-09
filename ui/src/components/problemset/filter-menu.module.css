@@ -1,3 +1,16 @@
+.btnLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+@media (max-width: 48em) {
+  .btnLabel span {
+    display: none;
+  }
+}
+
 .menu {
   padding: 24px 20px;
   background-color: light-dark(

@@ -81,7 +81,11 @@ export default function FilterDropdownMenu({
     setOpened(false);
   }
 
-  const isMobile = useMediaQuery('(max-width: 1080px)');
+  // Como usamos server components, isso só pode ser usado para elementos
+  // que estão escondidos na página.
+  // Por exemplo, no botão do filtro, a palavra filtro ficava aaprecendo logo
+  // quando a página era iniciada (antes do javascript ser carregado).
+  const isMobile = useMediaQuery('(max-width: 48em)');
 
   return (
     <Popover
@@ -89,9 +93,9 @@ export default function FilterDropdownMenu({
       onChange={setOpened}
       closeOnClickOutside={false}
       shadow="md"
-      width={520}
       position="bottom-end"
       closeOnEscape={false}
+      width={isMobile ? '95vw' : '520px'}
     >
       <Popover.Target>
         <Button
@@ -101,14 +105,15 @@ export default function FilterDropdownMenu({
               return !o;
             })
           }
-          leftSection={isMobile ? undefined : <IconFilter size={20} />}
           rightSection={
             filterCounter ? <CounterDisplay n={filterCounter} /> : null
           }
           variant={'lovelace-secondary'}
           {...rest}
+          classNames={{ label: classes.btnLabel }}
         >
-          {isMobile ? <IconFilter size={20} /> : 'Filtros'}
+          <IconFilter size={20} />
+          <span>Filtros</span>
         </Button>
       </Popover.Target>
 
