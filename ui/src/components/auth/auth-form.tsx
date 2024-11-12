@@ -95,7 +95,7 @@ export function LoginForm() {
   return (
     <GrayBackground>
       <Container size={420} my={40}>
-        <Title ta="center" size="62px" className={classes.title}>
+        <Title ta="center" size="60px" className={classes.title}>
           Olá de novo!
         </Title>
         <Text c="gray.5" size="sm" ta="center" mt={5}>

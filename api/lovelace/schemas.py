@@ -1,6 +1,8 @@
+from datetime import datetime
+
 from pydantic import BaseModel, ConfigDict, EmailStr
 
-from lovelace.models import Role
+from lovelace.models import Difficulty, ProblemStatus, Role, SubmissionStatus
 
 
 class CreateUserSchema(BaseModel):
@@ -34,3 +36,54 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     username: str | None = None
+
+
+class TestcaseSchema(BaseModel):
+    id: int
+    input: str
+    output: str
+    is_sample: bool
+    model_config = ConfigDict(from_attributes=True)
+
+
+class TagSchema(BaseModel):
+    id: int
+    name: str
+    model_config = ConfigDict(from_attributes=True)
+
+
+class SubmissionSchema(BaseModel):
+    id: int
+    body: str
+    created_at: datetime
+    language: str
+    status: SubmissionStatus
+    model_config = ConfigDict(from_attributes=True)
+
+
+class ProblemSchema(BaseModel):
+    id: int
+    name: str
+    description: str
+    problem_input: str
+    problem_output: str
+    difficulty: Difficulty
+    time_limit: int
+    memory_limit: int
+    testcases: list[TestcaseSchema]
+    tags: list[TagSchema]
+    created_at: datetime
+    author: UserSchema
+    model_config = ConfigDict(from_attributes=True)
+
+
+class ProblemData(BaseModel):
+    problem: ProblemSchema
+    submissions: list[SubmissionSchema]
+    user_status: ProblemStatus
+    model_config = ConfigDict(from_attributes=True)
+
+
+class ProblemAndStatus(BaseModel):
+    problem: ProblemSchema
+    user_status: ProblemStatus

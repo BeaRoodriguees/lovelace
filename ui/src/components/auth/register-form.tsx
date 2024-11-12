@@ -185,7 +185,14 @@ export default function RegistrationForm() {
             />
             <Group justify="space-between" mt="lg">
               <Checkbox
-                label="Eu concordo com os termos"
+                label={
+                  <>
+                    Eu concordo com os{' '}
+                    <a href="/termos" target="_blank" rel="noopener noreferrer">
+                      termos
+                    </a>
+                  </>
+                }
                 classNames={{ label: classes.label }}
                 key={form.key('agree')}
                 {...form.getInputProps('agree')}

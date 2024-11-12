@@ -2,6 +2,7 @@ name = "3n + 1"
 difficulty = "very_easy"
 time_limit = 500
 memory_limit = 500
+username = "superadmin"
 
 description = '''
 Considere o seguinte algoritmo para gerar uma sequência de números. Comece com um inteiro n. Se n for par, divida por 2. Se n for ímpar, multiplique por 3 e some 1. Repita esse processo com o novo valor de n, terminando quando n = 1. Por exemplo, a seguinte sequência de números será gerada quando n é 22:

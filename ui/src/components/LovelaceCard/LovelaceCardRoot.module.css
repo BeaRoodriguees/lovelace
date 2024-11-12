@@ -9,7 +9,6 @@
   transition:
     transform 0.2s ease,
     background-color 0.1s linear;
-  min-width: 500px;
 
   &[data-type='ERROR'] {
     border: 2px solid var(--mantine-color-red-8);

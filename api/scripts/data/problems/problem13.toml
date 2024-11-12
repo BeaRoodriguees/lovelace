@@ -2,6 +2,7 @@ name = "A Fuga do Paffocan"
 difficulty = "hard"
 time_limit = 1000
 memory_limit = 500
+username = "superadmin"
 
 description = '''
 Gabriel Paçoqueiro, nosso não tão querido Paffocan, foi preso recentemente por seus crimes inomináveis contra seus funcionários. Contudo, em um belo dia, Paffocan engenhosamente escapou da cadeia e agora está solto, pondo em risco a vida de seus ex-assessores e novinhas desavisadas nas ruas. Ele deixou pistas para a polícia, desafiando-os a encontrá-lo, contendo coordenadas de possíveis locais que ele pode estar, bem como mensagens codificados indicando o nome desses locais. Sherlock Holmes, em toda sua sabedoria, notou que a codificação utilizada pelo Paffocan nas mensagens se assemelha à Cifra de César, que consiste em substituir letras do texto por outras seguindo um número fixo de vezes de acordo com a ordem alfabética. Por exemplo, se chave da codificação for 3, significa que na mensagem original as letras estavam 3 posições atrás em relação à mensagem codificada seguindo a ordem alfabética. 
