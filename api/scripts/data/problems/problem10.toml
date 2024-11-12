@@ -2,6 +2,7 @@ name = "Duelo no RU"
 difficulty = "easy"
 time_limit = 1000
 memory_limit = 500
+username = "superadmin"
 
 description = '''
 Túlio e Pedro estavam decidindo quem iria levar as bandejas depois do almoço no RU. Depois de muita argumentação eles pensaram em resolver essa disputa com uma partida de "Armague".

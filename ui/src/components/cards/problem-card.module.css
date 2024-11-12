@@ -1,0 +1,19 @@
+.top {
+  display: none;
+}
+
+@media (max-width: 48em) {
+  .side {
+    display: none;
+  }
+  .top {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+  }
+
+  .top svg {
+    vertical-align: text-bottom;
+  }
+}

@@ -1,18 +1,16 @@
 'use client';
 
 import classes from './problemset-header.module.css';
-
-import { TextInput } from '@mantine/core';
-import { Title } from '@mantine/core';
+import { TextInput, Title } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import FilterDropdownMenu from './filter-menu';
-import { ProblemSetFilterData } from '@/lib/types';
+import { ProblemSetFilterData, Tags } from '@/lib/types';
 import { useState } from 'react';
 
 interface ProblemsetHeaderProps {
   currentFilters: ProblemSetFilterData;
   applyFilters: (filters: ProblemSetFilterData) => void;
-  tags: Array<string>;
+  tags: Array<Tags>;
 }
 
 export default function ProblemsetHeader(props: ProblemsetHeaderProps) {
@@ -47,6 +45,7 @@ export default function ProblemsetHeader(props: ProblemsetHeaderProps) {
           value={search}
           onChange={updateSearch}
         ></TextInput>
+
         <FilterDropdownMenu className={classes.filter} {...props} />
       </div>
     </div>

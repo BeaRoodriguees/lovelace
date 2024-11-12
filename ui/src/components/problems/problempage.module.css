@@ -1,0 +1,13 @@
+.tabsList {
+  margin-inline: var(--mantine-spacing-xl);
+  position: relative;
+  bottom: -1px;
+
+  &::before {
+    display: none;
+  }
+}
+
+.tab {
+  border-bottom: 1px solid var(--mantine-color-dark-9);
+}

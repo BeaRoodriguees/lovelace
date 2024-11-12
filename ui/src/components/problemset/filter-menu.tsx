@@ -1,25 +1,30 @@
 'use client';
 
 import { Popover, Button, Text, MultiSelect } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { FocusTrap } from '@mantine/core';
 import { IconFilter } from '@tabler/icons-react';
 import { useState } from 'react';
 import { CloseButton } from '@mantine/core';
 import classes from './filter-menu.module.css';
 import { useForm } from '@mantine/form';
-import { ProblemSetFilterData, ProblemStatus } from '@/lib/types';
+import {
+  ProblemDifficulty,
+  ProblemSetFilterData,
+  ProblemStatus,
+  Tags,
+} from '@/lib/types';
 
 interface FilterDropdownMenuProps
   extends React.HTMLAttributes<HTMLButtonElement> {
   currentFilters: ProblemSetFilterData;
   applyFilters: (filters: ProblemSetFilterData) => void;
-  tags: Array<string>;
+  tags: Array<Tags>;
 }
 
 const statusSelectData = [
-  { value: ProblemStatus.DONE, label: 'Feito' },
-  { value: ProblemStatus.ERROR, label: 'Errado' },
+  { value: ProblemStatus.CORRECT, label: 'Feito' },
+  { value: ProblemStatus.WRONG, label: 'Errado' },
   { value: ProblemStatus.TODO, label: 'Para fazer' },
 ];
 
@@ -76,15 +81,21 @@ export default function FilterDropdownMenu({
     setOpened(false);
   }
 
+  // Como usamos server components, isso só pode ser usado para elementos
+  // que estão escondidos na página.
+  // Por exemplo, no botão do filtro, a palavra filtro ficava aaprecendo logo
+  // quando a página era iniciada (antes do javascript ser carregado).
+  const isMobile = useMediaQuery('(max-width: 48em)');
+
   return (
     <Popover
       opened={opened}
       onChange={setOpened}
       closeOnClickOutside={false}
       shadow="md"
-      width={520}
       position="bottom-end"
       closeOnEscape={false}
+      width={isMobile ? '95vw' : '520px'}
     >
       <Popover.Target>
         <Button
@@ -94,14 +105,15 @@ export default function FilterDropdownMenu({
               return !o;
             })
           }
-          leftSection={<IconFilter stroke={2} />}
           rightSection={
             filterCounter ? <CounterDisplay n={filterCounter} /> : null
           }
           variant={'lovelace-secondary'}
           {...rest}
+          classNames={{ label: classes.btnLabel }}
         >
-          Filtros
+          <IconFilter size={20} />
+          <span>Filtros</span>
         </Button>
       </Popover.Target>
 
@@ -136,13 +148,7 @@ export default function FilterDropdownMenu({
               <MultiSelect
                 label="Dificuldade"
                 placeholder="Selecione uma ou mais dificuldades"
-                data={[
-                  'Muito Fácil',
-                  'Fácil',
-                  'Intermediário',
-                  'Difícil',
-                  'Muito Difícil',
-                ]}
+                data={Object.values(ProblemDifficulty)}
                 classNames={{ pill: classes.pill }}
                 key={form.key('difficulties')}
                 {...form.getInputProps('difficulties')}
@@ -150,7 +156,7 @@ export default function FilterDropdownMenu({
               <MultiSelect
                 label="Tópicos"
                 placeholder="Selecione um ou mais tópicos"
-                data={tags}
+                data={tags.map((tag) => tag.name)}
                 searchable
                 key={form.key('tags')}
                 {...form.getInputProps('tags')}

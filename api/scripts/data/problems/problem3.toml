@@ -2,6 +2,7 @@ name = "A muralha infinita"
 difficulty = "very_easy"
 time_limit = 1000
 memory_limit = 500
+username = "superadmin"
 
 description = '''
 Há muito tempo atrás, existia uma muralha infinita que separava dois reinos em guerra. Os guardas da muralha não deveriam deixar ninguém passar de uma lado para outro, entretanto, como eram tempos de crise, eles sempre aceitavam moedas de prata para deixar que uma pessoa atravessasse a muralha.
