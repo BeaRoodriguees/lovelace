@@ -27,7 +27,17 @@ int main() {
 """,
 }
 
-hello_world_python = {"language": "python", "code": 'print("Hello, World! Em python!")'}
+hello_world_python = {"language": "python", "code": """
+import time
+size_in_mb = 200
+time.sleep(3)
+print("hello")
+""",
+    "submission_id": 55}
+
+{
+    'submission_id': 52,
+}
 
 hello_world_js = {
     "language": "javascript",
@@ -47,7 +57,7 @@ def send_submission(code):
 
 
 if __name__ == "__main__":
-    send_submission(hello_world_c)
-    send_submission(hello_world_cpp)
+    # send_submission(hello_world_c)
+    # send_submission(hello_world_cpp)
     send_submission(hello_world_python)
-    send_submission(hello_world_js)
+    # send_submission(hello_world_js)
