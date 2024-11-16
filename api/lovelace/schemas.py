@@ -55,6 +55,7 @@ class TagSchema(BaseModel):
 class CreateSubmissionSchema(BaseModel):
     body: str
     language: str
+    problem_id: int
 
 
 class SubmissionSchema(BaseModel):
