@@ -54,6 +54,7 @@ class CodeExecutor:
         return volume
 
     def process_submission(self, submission: Submission):
+        submission.language = submission.language.lower()
         with tempfile.TemporaryDirectory(dir="/code") as temp_dir:
 
             file_path = Path(temp_dir) / f"main.{self.SUFFIX[submission.language]}"
@@ -104,12 +105,12 @@ class CodeExecutor:
 
         session.close()
         print("Submission processed!")
-        ch.basic_ack(delivery_tag=method.delivery_tag)
+        ch.basic_ack(delivery_tag = method.delivery_tag)
 
     def start_queue_listener(self):
         connection = pika.BlockingConnection(pika.ConnectionParameters(host=self.RABBITMQ_HOST))
         channel = connection.channel()
-        channel.queue_declare(queue=self.QUEUE_NAME)
+        channel.queue_declare(queue=self.QUEUE_NAME, durable=True)
         callback_with_args = partial(self.callback)
         channel.basic_consume(queue=self.QUEUE_NAME, on_message_callback=callback_with_args, auto_ack=False)
         print(" [*] Waiting for messages. To exit press CTRL+C")
