@@ -3,7 +3,6 @@ from typing import Annotated
 
 import pika
 from fastapi import APIRouter, Depends
-from sqlalchemy import ARRAY, Integer, case, cast, func, select
 from sqlalchemy.orm import Session
 
 from lovelace.database import get_session
@@ -16,17 +15,21 @@ CurrentUser = Annotated[User, Depends(get_current_user)]
 
 router = APIRouter(prefix='/submission', tags=['submission'])
 
-RABBITMQ_HOST = 'localhost'
+RABBITMQ_HOST = 'rabbitmq'
 QUEUE_NAME = 'submission_queue'
-
-connection = pika.BlockingConnection(pika.URLParameters(RABBITMQ_HOST))
-channel = connection.channel()
-channel.queue_declare(queue=QUEUE_NAME)
 
 
 @router.post('/', response_model=SubmissionSchema)
-def send_submission(submission: CreateSubmissionSchema, session: Session):
+def send_submission(submission: CreateSubmissionSchema, session: CurrentSession, user: CurrentUser):
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=RABBITMQ_HOST))
+    channel = connection.channel()
+    channel.queue_declare(queue=QUEUE_NAME,
+                          auto_delete=False,
+                          durable=True)
+
     db_submission = Submission(
+        user_id= user.id,
+        problem_id=submission.problem_id,
         body=submission.body,
         language=submission.language,
     )
@@ -42,9 +45,9 @@ def send_submission(submission: CreateSubmissionSchema, session: Session):
         routing_key=QUEUE_NAME,
         body=json.dumps({'submission_id': submission_id}),
         properties=pika.BasicProperties(
-            delivery_mode=2,
-        ),
+            delivery_mode=pika.DeliveryMode.Persistent
+        )
     )
-    connection.close()
 
+    channel.close()
     return db_submission
