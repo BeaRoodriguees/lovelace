@@ -18,14 +18,19 @@ import { IconCloudUpload, IconX } from '@tabler/icons-react';
 import { useRef, useState } from 'react';
 import classes from './submitdnd.module.css';
 import { formatDate } from '@/lib/utils';
+import { useSession } from 'next-auth/react';
+import { json } from 'stream/consumers';
 
 interface SubmissionDndProps {
   setSubmissionLoading: (submissionLoading: boolean) => void;
   setSubmissions: (submissons: Array<Submission>) => void;
   submissions: Array<Submission>;
+  problemId: number;
 }
 
 export default function DropdownSection(props: SubmissionDndProps) {
+  const session = useSession();
+  const user = session.data?.user;
   const openRef = useRef<() => void>(null);
   const [language, setLanguage] = useState<LanguageEnum | null>(null);
   const [files, setFiles] = useState<FileWithPath[]>([]);
@@ -34,30 +39,65 @@ export default function DropdownSection(props: SubmissionDndProps) {
     return <span key={index}>{file.name}</span>;
   });
 
-  async function handleSubmit() {
-    notifications.show({
-      title: 'Sua submissão foi submetida!',
-      message: 'Aguarde o resultado.',
-    });
-    setFiles([]);
-    setLanguage(null);
-
+  const handleSubmit = async () => {
     props.setSubmissionLoading(true);
-    await forceDelay(5000);
-
-    // TODO: puxar os dados do backend
-    const newsubs = [
-      {
-        language: LanguageEnum.PYTHON,
-        submittedAt: formatDate(new Date()),
-        status: SubmissionStatus.ACCEPTED,
+    const body = {
+      problem_id: props.problemId,
+      language: language,
+      body: await files[0].text(),
+    };
+    console.log(body);
+    const res = await fetch(`http://localhost:8000/submission/`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+        'Content-Type': 'application/json',
       },
-      ...props.submissions,
-    ];
+      body: JSON.stringify(body),
+    });
 
-    props.setSubmissions(newsubs);
+    const response = await res.json();
+
+    if (res.ok && response) {
+      notifications.show({
+        title: 'Sua submissão foi submetida!',
+        message: 'Aguarde o resultado.',
+      });
+    } else {
+      notifications.show({
+        title: 'Erro ao submeter a solução!',
+        message: 'Tente novamente.',
+      });
+    }
+
     props.setSubmissionLoading(false);
-  }
+    return null;
+  };
+
+  // async function handleSubmit() {
+  //   notifications.show({
+  //     title: 'Sua submissão foi submetida!',
+  //     message: 'Aguarde o resultado.',
+  //   });
+  //   setFiles([]);
+  //   setLanguage(null);
+
+  //   props.setSubmissionLoading(true);
+  //   await forceDelay(5000);
+
+  //   // TODO: puxar os dados do backend
+  //   const newsubs = [
+  //     {
+  //       language: LanguageEnum.PYTHON,
+  //       submittedAt: formatDate(new Date()),
+  //       status: SubmissionStatus.ACCEPTED,
+  //     },
+  //     ...props.submissions,
+  //   ];
+
+  //   props.setSubmissions(newsubs);
+  //   props.setSubmissionLoading(false);
+  // }
 
   return (
     <>

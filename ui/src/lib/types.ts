@@ -28,8 +28,8 @@ export enum ProblemStatus {
 export enum LanguageEnum {
   C = 'C',
   CPP = 'CPP',
-  JAVASCRIPT = 'Javascript',
-  PYTHON = 'Python',
+  JAVASCRIPT = 'JAVASCRIPT',
+  PYTHON = 'PYTHON',
 }
 
 export enum SubmissionStatus {

@@ -66,7 +66,11 @@ export default function SubmissionHistory(props: SubmissionHistoryProps) {
               return (
                 <tr key={index}>
                   <th style={{ textAlign: 'center' }}>
-                    {LANG_ICON_MAP[submission.language]}
+                    {
+                      LANG_ICON_MAP[
+                        submission.language.toUpperCase() as LanguageEnum
+                      ]
+                    }
                   </th>
                   <th style={{ textAlign: 'center' }}>
                     {formatDate(new Date(Date.parse(submission.created_at)))}
