@@ -52,6 +52,11 @@ class TagSchema(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class CreateSubmissionSchema(BaseModel):
+    body: str
+    language: str
+
+
 class SubmissionSchema(BaseModel):
     id: int
     body: str
