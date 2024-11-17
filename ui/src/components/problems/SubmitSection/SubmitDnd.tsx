@@ -1,7 +1,6 @@
 'use client';
 
-import { LanguageEnum, Submission, SubmissionStatus } from '@/lib/types';
-import { forceDelay } from '@/lib/utils';
+import { LanguageEnum, Submission } from '@/lib/types';
 import {
   Button,
   Flex,
@@ -17,9 +16,7 @@ import { notifications } from '@mantine/notifications';
 import { IconCloudUpload, IconX } from '@tabler/icons-react';
 import { useRef, useState } from 'react';
 import classes from './submitdnd.module.css';
-import { formatDate } from '@/lib/utils';
 import { useSession } from 'next-auth/react';
-import { json } from 'stream/consumers';
 
 interface SubmissionDndProps {
   setSubmissionLoading: (submissionLoading: boolean) => void;

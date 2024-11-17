@@ -1,6 +1,5 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
 import { Divider } from '@mantine/core';
 import SubmitDnd from './SubmitDnd';
 import SubmissionHistory from './SubmissionHistory';
