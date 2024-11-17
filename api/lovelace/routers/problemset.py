@@ -105,7 +105,7 @@ def get_problem_data(
         Select(Submission).filter(Submission.id.in_(q[3]))
     )
     return ProblemData(
-        problem=ProblemSchema.model_validate(q[0]),
+        problem=ProblemSchema.model_valite_with_filter(q[0]),
         submissions=[SubmissionSchema.model_validate(s) for s in submissions],
         user_status=status,
     )

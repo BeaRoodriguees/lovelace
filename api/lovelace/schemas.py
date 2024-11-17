@@ -82,6 +82,12 @@ class ProblemSchema(BaseModel):
     author: UserSchema
     model_config = ConfigDict(from_attributes=True)
 
+    @classmethod
+    def model_valite_with_filter(cls, orm_obj):
+        instance = cls.model_validate(orm_obj)
+        instance.testcases = [tc for tc in instance.testcases if tc.is_sample]
+        return instance
+
 
 class ProblemData(BaseModel):
     problem: ProblemSchema
