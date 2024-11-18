@@ -3,7 +3,7 @@ import { NavbarStatus } from '@/lib/types';
 import ProblemPage from '@/components/problems/problemPage';
 import { getServerSession } from 'next-auth';
 import { authConfig } from '@/auth.config';
-import { convertToPatchedDate } from '@/lib/utils'
+import { convertISOStringToDate } from '@/lib/utils'
 
 export default async function Problem({ params }: { params: { id: string } }) {
   const session = await getServerSession(authConfig);
@@ -31,7 +31,7 @@ export default async function Problem({ params }: { params: { id: string } }) {
 
   const data = await getData();
   const problem = data.problem;
-  problem.created_at = convertToPatchedDate(problem.created_at);
+  problem.created_at = convertISOStringToDate(problem.created_at);
 
   return (
     <>

@@ -9,23 +9,12 @@ export function mapToEnum<T>(
   return enumObj[key as unknown as keyof T];
 }
 
-export function convertToPatchedDate(dateString: string): Date {
-  // A string de data que vem do servidor representa o horário no timezone
-  // 'America/Sao_Paulo'. Só que ao criar o objeto Date, o client corrige
-  // a string para a timezone 'America/Sao_Paulo', pois imagina que a 
-  // string fornecida é UTC. Portanto, temos que colocar um offset de 3 horas
-  // de forma a cancelar a correção automática que o navegador faz.
-  const timeZone = 'America/Sao_Paulo';
-
-  const [datePart, timePart] = dateString.split('T');
+export function convertISOStringToDate(date: string): Date {
+  const [datePart, timePart] = date.split('T');
   const [year, month, day] = datePart.split('-').map(Number);
   const [hour, minute, second] = timePart.split(':').map(Number);
 
-  const localDate = new Date(Date.UTC(year, month - 1, day, hour, minute, second));
-
-  // Offset da confusão
-  const saoPauloOffset = 3 * 60;
-  return new Date(localDate.getTime() + saoPauloOffset * 60 * 1000);
+  return new Date(Date.UTC(year, month - 1, day, hour, minute, second));
 }
 
 export function formatDate(date: Date): string {
