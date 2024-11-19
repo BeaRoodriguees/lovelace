@@ -88,7 +88,7 @@ export default function DropdownSection(props: SubmissionDndProps) {
   };
 
   return (
-    <>
+    <div className={classes.section}>
       <Group justify="center" mt="md">
         <Title order={4}>Envie uma solução</Title>
       </Group>
@@ -178,6 +178,6 @@ export default function DropdownSection(props: SubmissionDndProps) {
       >
         Submeter
       </Button>
-    </>
+    </div>
   );
 }
