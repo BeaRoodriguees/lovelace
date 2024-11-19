@@ -1,6 +1,6 @@
 'use client';
 
-import { LanguageEnum, Submission } from '@/lib/types';
+import { LanguageEnum, Submission, SubmissionStatus } from '@/lib/types';
 import {
   Button,
   Flex,
@@ -17,6 +17,8 @@ import { IconCloudUpload, IconX } from '@tabler/icons-react';
 import { useRef, useState } from 'react';
 import classes from './submitdnd.module.css';
 import { useSession } from 'next-auth/react';
+import { forceDelay } from '@/lib/utils';
+
 
 interface SubmissionDndProps {
   setSubmissionLoading: (submissionLoading: boolean) => void;
@@ -43,7 +45,9 @@ export default function DropdownSection(props: SubmissionDndProps) {
       language: language,
       body: await files[0].text(),
     };
-    console.log(body);
+
+    await forceDelay(1000);
+
     const res = await fetch(`http://localhost:8000/submission/`, {
       method: 'POST',
       headers: {
@@ -67,37 +71,24 @@ export default function DropdownSection(props: SubmissionDndProps) {
       });
     }
 
+    const newsubs = [
+      {
+        language: LanguageEnum[response.language.toUpperCase() as keyof typeof LanguageEnum],
+        created_at: response.created_at,
+        status: SubmissionStatus[response.status.toLowerCase() as keyof typeof SubmissionStatus],
+      },
+      ...props.submissions,
+    ].slice(0, 5);
+
+    props.setSubmissions(newsubs);
     props.setSubmissionLoading(false);
+
+    
     return null;
   };
 
-  // async function handleSubmit() {
-  //   notifications.show({
-  //     title: 'Sua submissão foi submetida!',
-  //     message: 'Aguarde o resultado.',
-  //   });
-  //   setFiles([]);
-  //   setLanguage(null);
-
-  //   props.setSubmissionLoading(true);
-  //   await forceDelay(5000);
-
-  //   // TODO: puxar os dados do backend
-  //   const newsubs = [
-  //     {
-  //       language: LanguageEnum.PYTHON,
-  //       submittedAt: formatDate(new Date()),
-  //       status: SubmissionStatus.ACCEPTED,
-  //     },
-  //     ...props.submissions,
-  //   ];
-
-  //   props.setSubmissions(newsubs);
-  //   props.setSubmissionLoading(false);
-  // }
-
   return (
-    <>
+    <div className={classes.section}>
       <Group justify="center" mt="md">
         <Title order={4}>Envie uma solução</Title>
       </Group>
@@ -187,6 +178,6 @@ export default function DropdownSection(props: SubmissionDndProps) {
       >
         Submeter
       </Button>
-    </>
+    </div>
   );
 }
