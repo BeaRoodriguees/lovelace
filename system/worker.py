@@ -18,7 +18,7 @@ class CodeExecutor:
     SUFFIX = {"python": "py", "c": "c", "cpp": "cpp", "javascript": "js"}
     COMMAND = {
         "python": "sh -c 'python3 main.py < ./in'",
-        "c": "sh -c 'gcc main.c -o out && ./out < ./in'",
+        "c": "sh -c 'gcc main.c -lm -lcrypt -O2 -w -o out && ./out < ./in'",
         "cpp": "sh -c 'g++ main.cpp -o out && ./out < ./in'",
         "javascript": "sh -c 'node main.js < ./in'",
     }
