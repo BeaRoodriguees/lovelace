@@ -102,10 +102,10 @@ def get_problem_data(
     # Query paga pegar as submissões daquele usuário para aquele problema
     # Não é possível fazer isso em uma única query!
     submissions = session.scalars(
-        Select(Submission).filter(Submission.id.in_(q[3]))
+        Select(Submission).filter(Submission.id.in_(q[3])).limit(5).order_by(Submission.created_at.desc())
     )
     return ProblemData(
-        problem=ProblemSchema.model_validate(q[0]),
+        problem=ProblemSchema.model_valite_with_filter(q[0]),
         submissions=[SubmissionSchema.model_validate(s) for s in submissions],
         user_status=status,
     )

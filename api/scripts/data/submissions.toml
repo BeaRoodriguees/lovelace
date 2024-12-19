@@ -114,15 +114,6 @@ body = '''
 print('some code here')
 '''
 language = 'Python'
-status = 'PRESENTATION_ERROR'
-
-[[submissions]]
-username = 'Bea'
-problem_name = "Inverter uma string"
-body = '''
-print('some code here')
-'''
-language = 'Python'
 status = 'MEMORY_LIMIT_EXCEEDED'
 
 [[submissions]]
@@ -331,15 +322,6 @@ print('some code here')
 '''
 language = 'Javascript'
 status = 'RUNNING'
-
-[[submissions]]
-username = 'Romao'
-problem_name = "A Fuga do Paffocan"
-body = '''
-print('some code here')
-'''
-language = 'C'
-status = 'PRESENTATION_ERROR'
 
 [[submissions]]
 username = 'Romao'

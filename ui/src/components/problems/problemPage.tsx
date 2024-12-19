@@ -69,7 +69,10 @@ export default function ProblemPage(props: DataProps) {
                   justify="center"
                   style={{ margin: '0% 3%' }}
                 >
-                  <SubmitSection submissionsData={props.submissions} />
+                  <SubmitSection
+                    submissionsData={props.submissions}
+                    problemId={props.problem.id}
+                  />
                 </Flex>
               </Grid.Col>
             </Grid>

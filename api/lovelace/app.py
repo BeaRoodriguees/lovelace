@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from lovelace.routers import auth, problemset, users
+from lovelace.routers import auth, problemset, users, submission
 
 app = FastAPI()
 
@@ -18,7 +18,7 @@ app.add_middleware(
 app.include_router(users.router)
 app.include_router(auth.router)
 app.include_router(problemset.router)
-
+app.include_router(submission.router)
 
 @app.get('/')
 def root():

@@ -1,7 +1,7 @@
 'use client';
 
 import { LanguageEnum, Submission } from '@/lib/types';
-import { formatDate } from '@/lib/utils';
+import { formatDate, convertISOStringToDate } from '@/lib/utils';
 import { Box, Flex, Loader, Table, Title, Text } from '@mantine/core';
 import {
   IconBrandCpp,
@@ -66,10 +66,14 @@ export default function SubmissionHistory(props: SubmissionHistoryProps) {
               return (
                 <tr key={index}>
                   <th style={{ textAlign: 'center' }}>
-                    {LANG_ICON_MAP[submission.language]}
+                    {
+                      LANG_ICON_MAP[
+                        submission.language.toUpperCase() as LanguageEnum
+                      ]
+                    }
                   </th>
                   <th style={{ textAlign: 'center' }}>
-                    {formatDate(new Date(Date.parse(submission.created_at)))}
+                    {formatDate(convertISOStringToDate(submission.created_at))}
                   </th>
                   <th style={{ textAlign: 'center' }}>{submission.status}</th>
                 </tr>

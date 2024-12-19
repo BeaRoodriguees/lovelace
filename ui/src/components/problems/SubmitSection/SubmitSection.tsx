@@ -8,8 +8,10 @@ import { Submission } from '@/lib/types';
 
 export default function SubmitSection({
   submissionsData,
+  problemId,
 }: {
   submissionsData: Array<Submission>;
+  problemId: number;
 }) {
   const [submissionLoading, setSubmissionLoading] = useState<boolean>(false);
   const [submissions, setSubmissions] =
@@ -21,6 +23,7 @@ export default function SubmitSection({
         setSubmissionLoading={setSubmissionLoading}
         setSubmissions={setSubmissions}
         submissions={submissions}
+        problemId={problemId}
       />
       <Divider my="md" />
       <SubmissionHistory

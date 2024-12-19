@@ -1,7 +1,6 @@
 'use client';
 
 import { LanguageEnum, Submission, SubmissionStatus } from '@/lib/types';
-import { forceDelay } from '@/lib/utils';
 import {
   Button,
   Flex,
@@ -17,15 +16,19 @@ import { notifications } from '@mantine/notifications';
 import { IconCloudUpload, IconX } from '@tabler/icons-react';
 import { useRef, useState } from 'react';
 import classes from './submitdnd.module.css';
-import { formatDate } from '@/lib/utils';
+import { useSession } from 'next-auth/react';
+import { forceDelay } from '@/lib/utils';
 
 interface SubmissionDndProps {
   setSubmissionLoading: (submissionLoading: boolean) => void;
   setSubmissions: (submissons: Array<Submission>) => void;
   submissions: Array<Submission>;
+  problemId: number;
 }
 
 export default function DropdownSection(props: SubmissionDndProps) {
+  const session = useSession();
+  const user = session.data?.user;
   const openRef = useRef<() => void>(null);
   const [language, setLanguage] = useState<LanguageEnum | null>(null);
   const [files, setFiles] = useState<FileWithPath[]>([]);
@@ -34,33 +37,62 @@ export default function DropdownSection(props: SubmissionDndProps) {
     return <span key={index}>{file.name}</span>;
   });
 
-  async function handleSubmit() {
-    notifications.show({
-      title: 'Sua submissão foi submetida!',
-      message: 'Aguarde o resultado.',
-    });
-    setFiles([]);
-    setLanguage(null);
-
+  const handleSubmit = async () => {
     props.setSubmissionLoading(true);
-    await forceDelay(5000);
+    const body = {
+      problem_id: props.problemId,
+      language: language,
+      body: await files[0].text(),
+    };
 
-    // TODO: puxar os dados do backend
+    await forceDelay(1000);
+
+    const res = await fetch(`http://localhost:8000/submission/`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+
+    const response = await res.json();
+
+    if (res.ok && response) {
+      notifications.show({
+        title: 'Sua submissão foi submetida!',
+        message: 'Aguarde o resultado.',
+      });
+    } else {
+      notifications.show({
+        title: 'Erro ao submeter a solução!',
+        message: 'Tente novamente.',
+      });
+    }
+
     const newsubs = [
       {
-        language: LanguageEnum.PYTHON,
-        submittedAt: formatDate(new Date()),
-        status: SubmissionStatus.ACCEPTED,
+        language:
+          LanguageEnum[
+            response.language.toUpperCase() as keyof typeof LanguageEnum
+          ],
+        created_at: response.created_at,
+        status:
+          SubmissionStatus[
+            response.status.toLowerCase() as keyof typeof SubmissionStatus
+          ],
       },
       ...props.submissions,
-    ];
+    ].slice(0, 5);
 
     props.setSubmissions(newsubs);
     props.setSubmissionLoading(false);
-  }
+
+    return null;
+  };
 
   return (
-    <>
+    <div className={classes.section}>
       <Group justify="center" mt="md">
         <Title order={4}>Envie uma solução</Title>
       </Group>
@@ -150,6 +182,6 @@ export default function DropdownSection(props: SubmissionDndProps) {
       >
         Submeter
       </Button>
-    </>
+    </div>
   );
 }

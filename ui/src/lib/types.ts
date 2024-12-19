@@ -28,16 +28,21 @@ export enum ProblemStatus {
 export enum LanguageEnum {
   C = 'C',
   CPP = 'CPP',
-  JAVASCRIPT = 'Javascript',
-  PYTHON = 'Python',
+  JAVASCRIPT = 'JAVASCRIPT',
+  PYTHON = 'PYTHON',
 }
 
 export enum SubmissionStatus {
-  ACCEPTED = 'AC',
-  TIME_LIMIT = 'TL',
-  ERROR = 'ER',
-  WRONG_ANSWER = 'WA',
-  MEMORY_LIMITE = 'ML',
+  wrong_answer = 'WRONG ANSWER',
+  accepted = 'ACCEPTED',
+  compilation_error = 'COMPILATION_ERROR',
+  runtime_error = 'RUNTIME_ERROR',
+  time_limit_exceeded = 'TIME_LIMIT_EXCEEDED',
+  pending = 'PENDING',
+  presentation_error = 'PRESENTATION_ERROR',
+  running = 'RUNNING',
+  memory_limit_exceeded = 'MEMORY_LIMIT_EXCEEDED',
+  server_error = 'SERVER_ERROR',
 }
 
 export interface User {

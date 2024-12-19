@@ -33,7 +33,6 @@ class SubmissionStatus(str, enum.Enum):
     runtime_error = 'RUNTIME_ERROR'
     time_limit_exceeded = 'TIME_LIMIT_EXCEEDED'
     pending = 'PENDING'
-    presentation_error = 'PRESENTATION_ERROR'
     running = 'RUNNING'
     memory_limit_exceeded = 'MEMORY_LIMIT_EXCEEDED'
     server_error = 'SERVER_ERROR'
@@ -125,4 +124,6 @@ class Submission:
         init=False, server_default=func.now()
     )
     language: Mapped[str]
-    status: Mapped[SubmissionStatus] = mapped_column(default="PENDING")
+    status: Mapped[SubmissionStatus]
+
+
