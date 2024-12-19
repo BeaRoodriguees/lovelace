@@ -54,42 +54,50 @@ class CodeExecutor:
         return volume
 
     def process_submission(self, submission: Submission):
-        submission.language = submission.language.lower()
-        with tempfile.TemporaryDirectory(dir="/code") as temp_dir:
+        try:
+            submission.language = submission.language.lower()
+            with tempfile.TemporaryDirectory(dir="/code") as temp_dir:
+                file_path = Path(temp_dir) / f"main.{self.SUFFIX[submission.language]}"
+                file_path.write_text(submission.body)
+                for test_case in submission.problem.testcases:
+                    file_path = Path(temp_dir) / "in"
+                    file_path.write_text(test_case.input)
+                    container = self.client.containers.run(
+                        image="executor",
+                        command=self.COMMAND[submission.language],
+                        volumes={self.code_volume: {"bind": "/code", "mode": "rw"}},
+                        remove=False,
+                        working_dir=f"/code/{Path(temp_dir).name}",
+                        network_disabled=True,
+                        detach=True,
+                        mem_limit=str(submission.problem.memory_limit)+'m',
+                        memswap_limit=str(submission.problem.memory_limit)+'m',
+                        mem_swappiness=0,
+                    )
 
-            file_path = Path(temp_dir) / f"main.{self.SUFFIX[submission.language]}"
-            file_path.write_text(submission.body)
-            for test_case in submission.problem.testcases:
-                file_path = Path(temp_dir) / "in"
-                file_path.write_text(test_case.input)
-                container = self.client.containers.run(
-                    image="executor",
-                    command=self.COMMAND[submission.language],
-                    volumes={self.code_volume: {"bind": "/code", "mode": "rw"}},
-                    remove=False,
-                    working_dir=f"/code/{Path(temp_dir).name}",
-                    network_disabled=True,
-                    detach=True,
-                    mem_limit=str(submission.problem.memory_limit)+'m',
-                    memswap_limit=str(submission.problem.memory_limit)+'m',
-                    mem_swappiness=0,
-                )
+                    time.sleep(submission.problem.time_limit/1000)
+                    container.reload()
 
-                time.sleep(submission.problem.time_limit/1000)
-                container.reload()
-
-                if container.status == "running":
-                    container.kill()
-                    return SubmissionStatus.time_limit_exceeded
-                elif container.attrs["State"]["ExitCode"] == 137:
-                    return SubmissionStatus.memory_limit_exceeded
-                elif container.attrs["State"]["ExitCode"] != 0:
-                    return SubmissionStatus.runtime_error
-                elif container.logs().decode("utf-8").strip() != test_case.output.strip():
-                    return SubmissionStatus.wrong_answer
+                    if container.status == "running":
+                        container.kill()
+                        return SubmissionStatus.time_limit_exceeded
+                    elif container.attrs["State"]["ExitCode"] == 137:
+                        return SubmissionStatus.memory_limit_exceeded
+                    elif container.attrs["State"]["ExitCode"] != 0:
+                        return SubmissionStatus.runtime_error
+                    elif container.logs().decode("utf-8").strip() != test_case.output.strip():
+                        return SubmissionStatus.wrong_answer
+                    container.remove()
+                    
+                return SubmissionStatus.accepted
+        except Exception as e:
+            print(f"Error: {e}")
+            return SubmissionStatus.server_error
+        finally:
+            try:
                 container.remove()
-                
-        return SubmissionStatus.accepted
+            except:
+                pass
 
     def callback(self, ch, method, properties, body):
         session = next(get_session())
