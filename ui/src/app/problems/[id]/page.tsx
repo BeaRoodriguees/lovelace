@@ -3,7 +3,7 @@ import { NavbarStatus } from '@/lib/types';
 import ProblemPage from '@/components/problems/problemPage';
 import { getServerSession } from 'next-auth';
 import { authConfig } from '@/auth.config';
-import { convertISOStringToDate } from '@/lib/utils'
+import { convertISOStringToDate } from '@/lib/utils';
 
 export default async function Problem({ params }: { params: { id: string } }) {
   const session = await getServerSession(authConfig);

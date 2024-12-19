@@ -19,7 +19,6 @@ import classes from './submitdnd.module.css';
 import { useSession } from 'next-auth/react';
 import { forceDelay } from '@/lib/utils';
 
-
 interface SubmissionDndProps {
   setSubmissionLoading: (submissionLoading: boolean) => void;
   setSubmissions: (submissons: Array<Submission>) => void;
@@ -73,9 +72,15 @@ export default function DropdownSection(props: SubmissionDndProps) {
 
     const newsubs = [
       {
-        language: LanguageEnum[response.language.toUpperCase() as keyof typeof LanguageEnum],
+        language:
+          LanguageEnum[
+            response.language.toUpperCase() as keyof typeof LanguageEnum
+          ],
         created_at: response.created_at,
-        status: SubmissionStatus[response.status.toLowerCase() as keyof typeof SubmissionStatus],
+        status:
+          SubmissionStatus[
+            response.status.toLowerCase() as keyof typeof SubmissionStatus
+          ],
       },
       ...props.submissions,
     ].slice(0, 5);
@@ -83,7 +88,6 @@ export default function DropdownSection(props: SubmissionDndProps) {
     props.setSubmissions(newsubs);
     props.setSubmissionLoading(false);
 
-    
     return null;
   };
 
